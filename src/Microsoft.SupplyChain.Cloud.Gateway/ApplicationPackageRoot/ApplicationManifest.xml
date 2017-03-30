@@ -2,6 +2,10 @@
 <ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="Microsoft.SupplyChain.Cloud.GatewayType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
     <Parameter Name="Subscriber_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="IoTHubConnectionString" DefaultValue="" />
+    <Parameter Name="IoTHubAzureStorageConnectionString" DefaultValue="" />
+    <Parameter Name="IoTHubDeviceToCloudName" DefaultValue="" />
+    <Parameter Name="IoTHubConsumerGroupName" DefaultValue=""/>
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -9,13 +13,15 @@
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="Microsoft.SupplyChain.Cloud.Gateway.SubscriberPkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides>
-      <ConfigOveride Name="Config">
+      <ConfigOverride Name="Config">
         <Settings>
           <Section Name="IoTHub">
-            <Parameter Name="IoTHubConnectionString" Value="[IoTHubConnectionString]"/>
+            <Parameter Name="IoTHubConnectionString" Value="[IoTHubConnectionString]" />
+            <Parameter Name="IoTHubAzureStorageConnectionString" Value="[IoTHubAzureStorageConnectionString]" />
+            <Parameter Name="IoTHubDeviceToCloudName" Value="[IoTHubDeviceToCloudName]" />
           </Section>
         </Settings>
-      </ConfigOveride>
+      </ConfigOverride>
     </ConfigOverrides>
   </ServiceManifestImport>
   <DefaultServices>

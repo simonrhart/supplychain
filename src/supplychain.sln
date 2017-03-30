@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Frame
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Services.Contracts", "Microsoft.SupplyChain.Services.Contracts\Microsoft.SupplyChain.Services.Contracts.csproj", "{118C7C87-8C59-4757-9FF7-0197432A6A8A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Tests", "Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Tests\Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Tests.csproj", "{76BD2A77-F0F8-4036-876E-91901DAC3400}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,14 @@ Global
 		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Release|x64.ActiveCfg = Release|Any CPU
 		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Release|x64.Build.0 = Release|Any CPU
+		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Debug|x64.Build.0 = Debug|Any CPU
+		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Release|x64.ActiveCfg = Release|Any CPU
+		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,6 +3,9 @@
   <!-- Add your custom configuration sections and parameters here -->
  
   <Section Name="IoTHub">
-    <Parameter Name="IoTHubConnectionString" Value="" />   
+    <Parameter Name="IoTHubConnectionString" Value="" />
+    <Parameter Name="IoTHubAzureStorageConnectionString" Value=""/>
+    <Parameter Name="IoTHubDeviceToCloudName" Value=""/>
+    <Parameter Name="IoTHubConsumerGroupName" Value=""/>
   </Section> 
 </Settings>

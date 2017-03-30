@@ -1,4 +1,5 @@
 ﻿using Castle.Windsor;
+using Microsoft.SupplyChain.Framework;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
 {
@@ -8,6 +9,6 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
         IWindsorContainer Container { get; }
         void BuildServiceAgents();
 
-        void Build();
+        IServiceLocator Build();
     }
 }

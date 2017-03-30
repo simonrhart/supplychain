@@ -35,16 +35,13 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {            
-            long iterations = 0;
-
+            long iterations = 0;           
             ServiceLocator.Current.GetInstance<ICommandAbstractFactory>().ExecuteCommand(new IoTHubSubscriberContext(this));
 
+          
             while (true)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-
-
-
                 ServiceEventSource.Current.ServiceMessage(this.Context, "Working-{0}", ++iterations);
 
                 await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);

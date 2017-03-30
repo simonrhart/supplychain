@@ -1,7 +1,7 @@
-﻿using Anglia.Framework.ServiceLocation;
-using Microsoft.ServiceBus.Messaging;
+﻿using Microsoft.ServiceBus.Messaging;
+using Microsoft.SupplyChain.Framework;
 
-namespace Anglia.Cloud.Gateway.Subscriber.Processors
+namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors
 {
     public class GenericEventProcessorFactory : IEventProcessorFactory
     {

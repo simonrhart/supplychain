@@ -2,15 +2,14 @@
 using Castle.Core.Logging;
 using Castle.DynamicProxy;
 
-namespace Anglia.Framework.Interceptors
+namespace Microsoft.SupplyChain.Framework.Interceptors
 {
     public class ConsoleOutputInterceptor : IInterceptor
     {
-        private readonly ILogger _logger;
-
-        public ConsoleOutputInterceptor(ILogger logger)
+      
+        public ConsoleOutputInterceptor()
         {
-            _logger = logger;
+       
         }
 
         /// <summary>
@@ -20,7 +19,7 @@ namespace Anglia.Framework.Interceptors
         public void Intercept(IInvocation invocation)
         {
             var sw = Stopwatch.StartNew();
-            _logger.DebugFormat("Invoking {0}.{1}", invocation.InvocationTarget.ToString(), invocation.Method.Name);
+       //     _logger.DebugFormat("Invoking {0}.{1}", invocation.InvocationTarget.ToString(), invocation.Method.Name);
             // forward the call onto the target.
             try
             {
@@ -28,8 +27,8 @@ namespace Anglia.Framework.Interceptors
             }
             finally
             {
-                _logger.DebugFormat("{0}.{1} completed in {2}ms", invocation.InvocationTarget.ToString(),
-                    invocation.Method.Name, sw.ElapsedMilliseconds);
+         //       _logger.DebugFormat("{0}.{1} completed in {2}ms", invocation.InvocationTarget.ToString(),
+           //         invocation.Method.Name, sw.ElapsedMilliseconds);
             }
         }
     }

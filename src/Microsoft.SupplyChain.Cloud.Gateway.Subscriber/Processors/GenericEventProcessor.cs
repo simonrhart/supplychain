@@ -9,7 +9,7 @@ using Microsoft.ServiceBus.Messaging;
 using Newtonsoft.Json;
 using Microsoft.SupplyChain.Services.Contracts;
 
-namespace Anglia.Cloud.Gateway.Subscriber.Processors
+namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors
 {
     public class GenericEventProcessor : IEventProcessor
     {

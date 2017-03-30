@@ -2,7 +2,9 @@
 <Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/Microsoft.SupplyChain.Cloud.Gateway" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
     <Parameter Name="Subscriber_InstanceCount" Value="-1" />
-    <Parameter Name="IoTHubConnectionString" Value="Endpoint=sb://iothub-ns-angliahub-18453-5c5889cbc3.servicebus.windows.net/;SharedAccessKeyName=service;SharedAccessKey=tHmRS3YeioL1n1EGf9qkgflU+o7wCGnqI6ADiHrvfh8=" />
-
+    <Parameter Name="IoTHubConnectionString" Value="Endpoint=sb://iothub-ns-supplychai-137791-b110f3505c.servicebus.windows.net//;SharedAccessKeyName=service;SharedAccessKey=RAp5ZbCIl6erNKnMZSBolp+xESi4bkbKaxArZvvur8Y=" />
+    <Parameter Name="IoTHubAzureStorageConnectionString" Value="DefaultEndpointsProtocol=https;AccountName=iothubconnectionstring;AccountKey=zFIGsldU8fuLRc78C0t09Csf7B1xJMQoyqIh0+I1+hWdn1V40C4bUb3LNMGAaunfJJi/BTDbcr1rWRNu8cIsEA==;EndpointSuffix=core.windows.net" />
+    <Parameter Name="IoTHubDeviceToCloudName" Value="supplychain" />
+    <Parameter Name="IoTHubConsumerGroupName" Value="telemetrypump"/>
   </Parameters>
 </Application>
