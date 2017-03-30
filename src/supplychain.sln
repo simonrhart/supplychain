@@ -7,9 +7,9 @@ Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Microsoft.SupplyChain.Cloud
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Gateway.Subscriber", "Microsoft.SupplyChain.Cloud.Gateway.Subscriber\Microsoft.SupplyChain.Cloud.Gateway.Subscriber.csproj", "{D4FBD424-B032-4BD0-B336-33963FEEDD30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Client.Emulator", "Microsoft.SupplyChain.Client.Emulator\Microsoft.SupplyChain.Client.Emulator.csproj", "{51E4018B-362F-47CC-865D-2CBC7695A90A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Framework", "Microsoft.SupplyChain.Framework\Microsoft.SupplyChain.Framework.csproj", "{05CD2CA8-9EF7-4232-A362-E430B33193C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Services.Contracts", "Microsoft.SupplyChain.Services.Contracts\Microsoft.SupplyChain.Services.Contracts.csproj", "{118C7C87-8C59-4757-9FF7-0197432A6A8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,14 +33,6 @@ Global
 		{D4FBD424-B032-4BD0-B336-33963FEEDD30}.Release|Any CPU.ActiveCfg = Release|x64
 		{D4FBD424-B032-4BD0-B336-33963FEEDD30}.Release|x64.ActiveCfg = Release|x64
 		{D4FBD424-B032-4BD0-B336-33963FEEDD30}.Release|x64.Build.0 = Release|x64
-		{51E4018B-362F-47CC-865D-2CBC7695A90A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51E4018B-362F-47CC-865D-2CBC7695A90A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51E4018B-362F-47CC-865D-2CBC7695A90A}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{51E4018B-362F-47CC-865D-2CBC7695A90A}.Debug|x64.Build.0 = Debug|Any CPU
-		{51E4018B-362F-47CC-865D-2CBC7695A90A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51E4018B-362F-47CC-865D-2CBC7695A90A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{51E4018B-362F-47CC-865D-2CBC7695A90A}.Release|x64.ActiveCfg = Release|Any CPU
-		{51E4018B-362F-47CC-865D-2CBC7695A90A}.Release|x64.Build.0 = Release|Any CPU
 		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -49,6 +41,14 @@ Global
 		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Release|x64.ActiveCfg = Release|Any CPU
 		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Release|x64.Build.0 = Release|Any CPU
+		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Debug|x64.Build.0 = Debug|Any CPU
+		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Release|x64.ActiveCfg = Release|Any CPU
+		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

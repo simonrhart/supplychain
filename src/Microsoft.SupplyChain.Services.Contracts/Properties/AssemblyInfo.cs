@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Microsoft.SupplyChain.Client.Emulator")]
+[assembly: AssemblyTitle("Microsoft.SupplyChain.Services.Contracts")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Microsoft.SupplyChain.Client.Emulator")]
+[assembly: AssemblyProduct("Microsoft.SupplyChain.Services.Contracts")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("51e4018b-362f-47cc-865d-2cbc7695a90a")]
+[assembly: Guid("118c7c87-8c59-4757-9ff7-0197432a6a8a")]
 
 // Version information for an assembly consists of the following four values:
 //
