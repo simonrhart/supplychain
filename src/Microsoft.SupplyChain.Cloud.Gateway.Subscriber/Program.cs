@@ -4,6 +4,7 @@ using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Runtime;
+using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
 {
@@ -20,6 +21,9 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
                 // Registering a service maps a service type name to a .NET type.
                 // When Service Fabric creates an instance of this service type,
                 // an instance of the class is created in this host process.
+
+                IContainerBuilder containerBuilder = new DefaultContainerBuilder();
+                containerBuilder.Build();
 
                 ServiceRuntime.RegisterServiceAsync("SubscriberType",
                     context => new Subscriber(context)).GetAwaiter().GetResult();
