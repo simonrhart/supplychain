@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Client.Emulator", "Microsoft.SupplyChain.Client.Emulator\Microsoft.SupplyChain.Client.Emulator.csproj", "{51E4018B-362F-47CC-865D-2CBC7695A90A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Framework", "Microsoft.SupplyChain.Framework\Microsoft.SupplyChain.Framework.csproj", "{05CD2CA8-9EF7-4232-A362-E430B33193C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,14 @@ Global
 		{51E4018B-362F-47CC-865D-2CBC7695A90A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51E4018B-362F-47CC-865D-2CBC7695A90A}.Release|x64.ActiveCfg = Release|Any CPU
 		{51E4018B-362F-47CC-865D-2CBC7695A90A}.Release|x64.Build.0 = Release|Any CPU
+		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Debug|x64.Build.0 = Debug|Any CPU
+		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Release|x64.ActiveCfg = Release|Any CPU
+		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
