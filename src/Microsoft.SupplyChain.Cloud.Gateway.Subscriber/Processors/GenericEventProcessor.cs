@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Castle.Core.Logging;
 using Microsoft.ServiceBus.Messaging;
 using Newtonsoft.Json;
+using Microsoft.SupplyChain.Services.Contracts;
 
 namespace Anglia.Cloud.Gateway.Subscriber.Processors
 {

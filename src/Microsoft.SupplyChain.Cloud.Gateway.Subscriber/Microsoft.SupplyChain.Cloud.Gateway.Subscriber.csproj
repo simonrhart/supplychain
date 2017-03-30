@@ -111,6 +111,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\IoTHubSubscriberCommand.cs" />
+    <Compile Include="Commands\IoTHubSubscriberContext.cs" />
     <Compile Include="Configuration\DefaultContainerBuilder.cs" />
     <Compile Include="Configuration\IContainerBuilder.cs" />
     <Compile Include="Processors\GenericEventProcessor.cs" />
@@ -126,13 +128,15 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.SupplyChain.Framework\Microsoft.SupplyChain.Framework.csproj">
       <Project>{05cd2ca8-9ef7-4232-a362-e430b33193c2}</Project>
       <Name>Microsoft.SupplyChain.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.SupplyChain.Services.Contracts\Microsoft.SupplyChain.Services.Contracts.csproj">
+      <Project>{118c7c87-8c59-4757-9ff7-0197432a6a8a}</Project>
+      <Name>Microsoft.SupplyChain.Services.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

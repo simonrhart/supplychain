@@ -8,7 +8,15 @@
        ServiceManifest.xml file. -->
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="Microsoft.SupplyChain.Cloud.Gateway.SubscriberPkg" ServiceManifestVersion="1.0.0" />
-    <ConfigOverrides />
+    <ConfigOverrides>
+      <ConfigOveride Name="Config">
+        <Settings>
+          <Section Name="IoTHub">
+            <Parameter Name="IoTHubConnectionString" Value="[IoTHubConnectionString]"/>
+          </Section>
+        </Settings>
+      </ConfigOveride>
+    </ConfigOverrides>
   </ServiceManifestImport>
   <DefaultServices>
     <!-- The section below creates instances of service types, when an instance of this 

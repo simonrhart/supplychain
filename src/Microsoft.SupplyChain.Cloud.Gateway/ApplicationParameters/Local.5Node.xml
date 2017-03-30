@@ -2,5 +2,6 @@
 <Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/Microsoft.SupplyChain.Cloud.Gateway" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
     <Parameter Name="Subscriber_InstanceCount" Value="1" />
+    <Parameter Name="IoTHubConnectionString" Value="Endpoint=sb://iothub-ns-angliahub-18453-5c5889cbc3.servicebus.windows.net/;SharedAccessKeyName=service;SharedAccessKey=tHmRS3YeioL1n1EGf9qkgflU+o7wCGnqI6ADiHrvfh8=" />
   </Parameters>
 </Application>

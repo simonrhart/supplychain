@@ -1,4 +1,8 @@
 ﻿using Castle.Windsor;
+using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands;
+using Microsoft.SupplyChain.Framework;
+using Castle.MicroKernel.Registration;
+using Castle.Core;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
 {
@@ -19,8 +23,18 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
             }
         }
 
-        public void BuildCommands()
+        public virtual void BuildCommands()
         {
+            _container.Register(Component.For<ICommandAbstractFactory>()
+                        .ImplementedBy<CommandAbstractFactory>()
+                        .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                        .LifestyleSingleton());         
+
+            _container.Register(Component.For<ICommand<IoTHubSubscriberContext>>()
+                .ImplementedBy<IoTHubSubscriberCommand>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
+
         }
 
         public void BuildServiceAgents()
