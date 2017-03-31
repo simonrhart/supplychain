@@ -6,6 +6,7 @@
     <Parameter Name="IoTHubAzureStorageConnectionString" DefaultValue="" />
     <Parameter Name="IoTHubDeviceToCloudName" DefaultValue="" />
     <Parameter Name="IoTHubConsumerGroupName" DefaultValue=""/>
+    <Parameter Name="TransactionNodeVip" DefaultValue=""/>
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -19,6 +20,10 @@
             <Parameter Name="IoTHubConnectionString" Value="[IoTHubConnectionString]" />
             <Parameter Name="IoTHubAzureStorageConnectionString" Value="[IoTHubAzureStorageConnectionString]" />
             <Parameter Name="IoTHubDeviceToCloudName" Value="[IoTHubDeviceToCloudName]" />
+            <Parameter Name="IoTHubConsumerGroupName" Value="[IoTHubConsumerGroupName]"/>
+          </Section>
+          <Section Name="Blockchain">
+            <Parameter Name="TransactionNodeVip" Value="[TransactionNodeVip]" />          
           </Section>
         </Settings>
       </ConfigOverride>

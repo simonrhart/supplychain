@@ -1,16 +1,21 @@
 ﻿using Microsoft.SupplyChain.Framework;
+using Nethereum.Web3;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
 {
     public class BlockchainPublisherCommand : BaseCommand<BlockchainPublisherContext>
     {
+        private Web3 web3;
+
+        public BlockchainPublisherCommand()
+        {
+            
+        }
+
         protected override void DoExecute(BlockchainPublisherContext context)
         {
+            
         }
 
         protected override void DoInitialize(BlockchainPublisherContext context)
@@ -19,7 +24,9 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
             var configurationPackage = context.FabricServiceInstance.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
 
             var iotHubSection = configurationPackage.Settings.Sections["Blockchain"].Parameters;
-           // context.IoTHubConnectionString = iotHubSection["IoTHubConnectionString"].Value;
+            context.TransactionNodeVip = iotHubSection["TransactionNodeVip"].Value;
+        
+            web3 = new Web3(context.TransactionNodeVip);
             base.DoInitialize(context);
         }
 
