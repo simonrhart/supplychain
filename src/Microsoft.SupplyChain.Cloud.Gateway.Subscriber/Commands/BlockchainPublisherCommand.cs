@@ -1,4 +1,5 @@
 ﻿using Microsoft.SupplyChain.Framework;
+using Microsoft.SupplyChain.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,18 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
     public class BlockchainPublisherCommand : BaseCommand<BlockchainPublisherContext>
     {
         private ICommand<BlockchainContractBootstrapperContext> _blockchainContractBootstrapperCommand;
+        private IBlockchainServiceAgent _blockchainServiceAgent;
 
-        public BlockchainPublisherCommand(ICommand<BlockchainContractBootstrapperContext> blockchainContractBootstrapperCommand)
+        public BlockchainPublisherCommand(ICommand<BlockchainContractBootstrapperContext> blockchainContractBootstrapperCommand, IBlockchainServiceAgent blockchainServiceAgent)
         {
             _blockchainContractBootstrapperCommand = blockchainContractBootstrapperCommand;
+            _blockchainServiceAgent = blockchainServiceAgent;            
         }
 
         protected override void DoExecute(BlockchainPublisherContext context)
         {
-           
-        }
+            
+        }        
 
         protected override void DoInitialize(BlockchainPublisherContext context)
         {
@@ -37,6 +40,12 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
         protected override ExceptionAction HandleError(BlockchainPublisherContext context, Exception exception)
         {
             return ExceptionAction.Rethrow;
+        }
+
+        protected override TearDownAction HandleTearDown()
+        {
+            // executing tear down on dispose supresses this command as it will repeatedely be called
+            return TearDownAction.OnDispose;
         }
     }
 }

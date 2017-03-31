@@ -8,7 +8,10 @@ namespace Microsoft.SupplyChain.Framework
     /// <typeparam name="TContext">The context for this command.</typeparam>
     public abstract class BaseCommand<TContext> : ICommand<TContext> where TContext : BaseContext
     {
-        
+        private bool _initialized;
+        private bool _disposed;
+        private TContext _context;
+
         /// <summary>
         /// Used to control how to handle exceptions.
         /// </summary>
@@ -25,12 +28,20 @@ namespace Microsoft.SupplyChain.Framework
             Rethrow
         }
 
+        public enum TearDownAction
+        {
+            OnDispose,
+            OnExecuteExit
+        }
+
         /// <summary>
         /// Executes the passed context.
         /// </summary>
         /// <param name="context">The context to execute.</param>
         public void Execute(TContext context)
         {
+            _context = context;
+
             try
             {
                 Initialize(context);
@@ -45,15 +56,28 @@ namespace Microsoft.SupplyChain.Framework
             }
             finally
             {
-                TearDown(context);
+                if (this.HandleTearDown() == TearDownAction.OnExecuteExit)
+                    TearDown(context);
             }
         }
 
+        public bool IsInitialized
+        {
+            get
+            {
+                return _initialized;
+            }
+        }
         internal void Initialize(TContext context)
         {
             try
             {
-                DoInitialize(context);
+                //only initialize on startup.
+                if (!_initialized)
+                {
+                    DoInitialize(context);
+                    _initialized = true;
+                }
             }
             catch (Exception e)
             {
@@ -79,6 +103,11 @@ namespace Microsoft.SupplyChain.Framework
             }
         }
         
+        protected virtual TearDownAction HandleTearDown()
+        {
+            return TearDownAction.OnExecuteExit;
+        }
+
         /// <summary>
         /// Implement in derived command.
         /// </summary>
@@ -94,7 +123,8 @@ namespace Microsoft.SupplyChain.Framework
         }
 
         protected virtual void DoTearDown(TContext context)
-        {}
+        {
+        }
         
         /// <summary>
         /// Implement in your command to handle any exceptions.
@@ -103,6 +133,18 @@ namespace Microsoft.SupplyChain.Framework
         /// <param name="exception">The exception thrown.</param>
         /// <returns>ExceptionAction that specifies how the exception should be handled.</returns>
         protected abstract ExceptionAction HandleError(TContext context, Exception exception);
+
+        protected virtual void Dispose(bool disposing)
+        {            
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+            if (HandleTearDown() == TearDownAction.OnDispose)
+                TearDown(_context);
+        }
     }
 
 }
