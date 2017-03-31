@@ -7,5 +7,10 @@
     <Parameter Name="IoTHubAzureStorageConnectionString" Value=""/>
     <Parameter Name="IoTHubDeviceToCloudName" Value=""/>
     <Parameter Name="IoTHubConsumerGroupName" Value=""/>
-  </Section> 
+  </Section>
+
+  <Section Name="Blockchain">
+    <Parameter Name="TransactionNodeVip" Value="" />
+  </Section>
+
 </Settings>

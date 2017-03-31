@@ -1,5 +1,4 @@
-﻿using System.Fabric;
-using Microsoft.ServiceFabric.Services.Runtime;
+﻿using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.SupplyChain.Framework;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands

@@ -18,8 +18,6 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
             // fire up the event processor host.
             var eventProcessorHost = new EventProcessorHost(Guid.NewGuid().ToString(), context.IoTHubDeviceToCloudName, EventHubConsumerGroup.DefaultGroupName, context.IoTHubConnectionString, context.IoTHubStorageConnectionString, "messages-events");
             eventProcessorHost.RegisterEventProcessorFactoryAsync(new GenericEventProcessorFactory());
-
-
         }
 
         protected override void DoInitialize(IoTHubSubscriberContext context)
@@ -31,7 +29,6 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
             context.IoTHubConnectionString = iotHubSection["IoTHubConnectionString"].Value;
             context.IoTHubStorageConnectionString = iotHubSection["IoTHubAzureStorageConnectionString"].Value;
             context.IoTHubDeviceToCloudName = iotHubSection["IoTHubDeviceToCloudName"].Value;
-
             base.DoInitialize(context);
         }
 
