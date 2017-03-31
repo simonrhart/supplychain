@@ -143,12 +143,14 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\BlockchainContractBootstrapperCommand.cs" />
+    <Compile Include="Commands\BlockchainContractBootstrapperContext.cs" />
     <Compile Include="Commands\BlockchainPublisherCommand.cs" />
-    <Compile Include="Commands\BlockchainPublisherContext.cs" />
     <Compile Include="Commands\IoTHubSubscriberCommand.cs" />
     <Compile Include="Commands\IoTHubSubscriberContext.cs" />
     <Compile Include="Configuration\DefaultContainerBuilder.cs" />
     <Compile Include="Configuration\IContainerBuilder.cs" />
+    <Compile Include="Commands\BlockchainPublisherContext.cs" />
     <Compile Include="Processors\GenericEventProcessor.cs" />
     <Compile Include="Processors\GenericEventProcessorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

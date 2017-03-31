@@ -7,15 +7,17 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
     {
         public IoTHubSubscriberContext(StatelessService serviceInstance)
         {
-            FabricServiceInstance = serviceInstance;
+            StatelessInstance = serviceInstance;
         }
 
-        public StatelessService FabricServiceInstance { get; }
+        public StatelessService StatelessInstance { get; }
 
         public string IoTHubConnectionString { get; set; }
 
         public string IoTHubStorageConnectionString { get; set; }
 
         public string IoTHubDeviceToCloudName { get; set; }
+
+        public string IoTHubConsumerGroupName { get; set; }
     }
 }

@@ -3,15 +3,15 @@ using Microsoft.SupplyChain.Framework;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
 {
-    public class BlockchainPublisherContext : BaseContext
+    public class BlockchainContractBootstrapperContext : BaseContext
     {
-        public BlockchainPublisherContext(StatelessService serviceInstance, string transactionNodeVip)
+        public BlockchainContractBootstrapperContext(StatelessService serviceInstance, string transactionNodeVip)
         {
             StatelessServiceInstance = serviceInstance;
             TransactionNodeVip = transactionNodeVip;
         }
 
-        public StatelessService StatelessServiceInstance { get; }
+        public StatelessService StatelessServiceInstance { get; }       
 
         public string TransactionNodeVip { get; set; }
     }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Microsoft.SupplyChain.Services.Contracts
 {
-    public interface IBlockchainServiceAgent : IDisposable
+    public interface IBlockchainServiceAgent
     {
-        void Publish()
+        void Publish<TPayload>(TPayload payload);
     }
 }

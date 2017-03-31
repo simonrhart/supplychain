@@ -5,9 +5,9 @@ using Castle.MicroKernel.Registration;
 using Castle.Core;
 using System;
 using Castle.DynamicProxy;
-using Anglia.Cloud.Gateway.Subscriber.Processors;
 using Microsoft.SupplyChain.Framework.Interceptors;
 using Microsoft.ServiceBus.Messaging;
+using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
 {

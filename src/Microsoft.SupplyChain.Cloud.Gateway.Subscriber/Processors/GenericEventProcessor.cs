@@ -15,11 +15,11 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors
     {
         private PartitionContext _partitionContext;
         private Stopwatch _checkpointStopWatch;
-        private readonly ILogger _logger;
-
-        public GenericEventProcessor(ILogger logger)
+        private IBlockchainServiceAgent _blockchainServiceAgent;
+    
+        public GenericEventProcessor(IBlockchainServiceAgent blockchainServiceAgent, ICommand<BlockchainPublisherContext> blockchainPublisherCommand)
         {
-            _logger = logger;
+            _blockchainServiceAgent = blockchainServiceAgent;
         }
 
         public async Task CloseAsync(PartitionContext context, CloseReason reason)
@@ -32,7 +32,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors
 
         public Task OpenAsync(PartitionContext context)
         {
-            _logger.InfoFormat("EventProcessor initialize.  Partition: '{0}', Offset: '{1}'", context.Lease.PartitionId, context.Lease.Offset);
+           // _logger.InfoFormat("EventProcessor initialize.  Partition: '{0}', Offset: '{1}'", context.Lease.PartitionId, context.Lease.Offset);
             _partitionContext = context;
             _checkpointStopWatch = new Stopwatch();
             _checkpointStopWatch.Start();
@@ -49,7 +49,10 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors
 
                     var sensor = JsonConvert.DeserializeObject<Sensor>(Encoding.UTF8.GetString(binaryPayload));
 
-                    _logger.InfoFormat("Message received partition: {0} sensor name: {1}, GatwayId: {2}", _partitionContext.Lease.PartitionId, sensor.Name, sensor.GatewayId);
+                    //send payload to chain (calls smart contract).
+                    _blockchainServiceAgent.Publish<Sensor>(sensor);
+
+                  //  _logger.InfoFormat("Message received partition: {0} sensor name: {1}, GatwayId: {2}", _partitionContext.Lease.PartitionId, sensor.Name, sensor.GatewayId);
                 }
 
                 // Call checkpoint every 5 minutes, so that worker can resume processing from the 5 minutes back if it restarts.

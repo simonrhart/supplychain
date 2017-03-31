@@ -1,12 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.SupplyChain.Services.Contracts;
+using Nethereum.Web3;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents
 {
-    class EthereumServiceAgent
+    public class EthereumServiceAgent : IBlockchainServiceAgent
     {
-    }
+        private bool _disposed;
+        private Web3 web3;
+
+        public EthereumServiceAgent()
+        {
+
+        }
+
+        public void Publish<TPayload>(TPayload payload)
+        {
+            
+        }
+
+       }
 }
