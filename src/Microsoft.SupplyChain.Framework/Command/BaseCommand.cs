@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Microsoft.SupplyChain.Framework
 {
@@ -112,7 +113,7 @@ namespace Microsoft.SupplyChain.Framework
         /// Implement in derived command.
         /// </summary>
         /// <param name="context">The context to execute.</param>
-        protected abstract void DoExecute(TContext context);
+        protected abstract Task DoExecute(TContext context);
 
         /// <summary>
         /// Implement in derived command (optional).

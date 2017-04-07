@@ -19,9 +19,9 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
             _blockchainServiceAgent = blockchainServiceAgent;            
         }
 
-        protected override void DoExecute(BlockchainPublisherContext context)
+        protected override async Task DoExecute(BlockchainPublisherContext context)
         {
-            
+           
         }        
 
         protected override void DoInitialize(BlockchainPublisherContext context)
@@ -36,6 +36,8 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
             _blockchainContractBootstrapperCommand.Execute(bootStrapperContext);
 
             base.DoInitialize(context);
+           
+          
         }
 
         protected override ExceptionAction HandleError(BlockchainPublisherContext context, Exception exception)

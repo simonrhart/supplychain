@@ -6,5 +6,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories
     public interface ISmartContractsRepository
     {
         List<SoliditySmartContract> GetAllSmartContractsByName(SmartContractName name);
+
+        void Update(SoliditySmartContract contract);
     }
 }

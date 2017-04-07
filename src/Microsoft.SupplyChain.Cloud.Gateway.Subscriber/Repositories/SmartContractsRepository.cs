@@ -24,10 +24,17 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories
         
             _documentClient = new DocumentClient(new Uri(documentDBSection["DocumentDBEndpointUri"].Value), documentDBSection["DocumentDBPrimaryKey"].Value);
             Task.Run(async () => await _documentClient.CreateDatabaseIfNotExistsAsync(new Database { Id = _databaseName })).GetAwaiter().GetResult();
-            Task.Run(async () => await _documentClient.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(_databaseName), new DocumentCollection { Id = _documentCollectionName })).GetAwaiter().GetResult();
-                     
+            Task.Run(async () => await _documentClient.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(_databaseName), new DocumentCollection { Id = _documentCollectionName })).GetAwaiter().GetResult();                    
 
 
+        }
+
+        public void Update(SoliditySmartContract contract)
+        {
+            if (contract == null)
+                throw new NullReferenceException("Contract is null");
+
+            _documentClient.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(_databaseName, _documentCollectionName, contract.Id), contract);
         }
 
         public List<SoliditySmartContract> GetAllSmartContractsByName(SmartContractName name)

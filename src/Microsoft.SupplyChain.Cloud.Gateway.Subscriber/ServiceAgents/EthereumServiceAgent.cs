@@ -3,6 +3,8 @@ using Microsoft.SupplyChain.Services.Contracts;
 using Nethereum.Web3;
 using System.Threading.Tasks;
 using Nethereum.Hex.HexTypes;
+using System.Threading;
+using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents
 {
@@ -10,12 +12,14 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents
     {
         private bool _disposed;
         private Web3 _web3;
+        private ISmartContractsRepository _smartContractsRepository;
         private ISubscriber _subscriber;
         private string _blockchainAdminAccount;
         private string _blockchainAdminPassphrase;
 
-        public EthereumServiceAgent(ISubscriber subscriber)
+        public EthereumServiceAgent(ISubscriber subscriber, ISmartContractsRepository smartContractsRepository)
         {
+            _smartContractsRepository = smartContractsRepository;
             _subscriber = subscriber;
 
             var configurationPackage = _subscriber.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
@@ -38,6 +42,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents
 
         public void Publish<TPayload>(TPayload payload)
         {
+            // publish the telemetry on the blockchain
 
         }
 
@@ -48,6 +53,24 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents
 
             var transactionsHash =
               await _web3.Eth.DeployContract.SendRequestAsync(smartContract.ByteCode, _blockchainAdminAccount, new HexBigInteger(900000));
+
+            var receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
+
+            // wait for the transaction (smart contract deploy) to be mined.
+            while (receipt == null)
+            {
+                Thread.Sleep(5000);
+                receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
+            }
+
+            // now we have the contract address we need to update the documentDB record
+            var contractAddress = receipt.ContractAddress;
+
+            smartContract.Address = contractAddress;
+            smartContract.IsDeployed = true;
+
+            _smartContractsRepository.Update(smartContract);
+
         }
 
 

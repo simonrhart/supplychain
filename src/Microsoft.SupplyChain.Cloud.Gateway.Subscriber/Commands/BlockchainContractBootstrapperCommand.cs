@@ -4,6 +4,7 @@ using Microsoft.SupplyChain.Services.Contracts;
 using Nethereum.Web3;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
 {
@@ -18,7 +19,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
             _smartContractsRepository = smartContractsRepository;
         }
 
-        protected override void DoExecute(BlockchainContractBootstrapperContext context)
+        protected override async Task DoExecute(BlockchainContractBootstrapperContext context)
         {
             // now get whether the smart contract is the latest one deployed or not.
             var deviceMovementSmartContracts = _smartContractsRepository.GetAllSmartContractsByName(SmartContractName.DeviceMovement);
@@ -34,19 +35,12 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
             if (!contract.IsDeployed)
             {
                 // then we need to deploy this version of the smart contract to the blockchain
-                _blockchainServiceAgent.DeploySmartContract(contract);
-
+                await _blockchainServiceAgent.DeploySmartContractAsync(contract);
             }
 
             
         }
-
-        protected override void DoInitialize(BlockchainContractBootstrapperContext context)
-        {            
-           
-            base.DoInitialize(context);
-        }
-
+       
         protected override ExceptionAction HandleError(BlockchainContractBootstrapperContext context, Exception exception)
         {
             return ExceptionAction.Rethrow;
