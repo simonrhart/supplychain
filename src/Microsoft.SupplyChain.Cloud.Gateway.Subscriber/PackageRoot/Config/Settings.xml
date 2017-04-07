@@ -11,9 +11,10 @@
 
   <Section Name="Blockchain">
     <Parameter Name="TransactionNodeVip" Value="" />
+    <Parameter Name="BlockchainAdminAccount" value=""/>
   </Section>
 
-  <Section name="DocumentDB">
+  <Section Name="DocumentDB">
     <Parameter Name="DocumentDBEndpointUri" Value=""/>
     <Parameter Name="DocumentDBPrimaryKey" Value=""/>
     <Parameter Name="DocumentDBSecondaryKey" Value=""/>

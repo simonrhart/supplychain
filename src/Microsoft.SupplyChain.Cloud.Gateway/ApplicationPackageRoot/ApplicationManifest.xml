@@ -27,6 +27,8 @@
           </Section>
           <Section Name="Blockchain">
             <Parameter Name="TransactionNodeVip" Value="[TransactionNodeVip]" />
+            <Parameter Name="BlockchainAdminAccount" Value="[BlockchainAdminAccount]"/>
+            <Parameter Name="BlockchainAdminPassphrase" Value="[BlockchainAdminPassphrase]"/>
           </Section>
           <Section Name="DocumentDB">
             <Parameter Name="DocumentDBEndpointUri" Value="[DocumentDBEndpointUri]" />

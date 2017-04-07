@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Microsoft.SupplyChain.Services.Contracts
 {
@@ -10,6 +6,6 @@ namespace Microsoft.SupplyChain.Services.Contracts
     {
         void Publish<TPayload>(TPayload payload);
 
-        string TransactionNodeVip { get; set; }
+        Task DeploySmartContractAsync(SoliditySmartContract smartContract);
     }
 }

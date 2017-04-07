@@ -10,6 +10,8 @@ using Microsoft.ServiceBus.Messaging;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors;
 using Microsoft.SupplyChain.Services.Contracts;
 using System.Fabric;
+using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories;
+using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
 {
@@ -45,12 +47,24 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
                 .LifestyleTransient());
 
+            _container.Register(Component.For<ICommand<BlockchainContractBootstrapperContext>>()
+                .ImplementedBy<BlockchainContractBootstrapperCommand>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
+
+
+
         }
 
         public void BuildServiceAgents()
         {
+            _container.Register(Component.For<IBlockchainServiceAgent>()
+                .ImplementedBy<EthereumServiceAgent>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
+
         }
-              
+
 
         private void BuildInterceptors()
         {
@@ -77,7 +91,17 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
                      .LifestyleSingleton());
         }
 
-        
+        public virtual void BuildRepositories()
+        {
+            _container.Register(Component.For<ISmartContractsRepository>()
+                                         .ImplementedBy<SmartContractsRepository>()
+                                         .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                                         .LifestyleTransient());
+
+
+        }
+
+
 
         public IServiceLocator Build()
         {
@@ -85,7 +109,8 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
             BuildInterceptors();
             BuildCommands();
             BuildServiceAgents();
-            BuildProcessors();          
+            BuildProcessors();
+            BuildRepositories();
             return _windsorServiceLocator;
         }
 

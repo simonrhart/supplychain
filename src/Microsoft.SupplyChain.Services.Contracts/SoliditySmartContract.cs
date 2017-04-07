@@ -1,18 +1,13 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Microsoft.SupplyChain.Services.Contracts
-{    
+{
     public class SoliditySmartContract
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
         public string Abi { get; set; }
-        public int Version { get; set; }
+        public double Version { get; set; }
         public string ByteCode { get; set; }
 
         /// <summary>

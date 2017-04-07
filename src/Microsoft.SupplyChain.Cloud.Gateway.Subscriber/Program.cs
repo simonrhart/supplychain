@@ -40,10 +40,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
         private static StatelessService ServiceFactory(StatelessServiceContext context)
         {
             // pass in dependencies as there is no other way to do it with the SF c# sdk.
-            var service = new Subscriber(context, 
-                ServiceLocator.Current.GetInstance<ICommand<IoTHubSubscriberContext>>(),
-                ServiceLocator.Current.GetInstance<ICommand<BlockchainContractBootstrapperContext>>());
-
+            var service = new Subscriber(context);
             ServiceLocator.Current.GetInstance<IWindsorContainer>().Register(Component.For<ISubscriber>().Instance(service));           
             return service;
         }

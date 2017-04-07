@@ -14,15 +14,10 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
     /// An instance of this class is created for each service instance by the Service Fabric runtime.
     /// </summary>
     internal sealed class Subscriber : StatelessService, ISubscriber
-    {
-        ICommand<IoTHubSubscriberContext> _iotHubSubscriberCommand;
-        ICommand<BlockchainContractBootstrapperContext> _blockchainBootstrapperCommand;
-
-        public Subscriber(StatelessServiceContext context, ICommand<IoTHubSubscriberContext> iotHubSubscriberCommand, ICommand<BlockchainContractBootstrapperContext> blockchainBootstrapperCommand)
+    {   
+        public Subscriber(StatelessServiceContext context)
             : base(context)
         {
-            _iotHubSubscriberCommand = iotHubSubscriberCommand;
-            _blockchainBootstrapperCommand = blockchainBootstrapperCommand;
         }
 
         /// <summary>
@@ -42,12 +37,13 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
             // firstly, kick off the blockchain bootstrapper command. This ensures blockchain is ready for prime time
-            _blockchainBootstrapperCommand.Execute(new BlockchainContractBootstrapperContext());
+            ICommandAbstractFactory commandAbstractFactory = ServiceLocator.Current.GetInstance<ICommandAbstractFactory>();
+            commandAbstractFactory.ExecuteCommand(new BlockchainContractBootstrapperContext());
 
-            // execute the iot hub subscriber command. This is where things start.
+            // execute the iot hub subscriber command. This is where things start.           
+            commandAbstractFactory.ExecuteCommand(new IoTHubSubscriberContext());
+
             long iterations = 0;
-            _iotHubSubscriberCommand.Execute(new IoTHubSubscriberContext());
-          
             while (true)
             {
                 cancellationToken.ThrowIfCancellationRequested();

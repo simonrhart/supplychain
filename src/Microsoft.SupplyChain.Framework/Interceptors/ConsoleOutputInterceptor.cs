@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using Castle.Core.Logging;
 using Castle.DynamicProxy;
 
 namespace Microsoft.SupplyChain.Framework.Interceptors
