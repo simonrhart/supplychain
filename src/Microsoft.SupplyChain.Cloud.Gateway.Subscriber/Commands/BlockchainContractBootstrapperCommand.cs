@@ -1,4 +1,5 @@
 ﻿using Microsoft.SupplyChain.Framework;
+using Microsoft.SupplyChain.Services.Contracts;
 using Nethereum.Web3;
 using System;
 
@@ -6,21 +7,21 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
 {
     public class BlockchainContractBootstrapperCommand : BaseCommand<BlockchainContractBootstrapperContext>
     {
-        private Web3 web3;
+        private IBlockchainServiceAgent _blockchainServiceAgent;
 
-        public BlockchainContractBootstrapperCommand()
+        public BlockchainContractBootstrapperCommand(IBlockchainServiceAgent blockchainServiceAgent)
         {
-            
+            _blockchainServiceAgent = blockchainServiceAgent;          
         }
 
         protected override void DoExecute(BlockchainContractBootstrapperContext context)
         {
-             // now get whether the    
+             // now get whether the smart contract is the latest one deployed or not.
         }
 
         protected override void DoInitialize(BlockchainContractBootstrapperContext context)
         {            
-            web3 = new Web3(context.TransactionNodeVip);
+           
             base.DoInitialize(context);
         }
 

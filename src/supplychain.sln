@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Tests", "Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Tests\Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Tests.csproj", "{76BD2A77-F0F8-4036-876E-91901DAC3400}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Smartcontracts", "Smartcontracts", "{039212C8-8FFB-448B-B474-44F65AF40E80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

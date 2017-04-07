@@ -9,7 +9,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents
         private bool _disposed;
         private Web3 web3;
 
-        public EthereumServiceAgent()
+        public EthereumServiceAgent(string transactionNodeVip)
         {
 
         }
@@ -17,6 +17,11 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents
         public void Publish<TPayload>(TPayload payload)
         {
             
+        }
+
+        public string TransactionNodeVip
+        {
+            get;set;
         }
 
        }

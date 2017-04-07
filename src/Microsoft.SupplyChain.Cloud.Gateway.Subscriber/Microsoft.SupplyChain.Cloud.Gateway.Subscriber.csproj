@@ -151,6 +151,7 @@
     <Compile Include="Configuration\DefaultContainerBuilder.cs" />
     <Compile Include="Configuration\IContainerBuilder.cs" />
     <Compile Include="Commands\BlockchainPublisherContext.cs" />
+    <Compile Include="ISubscriber.cs" />
     <Compile Include="Processors\GenericEventProcessor.cs" />
     <Compile Include="Processors\GenericEventProcessorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -165,7 +166,9 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.SupplyChain.Framework\Microsoft.SupplyChain.Framework.csproj">
       <Project>{05cd2ca8-9ef7-4232-a362-e430b33193c2}</Project>

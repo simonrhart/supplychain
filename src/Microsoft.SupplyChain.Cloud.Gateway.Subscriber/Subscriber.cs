@@ -8,17 +8,23 @@ using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands;
+using Microsoft.SupplyChain.Services.Contracts;
+using Castle.Windsor;
+using Castle.MicroKernel.Registration;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
 {
     /// <summary>
     /// An instance of this class is created for each service instance by the Service Fabric runtime.
     /// </summary>
-    internal sealed class Subscriber : StatelessService
+    internal sealed class Subscriber : StatelessService, ISubscriber
     {
+        private IWindsorContainer _container;
+
         public Subscriber(StatelessServiceContext context)
             : base(context)
-        { }
+        {                     
+        }
 
         /// <summary>
         /// Optional override to create listeners (e.g., TCP, HTTP) for this service replica to handle client or user requests.
@@ -26,6 +32,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
+           
             return new ServiceInstanceListener[0];
         }
 
@@ -34,9 +41,10 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
         /// </summary>
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
-        {            
+        {
+           
             long iterations = 0;           
-            ServiceLocator.Current.GetInstance<ICommandAbstractFactory>().ExecuteCommand(new IoTHubSubscriberContext(this));
+            ServiceLocator.Current.GetInstance<ICommandAbstractFactory>().ExecuteCommand(new IoTHubSubscriberContext());
 
           
             while (true)

@@ -8,6 +8,8 @@ using Castle.DynamicProxy;
 using Microsoft.SupplyChain.Framework.Interceptors;
 using Microsoft.ServiceBus.Messaging;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors;
+using Microsoft.SupplyChain.Services.Contracts;
+using System.Fabric;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
 {
@@ -19,7 +21,8 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
 
         public DefaultContainerBuilder()
         {
-            _container = new WindsorContainer();           
+            _container = new WindsorContainer();
+            _container.Register(Component.For<IWindsorContainer>().Instance(_container));
         }
 
         public IWindsorContainer Container
@@ -47,6 +50,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
         public void BuildServiceAgents()
         {
         }
+              
 
         private void BuildInterceptors()
         {
@@ -73,9 +77,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
                      .LifestyleSingleton());
         }
 
-        private void BuildServiceFabricServices()
-        {
-        }
+        
 
         public IServiceLocator Build()
         {
@@ -83,8 +85,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
             BuildInterceptors();
             BuildCommands();
             BuildServiceAgents();
-            BuildProcessors();
-            BuildServiceFabricServices();
+            BuildProcessors();          
             return _windsorServiceLocator;
         }
 

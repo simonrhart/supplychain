@@ -31,7 +31,8 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
             var iotHubSection = configurationPackage.Settings.Sections["Blockchain"].Parameters;
             context.TransactionNodeVip = iotHubSection["TransactionNodeVip"].Value;
 
-            BlockchainContractBootstrapperContext bootStrapperContext = new BlockchainContractBootstrapperContext(context.StatelessServiceInstance, context.TransactionNodeVip);
+            // before we can do anything we need to bootstrap the smart contract.
+            BlockchainContractBootstrapperContext bootStrapperContext = new BlockchainContractBootstrapperContext(context.StatelessServiceInstance, context.TransactionNodeVip, "");
             _blockchainContractBootstrapperCommand.Execute(bootStrapperContext);
 
             base.DoInitialize(context);

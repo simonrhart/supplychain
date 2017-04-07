@@ -5,12 +5,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
 {
     public class IoTHubSubscriberContext : BaseContext
     {
-        public IoTHubSubscriberContext(StatelessService serviceInstance)
-        {
-            StatelessInstance = serviceInstance;
-        }
-
-        public StatelessService StatelessInstance { get; }
+        public ISubscriber StatelessInstance { get; }
 
         public string IoTHubConnectionString { get; set; }
 

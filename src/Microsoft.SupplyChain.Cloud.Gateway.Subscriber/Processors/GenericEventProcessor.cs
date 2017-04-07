@@ -8,6 +8,8 @@ using Castle.Core.Logging;
 using Microsoft.ServiceBus.Messaging;
 using Newtonsoft.Json;
 using Microsoft.SupplyChain.Services.Contracts;
+using Microsoft.SupplyChain.Framework;
+using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors
 {
@@ -67,7 +69,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors
             }
             catch (Exception ex)
             {
-                _logger.FatalFormat("Error in processing payload: ", ex);
+                //_logger.FatalFormat("Error in processing payload: ", ex);
             }
         }
     }

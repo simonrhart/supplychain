@@ -9,5 +9,7 @@ namespace Microsoft.SupplyChain.Services.Contracts
     public interface IBlockchainServiceAgent
     {
         void Publish<TPayload>(TPayload payload);
+
+        string TransactionNodeVip { get; set; }
     }
 }

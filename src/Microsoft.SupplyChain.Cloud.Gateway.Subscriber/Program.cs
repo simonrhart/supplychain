@@ -5,6 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration;
+using Microsoft.SupplyChain.Framework;
+using Castle.Windsor;
+using Castle.MicroKernel.Registration;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
 {
@@ -16,15 +19,14 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
         private static void Main()
         {
             try
-            {              
-
+            {               
                 IContainerBuilder containerBuilder = new DefaultContainerBuilder();
                 containerBuilder.Build();
-
-                ServiceRuntime.RegisterServiceAsync("SubscriberType",
-                    context => new Subscriber(context)).GetAwaiter().GetResult();
-
+                
+                ServiceRuntime.RegisterServiceAsync("SubscriberType", ServiceFactory).GetAwaiter().GetResult();           
+               
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(Subscriber).Name);
+                                            
 
                 // Prevents this host process from terminating so services keep running.
                 Thread.Sleep(Timeout.Infinite);
@@ -34,6 +36,14 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
                 ServiceEventSource.Current.ServiceHostInitializationFailed(e.ToString());
                 throw;
             }
+        }
+
+        private static StatelessService ServiceFactory(StatelessServiceContext context)
+        {
+            var service = new Subscriber(context);
+            ServiceLocator.Current.GetInstance<IWindsorContainer>().Register(Component.For<ISubscriber>().Instance(service));       
+            
+            return service;
         }
     }
 }

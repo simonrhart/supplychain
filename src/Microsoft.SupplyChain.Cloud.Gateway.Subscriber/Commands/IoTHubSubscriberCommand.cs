@@ -7,7 +7,13 @@ using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors;
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
 {
     public class IoTHubSubscriberCommand : BaseCommand<IoTHubSubscriberContext>
-    {            
+    {
+        private ISubscriber _subscriber;
+
+        public IoTHubSubscriberCommand(ISubscriber subscriber)
+        {
+            _subscriber = subscriber;
+        }
 
         protected override void DoExecute(IoTHubSubscriberContext context)
         {
@@ -19,7 +25,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
         protected override void DoInitialize(IoTHubSubscriberContext context)
         {
             // get all iot hub config data from the service fabric config package.
-            var configurationPackage = context.StatelessInstance.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            var configurationPackage = _subscriber.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
 
             var iotHubSection = configurationPackage.Settings.Sections["IoTHub"].Parameters;
             context.IoTHubConnectionString = iotHubSection["IoTHubConnectionString"].Value;
