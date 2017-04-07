@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands;
-using Microsoft.SupplyChain.Services.Contracts;
-using Castle.Windsor;
-using Castle.MicroKernel.Registration;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
 {
@@ -19,11 +15,14 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
     /// </summary>
     internal sealed class Subscriber : StatelessService, ISubscriber
     {
-        private IWindsorContainer _container;
+        ICommand<IoTHubSubscriberContext> _iotHubSubscriberCommand;
+        ICommand<BlockchainContractBootstrapperContext> _blockchainBootstrapperCommand;
 
-        public Subscriber(StatelessServiceContext context)
+        public Subscriber(StatelessServiceContext context, ICommand<IoTHubSubscriberContext> iotHubSubscriberCommand, ICommand<BlockchainContractBootstrapperContext> blockchainBootstrapperCommand)
             : base(context)
-        {                     
+        {
+            _iotHubSubscriberCommand = iotHubSubscriberCommand;
+            _blockchainBootstrapperCommand = blockchainBootstrapperCommand;
         }
 
         /// <summary>
@@ -42,10 +41,12 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
-           
-            long iterations = 0;           
-            ServiceLocator.Current.GetInstance<ICommandAbstractFactory>().ExecuteCommand(new IoTHubSubscriberContext());
+            // firstly, kick off the blockchain bootstrapper command. This ensures blockchain is ready for prime time
+            _blockchainBootstrapperCommand.Execute(new BlockchainContractBootstrapperContext());
 
+            // execute the iot hub subscriber command. This is where things start.
+            long iterations = 0;
+            _iotHubSubscriberCommand.Execute(new IoTHubSubscriberContext());
           
             while (true)
             {

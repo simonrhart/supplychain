@@ -1,5 +1,4 @@
 ﻿using System;
-using Castle.Core.Logging;
 using Microsoft.SupplyChain.Framework;
 using Microsoft.ServiceBus.Messaging;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors;

@@ -7,5 +7,8 @@
     <Parameter Name="IoTHubDeviceToCloudName" Value="supplychain" />
     <Parameter Name="IoTHubConsumerGroupName" Value="telemetrypump" />
     <Parameter Name="TransactionNodeVip" Value="http://bled72mw2.westus.cloudapp.azure.com:8545" />
+    <Parameter Name="DocumentDBEndpointUri" Value="https://supplychain.documents.azure.com:443/" />
+    <Parameter Name="DocumentDBPrimaryKey" Value="cLyqvQoyu1VFbAfk26RjCX3ibEnQ3fH94ZgpT6FjwVNY7HoDEnZMSqPmRmdQvOXxob0YWdrZmttWGZ0gzsi8VA==" />
+    <Parameter Name="DocumentDBSecondaryKey" Value="gcnSixh8nLsHNfe5c9pPZ1qL9T9TvO4IBwHjObjcnebq593EJkh9JkVCK3f7tjooH3VuQUcddxIbwKYxmHatnQ==" />
   </Parameters>
 </Application>

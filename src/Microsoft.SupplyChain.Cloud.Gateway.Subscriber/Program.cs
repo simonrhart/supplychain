@@ -2,12 +2,12 @@
 using System.Diagnostics;
 using System.Fabric;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration;
 using Microsoft.SupplyChain.Framework;
 using Castle.Windsor;
 using Castle.MicroKernel.Registration;
+using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
 {
@@ -23,8 +23,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
                 IContainerBuilder containerBuilder = new DefaultContainerBuilder();
                 containerBuilder.Build();
                 
-                ServiceRuntime.RegisterServiceAsync("SubscriberType", ServiceFactory).GetAwaiter().GetResult();           
-               
+                ServiceRuntime.RegisterServiceAsync("SubscriberType", ServiceFactory).GetAwaiter().GetResult();               
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(Subscriber).Name);
                                             
 
@@ -40,9 +39,12 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
 
         private static StatelessService ServiceFactory(StatelessServiceContext context)
         {
-            var service = new Subscriber(context);
-            ServiceLocator.Current.GetInstance<IWindsorContainer>().Register(Component.For<ISubscriber>().Instance(service));       
-            
+            // pass in dependencies as there is no other way to do it with the SF c# sdk.
+            var service = new Subscriber(context, 
+                ServiceLocator.Current.GetInstance<ICommand<IoTHubSubscriberContext>>(),
+                ServiceLocator.Current.GetInstance<ICommand<BlockchainContractBootstrapperContext>>());
+
+            ServiceLocator.Current.GetInstance<IWindsorContainer>().Register(Component.For<ISubscriber>().Instance(service));           
             return service;
         }
     }

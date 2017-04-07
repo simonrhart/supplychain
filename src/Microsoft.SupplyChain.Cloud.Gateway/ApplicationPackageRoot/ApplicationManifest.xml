@@ -7,6 +7,9 @@
     <Parameter Name="IoTHubDeviceToCloudName" DefaultValue="" />
     <Parameter Name="IoTHubConsumerGroupName" DefaultValue="" />
     <Parameter Name="TransactionNodeVip" DefaultValue="" />
+    <Parameter Name="DocumentDBEndpointUri" DefaultValue="" />
+    <Parameter Name="DocumentDBPrimaryKey" DefaultValue="" />
+    <Parameter Name="DocumentDBSecondaryKey" DefaultValue="" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -24,6 +27,11 @@
           </Section>
           <Section Name="Blockchain">
             <Parameter Name="TransactionNodeVip" Value="[TransactionNodeVip]" />
+          </Section>
+          <Section Name="DocumentDB">
+            <Parameter Name="DocumentDBEndpointUri" Value="[DocumentDBEndpointUri]" />
+            <Parameter Name="DocumentDBPrimaryKey" Value="[DocumentDBPrimaryKey]" />
+            <Parameter Name="DocumentDBSecondaryKey" Value="[DocumentDBSecondaryKey]" />
           </Section>
         </Settings>
       </ConfigOverride>

@@ -13,4 +13,10 @@
     <Parameter Name="TransactionNodeVip" Value="" />
   </Section>
 
+  <Section name="DocumentDB">
+    <Parameter Name="DocumentDBEndpointUri" Value=""/>
+    <Parameter Name="DocumentDBPrimaryKey" Value=""/>
+    <Parameter Name="DocumentDBSecondaryKey" Value=""/>
+  </Section>
+
 </Settings>

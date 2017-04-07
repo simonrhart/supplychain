@@ -2,17 +2,18 @@ pragma solidity ^0.4.0;
 
 contract DeviceMovement {
 
-	mapping (bytes32=>Document[]) public documents;
+	mapping (bytes32=>Telemetry[]) public telemetry;
 
-	struct Document{
-	   string name;
-	   string description;
+	struct Telemetry{
+	   string lat;
+	   string long;
+	   int temperatureInCelcius;
 	   address sender;
     }
 
 	function StoreDocument(bytes32 key, string name, string description) returns (bool success)
     {
-	   var doc = Document(name, description, msg.sender);
+	   var telemetry = Telemetry(name, description, msg.sender);
 	   documents[key].push(doc);      
 	   return true;
 	} 
