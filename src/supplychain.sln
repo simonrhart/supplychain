@@ -18,6 +18,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Smartcontracts", "Smartcont
 		Microsoft.SupplyChain.SmartContracts\DeviceMovementContract.sol = Microsoft.SupplyChain.SmartContracts\DeviceMovementContract.sol
 	EndProjectSection
 EndProject
+Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Microsoft.SupplyChain.Cloud.Registration", "Microsoft.SupplyChain.Cloud.Registration\Microsoft.SupplyChain.Cloud.Registration.sfproj", "{684F016E-B1A7-45E1-8E82-2BD119C94AFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Registration.DiscoveryService", "Microsoft.SupplyChain.Cloud.Registration.DiscoveryService\Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.csproj", "{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Registration", "Registration", "{26C47516-16CF-4C4A-9EE9-9F6FB8B6728A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cloud gateway", "Cloud gateway", "{5A9FB0CF-22AE-4474-BC19-15830836260C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,8 +72,29 @@ Global
 		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Release|Any CPU.Build.0 = Release|Any CPU
 		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Release|x64.ActiveCfg = Release|Any CPU
 		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Release|x64.Build.0 = Release|Any CPU
+		{684F016E-B1A7-45E1-8E82-2BD119C94AFE}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{684F016E-B1A7-45E1-8E82-2BD119C94AFE}.Debug|x64.ActiveCfg = Debug|x64
+		{684F016E-B1A7-45E1-8E82-2BD119C94AFE}.Debug|x64.Build.0 = Debug|x64
+		{684F016E-B1A7-45E1-8E82-2BD119C94AFE}.Debug|x64.Deploy.0 = Debug|x64
+		{684F016E-B1A7-45E1-8E82-2BD119C94AFE}.Release|Any CPU.ActiveCfg = Release|x64
+		{684F016E-B1A7-45E1-8E82-2BD119C94AFE}.Release|x64.ActiveCfg = Release|x64
+		{684F016E-B1A7-45E1-8E82-2BD119C94AFE}.Release|x64.Build.0 = Release|x64
+		{684F016E-B1A7-45E1-8E82-2BD119C94AFE}.Release|x64.Deploy.0 = Release|x64
+		{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9}.Debug|x64.ActiveCfg = Debug|x64
+		{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9}.Debug|x64.Build.0 = Debug|x64
+		{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9}.Release|Any CPU.ActiveCfg = Release|x64
+		{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9}.Release|x64.ActiveCfg = Release|x64
+		{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5BC200ED-49D3-428E-8E82-2BDA2EE23881} = {5A9FB0CF-22AE-4474-BC19-15830836260C}
+		{D4FBD424-B032-4BD0-B336-33963FEEDD30} = {5A9FB0CF-22AE-4474-BC19-15830836260C}
+		{76BD2A77-F0F8-4036-876E-91901DAC3400} = {5A9FB0CF-22AE-4474-BC19-15830836260C}
+		{684F016E-B1A7-45E1-8E82-2BD119C94AFE} = {26C47516-16CF-4C4A-9EE9-9F6FB8B6728A}
+		{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9} = {26C47516-16CF-4C4A-9EE9-9F6FB8B6728A}
 	EndGlobalSection
 EndGlobal
