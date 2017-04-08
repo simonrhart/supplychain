@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Framework", "Microsoft.SupplyChain.Framework\Microsoft.SupplyChain.Framework.csproj", "{05CD2CA8-9EF7-4232-A362-E430B33193C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Services.Contracts", "Microsoft.SupplyChain.Services.Contracts\Microsoft.SupplyChain.Services.Contracts.csproj", "{118C7C87-8C59-4757-9FF7-0197432A6A8A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Tests", "Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Tests\Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Tests.csproj", "{76BD2A77-F0F8-4036-876E-91901DAC3400}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Smartcontracts", "Smartcontracts", "{039212C8-8FFB-448B-B474-44F65AF40E80}"
@@ -22,9 +20,13 @@ Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Microsoft.SupplyChain.Cloud
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Registration.DiscoveryService", "Microsoft.SupplyChain.Cloud.Registration.DiscoveryService\Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.csproj", "{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Registration", "Registration", "{26C47516-16CF-4C4A-9EE9-9F6FB8B6728A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Registration service", "Registration service", "{26C47516-16CF-4C4A-9EE9-9F6FB8B6728A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cloud gateway", "Cloud gateway", "{5A9FB0CF-22AE-4474-BC19-15830836260C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cloud gateway service", "Cloud gateway service", "{5A9FB0CF-22AE-4474-BC19-15830836260C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cross cutting", "Cross cutting", "{7AF3E891-9B98-4FC4-A22E-F6241409C9DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Gateway.Contracts", "Microsoft.SupplyChain.Cloud.Gateway.Contracts\Microsoft.SupplyChain.Cloud.Gateway.Contracts.csproj", "{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,14 +58,6 @@ Global
 		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Release|x64.ActiveCfg = Release|Any CPU
 		{05CD2CA8-9EF7-4232-A362-E430B33193C2}.Release|x64.Build.0 = Release|Any CPU
-		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Debug|x64.Build.0 = Debug|Any CPU
-		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Release|x64.ActiveCfg = Release|Any CPU
-		{118C7C87-8C59-4757-9FF7-0197432A6A8A}.Release|x64.Build.0 = Release|Any CPU
 		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76BD2A77-F0F8-4036-876E-91901DAC3400}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -86,6 +80,14 @@ Global
 		{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9}.Release|Any CPU.ActiveCfg = Release|x64
 		{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9}.Release|x64.ActiveCfg = Release|x64
 		{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9}.Release|x64.Build.0 = Release|x64
+		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}.Debug|x64.Build.0 = Debug|Any CPU
+		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}.Release|x64.ActiveCfg = Release|Any CPU
+		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,8 +95,10 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5BC200ED-49D3-428E-8E82-2BDA2EE23881} = {5A9FB0CF-22AE-4474-BC19-15830836260C}
 		{D4FBD424-B032-4BD0-B336-33963FEEDD30} = {5A9FB0CF-22AE-4474-BC19-15830836260C}
+		{05CD2CA8-9EF7-4232-A362-E430B33193C2} = {7AF3E891-9B98-4FC4-A22E-F6241409C9DF}
 		{76BD2A77-F0F8-4036-876E-91901DAC3400} = {5A9FB0CF-22AE-4474-BC19-15830836260C}
 		{684F016E-B1A7-45E1-8E82-2BD119C94AFE} = {26C47516-16CF-4C4A-9EE9-9F6FB8B6728A}
 		{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9} = {26C47516-16CF-4C4A-9EE9-9F6FB8B6728A}
+		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173} = {5A9FB0CF-22AE-4474-BC19-15830836260C}
 	EndGlobalSection
 EndGlobal

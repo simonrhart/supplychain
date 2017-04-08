@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Microsoft.SupplyChain.Services.Contracts
+namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
 {
     public interface IBlockchainServiceAgent
     {

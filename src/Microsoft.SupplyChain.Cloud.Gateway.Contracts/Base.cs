@@ -1,4 +1,4 @@
-﻿namespace Microsoft.SupplyChain.Services.Contracts
+﻿namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
 {
     public abstract class Base<TGraphType>
     {
@@ -7,9 +7,6 @@
       
         public string Name { get; set; }
      
-        public string Type
-        {
-            get { return typeof (TGraphType).Name; }
-        }
+        public string Type => typeof (TGraphType).Name;
     }
 }

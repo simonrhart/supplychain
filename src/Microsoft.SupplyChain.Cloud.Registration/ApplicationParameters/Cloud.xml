@@ -3,6 +3,5 @@
   <Parameters>
     <Parameter Name="DiscoveryService_InstanceCount" Value="-1" />
     <Parameter Name="IoTHubConnectionString" Value="HostName=supplychain.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=KVtq4njkV5XWtzvCnYkKLzCLu2cWmiFgULedQ7DoiCE=" />
-
   </Parameters>
 </Application>

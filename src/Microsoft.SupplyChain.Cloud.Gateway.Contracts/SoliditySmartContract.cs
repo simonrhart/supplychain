@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Microsoft.SupplyChain.Services.Contracts
+namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
 {
     public class SoliditySmartContract
     {

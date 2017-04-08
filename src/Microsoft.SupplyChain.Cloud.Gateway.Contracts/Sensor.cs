@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Globalization;
 
-namespace Microsoft.SupplyChain.Services.Contracts
+namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
 {
     public class Sensor : Base<Sensor>
     {
-        public Sensor()
-        {
-        }
-
         public Sensor(string lat, string lg, int temperatureInCelcius, string deviceId, DateTime timeStamp)
         {   
             DeviceId = deviceId;          
