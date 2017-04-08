@@ -2,8 +2,11 @@
 using System.Diagnostics;
 using System.Fabric;
 using System.Threading;
-using System.Threading.Tasks;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using Microsoft.ServiceFabric.Services.Runtime;
+using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuration;
+using Microsoft.SupplyChain.Framework;
 
 namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
 {
@@ -16,13 +19,10 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
         {
             try
             {
-                // The ServiceManifest.XML file defines one or more service type names.
-                // Registering a service maps a service type name to a .NET type.
-                // When Service Fabric creates an instance of this service type,
-                // an instance of the class is created in this host process.
+                IContainerBuilder containerBuilder = new DefaultContainerBuilder();
+                containerBuilder.Build();
 
-                ServiceRuntime.RegisterServiceAsync("DiscoveryServiceType",
-                    context => new DiscoveryService(context)).GetAwaiter().GetResult();
+                ServiceRuntime.RegisterServiceAsync("DiscoveryServiceType", ServiceFactory).GetAwaiter().GetResult();
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(DiscoveryService).Name);
 
@@ -34,6 +34,14 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
                 ServiceEventSource.Current.ServiceHostInitializationFailed(e.ToString());
                 throw;
             }
+        }
+
+        private static StatelessService ServiceFactory(StatelessServiceContext context)
+        {
+            // pass in dependencies as there is no other way to do it with the SF c# sdk.
+            var service = new DiscoveryService(context);
+            ServiceLocator.Current.GetInstance<IWindsorContainer>().Register(Component.For<IDiscoveryService>().Instance(service));
+            return service;
         }
     }
 }

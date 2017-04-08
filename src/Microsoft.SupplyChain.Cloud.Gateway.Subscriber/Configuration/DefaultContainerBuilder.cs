@@ -7,9 +7,8 @@ using System;
 using Castle.DynamicProxy;
 using Microsoft.SupplyChain.Framework.Interceptors;
 using Microsoft.ServiceBus.Messaging;
+using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors;
-using Microsoft.SupplyChain.Services.Contracts;
-using System.Fabric;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents;
 

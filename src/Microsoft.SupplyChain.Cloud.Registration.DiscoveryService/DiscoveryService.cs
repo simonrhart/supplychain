@@ -8,7 +8,7 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
     /// <summary>
     /// The FabricRuntime creates an instance of this class for each service type instance. 
     /// </summary>
-    internal sealed class DiscoveryService : StatelessService
+    internal sealed class DiscoveryService : StatelessService, IDiscoveryService
     {
         public DiscoveryService(StatelessServiceContext context)
             : base(context)

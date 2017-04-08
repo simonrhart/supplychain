@@ -1,5 +1,4 @@
-﻿using Microsoft.SupplyChain.Services.Contracts;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 

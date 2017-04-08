@@ -1,17 +1,17 @@
 ﻿using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories;
 using Microsoft.SupplyChain.Framework;
-using Microsoft.SupplyChain.Services.Contracts;
 using Nethereum.Web3;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
 {
     public class BlockchainContractBootstrapperCommand : BaseCommand<BlockchainContractBootstrapperContext>
     {
-        private IBlockchainServiceAgent _blockchainServiceAgent;
-        private ISmartContractsRepository _smartContractsRepository;
+        private readonly IBlockchainServiceAgent _blockchainServiceAgent;
+        private readonly ISmartContractsRepository _smartContractsRepository;
 
         public BlockchainContractBootstrapperCommand(ISmartContractsRepository smartContractsRepository, IBlockchainServiceAgent blockchainServiceAgent)
         {
@@ -37,8 +37,6 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
                 // then we need to deploy this version of the smart contract to the blockchain
                 await _blockchainServiceAgent.DeploySmartContractAsync(contract);
             }
-
-            
         }
        
         protected override ExceptionAction HandleError(BlockchainContractBootstrapperContext context, Exception exception)

@@ -1,5 +1,7 @@
 ﻿using System.Web.Http;
+using Castle.Windsor;
 using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuration;
+using Microsoft.SupplyChain.Framework;
 using Owin;
 
 namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
@@ -12,11 +14,8 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
         {
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
-
-            IContainerBuilder containerBuilder = new DefaultContainerBuilder();
-            containerBuilder.Build();
-
-            config.DependencyResolver = new CastleDependencyResolver(containerBuilder.Container);
+            
+            config.DependencyResolver = new CastleDependencyResolver(ServiceLocator.Current.GetInstance<IWindsorContainer>());
 
             config.Routes.MapHttpRoute(
                 "DefaultApi",

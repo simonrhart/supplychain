@@ -1,16 +1,13 @@
 ﻿using Microsoft.SupplyChain.Framework;
-using Microsoft.SupplyChain.Services.Contracts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
 {
     public class BlockchainPublisherCommand : BaseCommand<BlockchainPublisherContext>
     {
-        private ICommand<BlockchainContractBootstrapperContext> _blockchainContractBootstrapperCommand;
+        private readonly ICommand<BlockchainContractBootstrapperContext> _blockchainContractBootstrapperCommand;
         private IBlockchainServiceAgent _blockchainServiceAgent;
 
         public BlockchainPublisherCommand(ICommand<BlockchainContractBootstrapperContext> blockchainContractBootstrapperCommand, IBlockchainServiceAgent blockchainServiceAgent)
@@ -18,7 +15,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
             _blockchainContractBootstrapperCommand = blockchainContractBootstrapperCommand;
             _blockchainServiceAgent = blockchainServiceAgent;            
         }
-
+        
         protected override async Task DoExecute(BlockchainPublisherContext context)
         {
            

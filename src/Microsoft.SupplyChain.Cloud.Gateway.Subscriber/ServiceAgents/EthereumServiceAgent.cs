@@ -1,9 +1,9 @@
 ﻿using System;
-using Microsoft.SupplyChain.Services.Contracts;
 using Nethereum.Web3;
 using System.Threading.Tasks;
 using Nethereum.Hex.HexTypes;
 using System.Threading;
+using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents
@@ -70,10 +70,6 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents
             smartContract.IsDeployed = true;
 
             await _smartContractsRepository.Update(smartContract);
-
         }
-
-
-
     }
 }

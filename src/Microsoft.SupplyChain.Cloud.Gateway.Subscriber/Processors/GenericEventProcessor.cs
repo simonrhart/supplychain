@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
-using Castle.Core.Logging;
 using Microsoft.ServiceBus.Messaging;
+using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Newtonsoft.Json;
-using Microsoft.SupplyChain.Services.Contracts;
 using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands;
 
@@ -17,7 +15,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors
     {
         private PartitionContext _partitionContext;
         private Stopwatch _checkpointStopWatch;
-        private IBlockchainServiceAgent _blockchainServiceAgent;
+        private readonly IBlockchainServiceAgent _blockchainServiceAgent;
     
         public GenericEventProcessor(IBlockchainServiceAgent blockchainServiceAgent, ICommand<BlockchainPublisherContext> blockchainPublisherCommand)
         {

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Fabric;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.SupplyChain.Framework.ServiceFabric;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
 {
-    public interface ISubscriber
-    {
-        StatelessServiceContext Context { get; }
+    public interface ISubscriber : IStatelessServiceContext
+    {      
     }
 }
