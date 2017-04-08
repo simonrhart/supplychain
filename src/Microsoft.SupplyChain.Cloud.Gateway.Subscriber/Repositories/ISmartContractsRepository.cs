@@ -1,5 +1,6 @@
 ﻿using Microsoft.SupplyChain.Services.Contracts;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories
 {
@@ -7,6 +8,6 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories
     {
         List<SoliditySmartContract> GetAllSmartContractsByName(SmartContractName name);
 
-        void Update(SoliditySmartContract contract);
+        Task Update(SoliditySmartContract contract);
     }
 }

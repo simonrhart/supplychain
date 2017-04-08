@@ -8,12 +8,13 @@ contract DeviceMovement {
 	   string lat;
 	   string long;
 	   int temperatureInCelcius;
+	   string deviceId;
 	   address sender;
     }
 
-	function StoreMovement(bytes32 key, string lat, string long, int temperatureInCelcius) returns (bool success)
+	function StoreMovement(bytes32 key, string lat, string long, int temperatureInCelcius, string deviceId) returns (bool success)
     {
-	   var telemetry = Telemetry(lat, long, temperatureInCelcius, msg.sender);
+	   var telemetry = Telemetry(lat, long, temperatureInCelcius, deviceId, msg.sender);
 	   telemetryCollection[key].push(telemetry);      
 	   return true;
 	} 

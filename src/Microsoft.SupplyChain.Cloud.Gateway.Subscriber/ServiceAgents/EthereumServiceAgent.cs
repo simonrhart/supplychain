@@ -69,7 +69,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents
             smartContract.Address = contractAddress;
             smartContract.IsDeployed = true;
 
-            _smartContractsRepository.Update(smartContract);
+            await _smartContractsRepository.Update(smartContract);
 
         }
 

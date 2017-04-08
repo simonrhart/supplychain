@@ -29,12 +29,12 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories
 
         }
 
-        public void Update(SoliditySmartContract contract)
+        public async Task Update(SoliditySmartContract contract)
         {
             if (contract == null)
                 throw new NullReferenceException("Contract is null");
 
-            _documentClient.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(_databaseName, _documentCollectionName, contract.Id), contract);
+            await _documentClient.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(_databaseName, _documentCollectionName, contract.Id), contract);
         }
 
         public List<SoliditySmartContract> GetAllSmartContractsByName(SmartContractName name)

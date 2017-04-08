@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Microsoft.SupplyChain.Services.Contracts
 {
@@ -8,18 +9,23 @@ namespace Microsoft.SupplyChain.Services.Contracts
         {
         }
 
-        public Sensor(string name, string gatewayId, string gpsLat, string gpsLong)
-        {
-            Name = name;
-            GatewayId = gatewayId;          
-            GpsLat = gpsLat;
-            GpsLong = gpsLong;
+        public Sensor(string lat, string lg, int temperatureInCelcius, string deviceId, DateTime timeStamp)
+        {   
+            DeviceId = deviceId;          
+            GpsLat = lat;
+            GpsLong = lg;
+            Timestamp = timeStamp;
+            TemperatureInCelcius = temperatureInCelcius;
         }
       
-        public string GatewayId { get; set; }             
+        public string DeviceId { get; set; }             
 
         public string GpsLat { get; set; }
 
         public string GpsLong { get; set; }
+
+        public DateTime Timestamp { get; set; }
+
+        public int TemperatureInCelcius { get; set; }
     }
 }
