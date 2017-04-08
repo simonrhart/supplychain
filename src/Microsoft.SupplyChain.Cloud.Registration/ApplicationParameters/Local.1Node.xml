@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Name="fabric:/Microsoft.SupplyChain.Cloud.Registration" xmlns="http://schemas.microsoft.com/2011/01/fabric" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/Microsoft.SupplyChain.Cloud.Registration" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
     <Parameter Name="DiscoveryService_InstanceCount" Value="1" />
+    <Parameter Name="IoTHubConnectionString" Value="HostName=supplychain.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=KVtq4njkV5XWtzvCnYkKLzCLu2cWmiFgULedQ7DoiCE=" />
+
   </Parameters>
 </Application>

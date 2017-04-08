@@ -27,13 +27,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
             _container.Register(Component.For<IWindsorContainer>().Instance(_container));
         }
 
-        public IWindsorContainer Container
-        {
-            get
-            {
-                return _container;
-            }
-        }
+        public IWindsorContainer Container => _container;
 
         public virtual void BuildCommands()
         {

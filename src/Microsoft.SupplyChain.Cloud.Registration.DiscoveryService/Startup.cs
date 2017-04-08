@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuration;
 using Owin;
 
 namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
@@ -12,10 +13,15 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
 
+            IContainerBuilder containerBuilder = new DefaultContainerBuilder();
+            containerBuilder.Build();
+
+            config.DependencyResolver = new CastleDependencyResolver(containerBuilder.Container);
+
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                "DefaultApi",
+                "api/{controller}/{id}",
+                new { id = RouteParameter.Optional }
             );
 
             appBuilder.UseWebApi(config);
