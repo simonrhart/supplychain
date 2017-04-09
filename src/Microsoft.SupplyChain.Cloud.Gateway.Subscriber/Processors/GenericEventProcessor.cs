@@ -8,6 +8,7 @@ using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Newtonsoft.Json;
 using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands;
+using Microsoft.SupplyChain.Framework.Command;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors
 {

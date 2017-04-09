@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 
-namespace Microsoft.SupplyChain.Framework
+namespace Microsoft.SupplyChain.Framework.Command
 {
     /// <summary>
     /// Interface for command.
@@ -12,7 +13,7 @@ namespace Microsoft.SupplyChain.Framework
         /// Executes the context.
         /// </summary>
         /// <param name="context">The context to execute.</param>
-        void Execute(TContext context);
+        Task ExecuteAsync(TContext context);
 
         bool IsInitialized { get; }
    

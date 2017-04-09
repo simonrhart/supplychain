@@ -11,6 +11,7 @@ using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents;
+using Microsoft.SupplyChain.Framework.Command;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
 {

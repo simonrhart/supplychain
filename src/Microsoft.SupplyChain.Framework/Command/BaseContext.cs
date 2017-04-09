@@ -1,4 +1,4 @@
-﻿namespace Microsoft.SupplyChain.Framework
+﻿namespace Microsoft.SupplyChain.Framework.Command
 {
     public class BaseContext
     {

@@ -130,16 +130,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CastleDependencyResolver.cs" />
+    <Compile Include="Commands\GenerateIoTSecurityTokenCommand.cs" />
+    <Compile Include="Commands\GenerateIoTSecurityTokenContext.cs" />
     <Compile Include="Configuration\DefaultContainerBuilder.cs" />
     <Compile Include="Configuration\IContainerBuilder.cs" />
     <Compile Include="IDiscoveryService.cs" />
-    <Compile Include="Repositories\DeviceMetadataRepository.cs" />
+    <Compile Include="Repositories\DeviceStoreRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\DiscoveryController.cs" />
     <Compile Include="OwinCommunicationListener.cs" />
     <Compile Include="DiscoveryService.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Repositories\IDeviceMetadataRepository.cs" />
+    <Compile Include="Repositories\IDeviceStoreRepository.cs" />
     <Compile Include="ServiceEventSource.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ServiceRequestActionFilterAttribute.cs" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Microsoft.SupplyChain.Framework
+namespace Microsoft.SupplyChain.Framework.Command
 {
     /// <summary>
     /// Base command 
@@ -39,14 +39,14 @@ namespace Microsoft.SupplyChain.Framework
         /// Executes the passed context.
         /// </summary>
         /// <param name="context">The context to execute.</param>
-        public void Execute(TContext context)
+        public async Task ExecuteAsync(TContext context)
         {
             _context = context;
 
             try
             {
                 Initialize(context);
-                DoExecute(context);
+                await DoExecuteAsync(context);
             }
             catch (Exception e)
             {
@@ -60,15 +60,11 @@ namespace Microsoft.SupplyChain.Framework
                 if (this.HandleTearDown() == TearDownAction.OnExecuteExit)
                     TearDown(context);
             }
+           
         }
 
-        public bool IsInitialized
-        {
-            get
-            {
-                return _initialized;
-            }
-        }
+        public bool IsInitialized => _initialized;
+
         internal void Initialize(TContext context)
         {
             try
@@ -113,7 +109,7 @@ namespace Microsoft.SupplyChain.Framework
         /// Implement in derived command.
         /// </summary>
         /// <param name="context">The context to execute.</param>
-        protected abstract Task DoExecute(TContext context);
+        protected abstract Task DoExecuteAsync(TContext context);
 
         /// <summary>
         /// Implement in derived command (optional).

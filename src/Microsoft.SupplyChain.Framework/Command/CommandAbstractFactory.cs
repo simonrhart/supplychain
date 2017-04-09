@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 
-
-namespace Microsoft.SupplyChain.Framework
+namespace Microsoft.SupplyChain.Framework.Command
 {
     /// <summary>
     /// Abstract factory for executing commands.
@@ -27,11 +27,11 @@ namespace Microsoft.SupplyChain.Framework
         /// </summary>
         /// <typeparam name="TContext">The type of context to execute.</typeparam>
         /// <param name="context">The context to execute.</param>
-        public void ExecuteCommand<TContext>(TContext context)
+        public async Task ExecuteCommandAsync<TContext>(TContext context)
         {
             var command = _resolver.GetInstance<ICommand<TContext>>();
 
-            command.Execute(context);
+            await command.ExecuteAsync(context);
         
             var disposable = command as IDisposable;
 

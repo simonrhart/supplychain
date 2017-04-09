@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
+using Microsoft.SupplyChain.Framework.Command;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
 {
@@ -19,7 +20,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
             _smartContractsRepository = smartContractsRepository;
         }
 
-        protected override async Task DoExecute(BlockchainContractBootstrapperContext context)
+        protected override async Task DoExecuteAsync(BlockchainContractBootstrapperContext context)
         {
             // now get whether the smart contract is the latest one deployed or not.
             var deviceMovementSmartContracts = _smartContractsRepository.GetAllSmartContractsByName(SmartContractName.DeviceMovement);

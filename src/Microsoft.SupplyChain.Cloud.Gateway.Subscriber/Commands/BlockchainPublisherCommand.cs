@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
+using Microsoft.SupplyChain.Framework.Command;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
 {
@@ -16,7 +17,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
             _blockchainServiceAgent = blockchainServiceAgent;            
         }
         
-        protected override async Task DoExecute(BlockchainPublisherContext context)
+        protected override async Task DoExecuteAsync(BlockchainPublisherContext context)
         {
            
         }        
@@ -30,7 +31,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
 
             // before we can do anything we need to bootstrap the smart contract.
             BlockchainContractBootstrapperContext bootStrapperContext = new BlockchainContractBootstrapperContext();
-            _blockchainContractBootstrapperCommand.Execute(bootStrapperContext);
+            _blockchainContractBootstrapperCommand.ExecuteAsync(bootStrapperContext);
 
             base.DoInitialize(context);
            

@@ -7,6 +7,7 @@ using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands;
+using Microsoft.SupplyChain.Framework.Command;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
 {
@@ -38,10 +39,10 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber
         {
             // firstly, kick off the blockchain bootstrapper command. This ensures blockchain is ready for prime time
             ICommandAbstractFactory commandAbstractFactory = ServiceLocator.Current.GetInstance<ICommandAbstractFactory>();
-            commandAbstractFactory.ExecuteCommand(new BlockchainContractBootstrapperContext());
+            await commandAbstractFactory.ExecuteCommandAsync(new BlockchainContractBootstrapperContext());
 
             // execute the iot hub subscriber command. This is where things start.           
-            commandAbstractFactory.ExecuteCommand(new IoTHubSubscriberContext());
+            await commandAbstractFactory.ExecuteCommandAsync(new IoTHubSubscriberContext());
 
             long iterations = 0;
             while (true)

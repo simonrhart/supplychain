@@ -7,8 +7,11 @@ using Castle.Core;
 using Castle.DynamicProxy;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Commands;
 using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Controllers;
+using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Repositories;
 using Microsoft.SupplyChain.Framework;
+using Microsoft.SupplyChain.Framework.Command;
 using Microsoft.SupplyChain.Framework.Interceptors;
 
 namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuration
@@ -34,9 +37,13 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuratio
                 .ImplementedBy<CommandAbstractFactory>()
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
                 .LifestyleSingleton());
-        }
 
-       
+            _container.Register(Component.For<ICommand<GenerateIoTSecurityTokenContext>>()
+                .ImplementedBy<GenerateIoTSecurityTokenCommand>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
+
+        }
 
 
         private void BuildInterceptors()
@@ -60,8 +67,10 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuratio
 
         public virtual void BuildRepositories()
         {
-           
-
+            _container.Register(Component.For<IDeviceStoreRepository>()
+                .ImplementedBy<DeviceStoreRepository>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
 
         }
 

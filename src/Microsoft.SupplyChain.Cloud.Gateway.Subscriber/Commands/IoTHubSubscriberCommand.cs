@@ -1,21 +1,21 @@
 ﻿using System;
-using Microsoft.SupplyChain.Framework;
 using Microsoft.ServiceBus.Messaging;
 using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors;
 using System.Threading.Tasks;
+using Microsoft.SupplyChain.Framework.Command;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
 {
     public class IoTHubSubscriberCommand : BaseCommand<IoTHubSubscriberContext>
     {
-        private ISubscriber _subscriber;
+        private readonly ISubscriber _subscriber;
 
         public IoTHubSubscriberCommand(ISubscriber subscriber)
         {
             _subscriber = subscriber;
         }
 
-        protected override async Task DoExecute(IoTHubSubscriberContext context)
+        protected override async Task DoExecuteAsync(IoTHubSubscriberContext context)
         {
             // fire up the event processor host.
             var eventProcessorHost = new EventProcessorHost(Guid.NewGuid().ToString(), context.IoTHubDeviceToCloudName, context.IoTHubConsumerGroupName, context.IoTHubConnectionString, context.IoTHubStorageConnectionString, "messages-events");
