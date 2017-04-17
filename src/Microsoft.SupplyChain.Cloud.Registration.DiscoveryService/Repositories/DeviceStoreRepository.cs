@@ -18,7 +18,7 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Repositories
     public class DeviceStoreRepository : IDeviceStoreRepository
     {
         private readonly IDiscoveryService _discoveryService;
-        private string _iotHubConnectionString;
+        private readonly string _iotHubConnectionString;
         private readonly KeyedCollection<string, ConfigurationProperty> _iotHubSection;
         private readonly RegistryManager _registryManager;
 
