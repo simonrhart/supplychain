@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.SupplyChain.Cloud.Administration.Contracts
 {
-    public class DeviceTwinTags
+    public class DeviceTwinTagsDto
     {
         public string BlockchainAccount { get; set; }
 

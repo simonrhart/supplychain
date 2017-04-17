@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Fabric.Description;
 using System.IO;
 using System.Net;
@@ -7,25 +6,25 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Devices;
-using Microsoft.SupplyChain.Cloud.Registration.Contracts;
+using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Newtonsoft.Json;
 
-namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Repositories
+namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService.Repositories
 {
     /// <summary>
     /// Wraps the identity store in IoT Hub for testability and maintainability reasons.
     /// </summary>
     public class DeviceStoreRepository : IDeviceStoreRepository
     {
-        private readonly IDiscoveryService _discoveryService;
+        private readonly IDeviceStoreService _deviceStoreService;
         private readonly string _iotHubConnectionString;
         private readonly KeyedCollection<string, ConfigurationProperty> _iotHubSection;
         private readonly RegistryManager _registryManager;
 
-        public DeviceStoreRepository(IDiscoveryService discoveryService)
+        public DeviceStoreRepository(IDeviceStoreService deviceStoreService)
         {
-            _discoveryService = discoveryService;
-            var configurationPackage = _discoveryService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            _deviceStoreService = deviceStoreService;
+            var configurationPackage = _deviceStoreService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
             _iotHubSection = configurationPackage.Settings.Sections["IoTHub"].Parameters;
             _iotHubConnectionString = _iotHubSection["IoTHubConnectionString"].Value;
 
@@ -41,7 +40,7 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Repositories
             _registryManager = RegistryManager.CreateFromConnectionString(_iotHubConnectionString);
         }
 
-        public async Task<DeviceTwinTags> GetDeviceTwinTagsById(string id)
+        public async Task<DeviceTwinTagsDto> GetDeviceTwinTagsById(string id)
         {
             var deviceTwin = await _registryManager.GetTwinAsync(id);
 
@@ -56,13 +55,13 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Repositories
 
             // get the tags for this device.
             string tags = deviceTwin.Tags.ToJson();
-            DeviceTwinTags deviceTags;
+            DeviceTwinTagsDto deviceTags;
             using (var sr = new StringReader(tags))
             {
                 using (var jr = new JsonTextReader(sr))
                 {
                     var js = new JsonSerializer();
-                    deviceTags = js.Deserialize<DeviceTwinTags>(jr);
+                    deviceTags = js.Deserialize<DeviceTwinTagsDto>(jr);
                 }
             }
 

@@ -30,7 +30,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin services", "Admin services", "{A3F47835-D37A-4924-8A52-B344D0B01C46}"
 EndProject
-Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Microsoft.SupplyChain.Cloud.Gateway.Administration", "Microsoft.SupplyChain.Cloud.Gateway.Administration\Microsoft.SupplyChain.Cloud.Gateway.Administration.sfproj", "{AF88F7C6-E3DF-463A-B7DC-D8F2BF594814}"
+Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Microsoft.SupplyChain.Cloud.Administration", "Microsoft.SupplyChain.Cloud.Administration\Microsoft.SupplyChain.Cloud.Administration.sfproj", "{AF88F7C6-E3DF-463A-B7DC-D8F2BF594814}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService", "Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService\Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService.csproj", "{AB162AF9-9C13-4F5C-B249-8A131AC1C586}"
 EndProject

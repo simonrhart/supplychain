@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
-using Microsoft.ServiceFabric.Services.Remoting;
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
-
+using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 
 namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService
 {
@@ -17,12 +13,17 @@ namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService
     /// </summary>
     internal sealed class DeviceStoreService : StatelessService, IDeviceStoreService
     {
-        public DeviceStoreService(StatelessServiceContext context)
+        private readonly IDeviceStoreRepository _deviceStoreRepository;
+
+        public DeviceStoreService(StatelessServiceContext context, IDeviceStoreRepository deviceStoreRepository)
             : base(context)
-        { }
+        {
+            _deviceStoreRepository = deviceStoreRepository;
+        }
 
         /// <summary>
-        /// Optional override to create listeners (e.g., TCP, HTTP) for this service replica to handle client or user requests.
+        /// We use .NET remoting to make this more secure. Only trusted services running within the Service Fabric cluster are
+        /// able to call this service.
         /// </summary>
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
@@ -30,6 +31,10 @@ namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService
             return new[] { new ServiceInstanceListener(this.CreateServiceRemotingListener) };
 
         }
-      
+
+        public Task<DeviceTwinTagsDto> GetDeviceTwinTagsById(string id)
+        {
+            return _deviceStoreRepository.GetDeviceTwinTagsById(id);
+        }
     }
 }
