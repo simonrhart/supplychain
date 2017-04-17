@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Fabric.Description;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Microsoft.Azure.Devices;
-using Microsoft.Azure.Devices.Common.Security;
-using Microsoft.SupplyChain.Cloud.Registration.Contracts;
 using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Commands;
-using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Repositories;
-using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Framework.Command;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Controllers
 {

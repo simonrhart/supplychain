@@ -2,8 +2,9 @@
 using System.Diagnostics;
 using System.Fabric;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Runtime;
+using Microsoft.SupplyChain.Cloud.Administration.Contracts;
+using Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService.Repositories;
 
 namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService
 {
@@ -16,13 +17,7 @@ namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService
         {
             try
             {
-                // The ServiceManifest.XML file defines one or more service type names.
-                // Registering a service maps a service type name to a .NET type.
-                // When Service Fabric creates an instance of this service type,
-                // an instance of the class is created in this host process.
-
-                ServiceRuntime.RegisterServiceAsync("DeviceStoreServiceType",
-                    context => new DeviceStoreService(context)).GetAwaiter().GetResult();
+                ServiceRuntime.RegisterServiceAsync("DeviceStoreServiceType", ServiceFactory).GetAwaiter().GetResult();
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(DeviceStoreService).Name);
 
@@ -34,6 +29,17 @@ namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService
                 ServiceEventSource.Current.ServiceHostInitializationFailed(e.ToString());
                 throw;
             }
+        }
+
+        private static StatelessService ServiceFactory(StatelessServiceContext context)
+        {
+            // pass in dependencies as there is no other way to do it with the SF c# sdk.
+            var configurationPackage = context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            var iotHubSection = configurationPackage.Settings.Sections["IoTHub"].Parameters;
+         
+            IDeviceStoreRepository deviceStoreRepository = new DeviceStoreRepository(iotHubSection["IoTHubConnectionString"].Value);
+            var service = new DeviceStoreService(context, deviceStoreRepository);
+            return service;
         }
     }
 }

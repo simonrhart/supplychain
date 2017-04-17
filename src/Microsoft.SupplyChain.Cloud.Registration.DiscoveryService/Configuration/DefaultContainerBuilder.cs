@@ -7,9 +7,10 @@ using Castle.Core;
 using Castle.DynamicProxy;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Microsoft.ServiceFabric.Services.Remoting.Client;
+using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Commands;
 using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Controllers;
-using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Repositories;
 using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Framework.Command;
 using Microsoft.SupplyChain.Framework.Interceptors;
@@ -64,16 +65,6 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuratio
         }
 
       
-
-        public virtual void BuildRepositories()
-        {
-            _container.Register(Component.For<IDeviceStoreRepository>()
-                .ImplementedBy<DeviceStoreRepository>()
-                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
-                .LifestyleTransient());
-
-        }
-
         private void BuildControllers()
         {
             _container.Register(Component.For<DiscoveryController>()
@@ -82,7 +73,16 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuratio
                 .LifestyleTransient());
         }
 
-
+        private void BuildServiceAgents()
+        {
+            _container.Register(Component.For<IDeviceStoreService>()
+                .Instance(new ServiceProxyFactory()
+                    .CreateServiceProxy<IDeviceStoreService>(
+                        new Uri("fabric:/Microsoft.SupplyChain.Cloud.Administration/DeviceStoreService")))
+                .LifestyleSingleton()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor"))
+                .Anywhere);
+        }
 
         public IServiceLocator Build()
         {
@@ -90,7 +90,7 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuratio
             BuildInterceptors();
             BuildCommands();
             BuildControllers();
-            BuildRepositories();
+            BuildServiceAgents();
             return _windsorServiceLocator;
         }
 

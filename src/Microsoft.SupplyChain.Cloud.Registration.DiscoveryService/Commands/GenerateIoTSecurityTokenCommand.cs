@@ -7,27 +7,27 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Devices;
 using Microsoft.Azure.Devices.Common.Security;
-using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Repositories;
+using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.DeviceStoreServiceAgent;
 using Microsoft.SupplyChain.Framework.Command;
 
 namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Commands
 {
     public class GenerateIoTSecurityTokenCommand : BaseCommand<GenerateIoTSecurityTokenContext>
     {
-        private readonly IDeviceStoreRepository _deviceStoreRepository;
+        private readonly IDeviceStoreServiceAgent _deviceStoreServiceAgent;
         private readonly IDiscoveryService _discoveryService;
         private string _iotHubConnectionString;
         private KeyedCollection<string, ConfigurationProperty> _iotHubSection;
 
-        public GenerateIoTSecurityTokenCommand(IDeviceStoreRepository deviceStoreRepository, IDiscoveryService discoveryService)
+        public GenerateIoTSecurityTokenCommand(IDeviceStoreServiceAgent deviceStoreServiceAgent, IDiscoveryService discoveryService)
         {
-            _deviceStoreRepository = deviceStoreRepository;
+            _deviceStoreServiceAgent = deviceStoreServiceAgent;
             _discoveryService = discoveryService;
         }
 
         protected override async Task DoExecuteAsync(GenerateIoTSecurityTokenContext context)
         {
-            var deviceTags = await _deviceStoreRepository.GetDeviceTwinTagsById(context.Id);
+            var deviceTags = await _deviceStoreServiceAgent.GetDeviceTwinTagsByIdAsync(context.Id);
             
             // check the passed mac address matches what we have in the device twin.
             if (deviceTags.MacAddress != context.MacAddress)
@@ -47,7 +47,7 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Commands
             if (context.TokenExpiryInHours != 0)
                 tokenExpiry = context.TokenExpiryInHours;
 
-            var device = await _deviceStoreRepository.GetDeviceByIdAsync(context.Id);
+            var device = await _deviceStoreServiceAgent.GetDeviceByIdAsync(context.Id);
             SharedAccessSignatureBuilder sasBuilder;
             if (context.SignUsingPrimaryKey)
             {

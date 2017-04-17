@@ -1,10 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using System.Fabric.Description;
+﻿using System;
 using System.IO;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web.Http;
 using Microsoft.Azure.Devices;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Newtonsoft.Json;
@@ -16,41 +12,24 @@ namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService.Reposito
     /// </summary>
     public class DeviceStoreRepository : IDeviceStoreRepository
     {
-        private readonly IDeviceStoreService _deviceStoreService;
-        private readonly string _iotHubConnectionString;
-        private readonly KeyedCollection<string, ConfigurationProperty> _iotHubSection;
         private readonly RegistryManager _registryManager;
 
-        public DeviceStoreRepository(IDeviceStoreService deviceStoreService)
+        public DeviceStoreRepository(string iotHubConnectionString)
         {
-            _deviceStoreService = deviceStoreService;
-            var configurationPackage = _deviceStoreService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
-            _iotHubSection = configurationPackage.Settings.Sections["IoTHub"].Parameters;
-            _iotHubConnectionString = _iotHubSection["IoTHubConnectionString"].Value;
-
-            if (string.IsNullOrEmpty(_iotHubConnectionString))
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new StringContent("IoTHubConnectionString is not defined. Check ApplicationParameters in the Service Fabric config package."),
-                    ReasonPhrase = "Critical Exception"
-                });
-            }
-
-            _registryManager = RegistryManager.CreateFromConnectionString(_iotHubConnectionString);
+            if (string.IsNullOrEmpty(iotHubConnectionString))
+                throw new Exception(
+                    "IoTHubConnectionString is not defined. Check ApplicationParameters in the Service Fabric config package.");
+    
+            _registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
         }
 
-        public async Task<DeviceTwinTagsDto> GetDeviceTwinTagsById(string id)
+        public async Task<DeviceTwinTagsDto> GetDeviceTwinTagsByIdAsync(string id)
         {
             var deviceTwin = await _registryManager.GetTwinAsync(id);
 
             if (deviceTwin == null)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new StringContent($"Unable to get device twin for device Id: {id} from the identity store."),
-                    ReasonPhrase = "Critical Exception"
-                });
+                throw new Exception($"Unable to get device twin for device Id: {id} from the identity store.");
             }
 
             // get the tags for this device.
@@ -67,11 +46,7 @@ namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService.Reposito
 
             if (deviceTags == null)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                {
-                    Content = new StringContent($"Failed to deseralized device twin tags for device id: {id}"),
-                    ReasonPhrase = "Critical Exception"
-                });
+                throw new Exception($"Failed to deseralized device twin tags for device id: {id}");
             }
             return deviceTags;
         }
@@ -81,11 +56,7 @@ namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService.Reposito
             var device = await _registryManager.GetDeviceAsync(id);
             if (device == null)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new StringContent($"Unable to get device Id: {id} from the identity store."),
-                    ReasonPhrase = "Critical Exception"
-                });
+                throw new Exception($"Unable to get device Id: {id} from the identity store.");
             }
 
             return device;

@@ -7,6 +7,6 @@ namespace Microsoft.SupplyChain.Cloud.Administration.Contracts
     {
         Task<Device> GetDeviceByIdAsync(string id);
 
-        Task<DeviceTwinTagsDto> GetDeviceTwinTagsById(string id);
+        Task<DeviceTwinTagsDto> GetDeviceTwinTagsByIdAsync(string id);
     }
 }
