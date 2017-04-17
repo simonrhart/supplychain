@@ -5,7 +5,7 @@ using Microsoft.SupplyChain.Framework.ServiceFabric;
 
 namespace Microsoft.SupplyChain.Cloud.Administration.Contracts
 {
-    public interface IDeviceStoreService : IService, IStatelessServiceContext
+    public interface IDeviceStoreService : IService
     {
         Task<DeviceTwinTagsDto> GetDeviceTwinTagsByIdAsync(string id);
 
