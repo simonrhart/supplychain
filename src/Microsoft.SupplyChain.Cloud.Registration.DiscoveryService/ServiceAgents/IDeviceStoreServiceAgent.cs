@@ -2,7 +2,7 @@
 using Microsoft.Azure.Devices;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 
-namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.DeviceStoreServiceAgent
+namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.ServiceAgents
 {
     public interface IDeviceStoreServiceAgent
     {

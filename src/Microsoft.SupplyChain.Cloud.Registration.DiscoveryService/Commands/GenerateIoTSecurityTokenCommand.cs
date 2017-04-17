@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Fabric;
 using System.Fabric.Description;
 using System.Net;
 using System.Net.Http;
@@ -7,7 +8,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Devices;
 using Microsoft.Azure.Devices.Common.Security;
-using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.DeviceStoreServiceAgent;
+using Microsoft.SupplyChain.Cloud.Administration.Contracts;
+using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.ServiceAgents;
 using Microsoft.SupplyChain.Framework.Command;
 
 namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Commands
@@ -40,14 +42,14 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Commands
             }
 
             // now generate SAS token.
-
             var builder = IotHubConnectionStringBuilder.Create(_iotHubConnectionString);
 
             int tokenExpiry = 8;
             if (context.TokenExpiryInHours != 0)
                 tokenExpiry = context.TokenExpiryInHours;
-
+         
             var device = await _deviceStoreServiceAgent.GetDeviceByIdAsync(context.Id);
+           
             SharedAccessSignatureBuilder sasBuilder;
             if (context.SignUsingPrimaryKey)
             {

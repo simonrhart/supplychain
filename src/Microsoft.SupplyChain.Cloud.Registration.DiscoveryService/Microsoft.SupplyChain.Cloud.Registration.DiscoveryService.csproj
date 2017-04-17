@@ -134,8 +134,8 @@
     <Compile Include="Commands\GenerateIoTSecurityTokenContext.cs" />
     <Compile Include="Configuration\DefaultContainerBuilder.cs" />
     <Compile Include="Configuration\IContainerBuilder.cs" />
-    <Compile Include="DeviceStoreServiceAgent\DeviceStoreServiceAgent.cs" />
-    <Compile Include="DeviceStoreServiceAgent\IDeviceStoreServiceAgent.cs" />
+    <Compile Include="ServiceAgents\DeviceStoreServiceAgent.cs" />
+    <Compile Include="ServiceAgents\IDeviceStoreServiceAgent.cs" />
     <Compile Include="IDiscoveryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\DiscoveryController.cs" />

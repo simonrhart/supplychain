@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Commands;
 using Microsoft.SupplyChain.Framework.Command;
@@ -19,8 +22,25 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Controllers
         {
             GenerateIoTSecurityTokenContext context =
                 new GenerateIoTSecurityTokenContext(id, macAddress, signUsingPrimaryKey, tokenExpiryInHours);
-            await _generateIoTTokenCommand.ExecuteAsync(context);
-            return context.SasToken;
+            try
+            {
+                await _generateIoTTokenCommand.ExecuteAsync(context);
+                return context.SasToken;
+            }
+            catch (HttpResponseException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                //uncaught exception in command.
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                {
+                    Content = new StringContent(
+                        $"Unknown exception while generating security token. Reason: {ex.Message} "),
+                    ReasonPhrase = "Fatal Service Error"
+                });
+            }
         }
 
   

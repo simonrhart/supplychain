@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Castle.Core;
 using Castle.DynamicProxy;
 using Castle.MicroKernel.Registration;
@@ -11,6 +7,7 @@ using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Commands;
 using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Controllers;
+using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.ServiceAgents;
 using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Framework.Command;
 using Microsoft.SupplyChain.Framework.Interceptors;
@@ -75,6 +72,11 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuratio
 
         private void BuildServiceAgents()
         {
+            _container.Register(Component.For<IDeviceStoreServiceAgent>()
+                .ImplementedBy<DeviceStoreServiceAgent>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
+
             _container.Register(Component.For<IDeviceStoreService>()
                 .Instance(new ServiceProxyFactory()
                     .CreateServiceProxy<IDeviceStoreService>(
@@ -88,9 +90,9 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuratio
         {
             BuildAndRegisterServiceLocator();
             BuildInterceptors();
+            BuildServiceAgents();
             BuildCommands();
             BuildControllers();
-            BuildServiceAgents();
             return _windsorServiceLocator;
         }
 
