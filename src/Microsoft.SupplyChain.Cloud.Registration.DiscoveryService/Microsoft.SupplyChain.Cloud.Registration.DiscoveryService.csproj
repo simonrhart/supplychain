@@ -153,10 +153,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.SupplyChain.Cloud.Registration.Contracts\Microsoft.SupplyChain.Cloud.Registration.Contracts.csproj">
-      <Project>{03607a61-1920-486e-addc-f6eabc4b03a6}</Project>
-      <Name>Microsoft.SupplyChain.Cloud.Registration.Contracts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Microsoft.SupplyChain.Framework\Microsoft.SupplyChain.Framework.csproj">
       <Project>{05cd2ca8-9ef7-4232-a362-e430b33193c2}</Project>
       <Name>Microsoft.SupplyChain.Framework</Name>

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Microsoft.SupplyChain.Cloud.Registration.Contracts")]
+[assembly: AssemblyTitle("Microsoft.SupplyChain.Cloud.Administration.Contracts")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Microsoft.SupplyChain.Cloud.Registration.Contracts")]
+[assembly: AssemblyProduct("Microsoft.SupplyChain.Cloud.Administration.Contracts")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("03607a61-1920-486e-addc-f6eabc4b03a6")]
+[assembly: Guid("3dcac54b-fcc6-4ae8-8627-e25a860a7ad9")]
 
 // Version information for an assembly consists of the following four values:
 //

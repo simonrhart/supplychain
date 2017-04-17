@@ -1,4 +1,4 @@
-﻿namespace Microsoft.SupplyChain.Cloud.Registration.Contracts
+﻿namespace Microsoft.SupplyChain.Cloud.Administration.Contracts
 {
     public class DeviceTwinTags
     {

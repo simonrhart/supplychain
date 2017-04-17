@@ -28,13 +28,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cross cutting", "Cross cutt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Gateway.Contracts", "Microsoft.SupplyChain.Cloud.Gateway.Contracts\Microsoft.SupplyChain.Cloud.Gateway.Contracts.csproj", "{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Registration.Contracts", "Microsoft.SupplyChain.Cloud.Registration.Contracts\Microsoft.SupplyChain.Cloud.Registration.Contracts.csproj", "{03607A61-1920-486E-ADDC-F6EABC4B03A6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin services", "Admin services", "{A3F47835-D37A-4924-8A52-B344D0B01C46}"
 EndProject
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Microsoft.SupplyChain.Cloud.Gateway.Administration", "Microsoft.SupplyChain.Cloud.Gateway.Administration\Microsoft.SupplyChain.Cloud.Gateway.Administration.sfproj", "{AF88F7C6-E3DF-463A-B7DC-D8F2BF594814}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService", "Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService\Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService.csproj", "{AB162AF9-9C13-4F5C-B249-8A131AC1C586}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Administration.Contracts", "Microsoft.SupplyChain.Cloud.Administration.Contracts\Microsoft.SupplyChain.Cloud.Administration.Contracts.csproj", "{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,14 +96,6 @@ Global
 		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}.Release|x64.ActiveCfg = Release|Any CPU
 		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173}.Release|x64.Build.0 = Release|Any CPU
-		{03607A61-1920-486E-ADDC-F6EABC4B03A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03607A61-1920-486E-ADDC-F6EABC4B03A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03607A61-1920-486E-ADDC-F6EABC4B03A6}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{03607A61-1920-486E-ADDC-F6EABC4B03A6}.Debug|x64.Build.0 = Debug|Any CPU
-		{03607A61-1920-486E-ADDC-F6EABC4B03A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03607A61-1920-486E-ADDC-F6EABC4B03A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03607A61-1920-486E-ADDC-F6EABC4B03A6}.Release|x64.ActiveCfg = Release|Any CPU
-		{03607A61-1920-486E-ADDC-F6EABC4B03A6}.Release|x64.Build.0 = Release|Any CPU
 		{AF88F7C6-E3DF-463A-B7DC-D8F2BF594814}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{AF88F7C6-E3DF-463A-B7DC-D8F2BF594814}.Debug|x64.ActiveCfg = Debug|x64
 		{AF88F7C6-E3DF-463A-B7DC-D8F2BF594814}.Debug|x64.Build.0 = Debug|x64
@@ -118,6 +110,14 @@ Global
 		{AB162AF9-9C13-4F5C-B249-8A131AC1C586}.Release|Any CPU.ActiveCfg = Release|x64
 		{AB162AF9-9C13-4F5C-B249-8A131AC1C586}.Release|x64.ActiveCfg = Release|x64
 		{AB162AF9-9C13-4F5C-B249-8A131AC1C586}.Release|x64.Build.0 = Release|x64
+		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}.Debug|x64.Build.0 = Debug|Any CPU
+		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}.Release|x64.ActiveCfg = Release|Any CPU
+		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,8 +130,8 @@ Global
 		{684F016E-B1A7-45E1-8E82-2BD119C94AFE} = {26C47516-16CF-4C4A-9EE9-9F6FB8B6728A}
 		{7719887B-C8A4-4FED-8EC4-1E38E0B25BC9} = {26C47516-16CF-4C4A-9EE9-9F6FB8B6728A}
 		{C6EBE3A3-50F6-4BCB-A71E-B21C99D74173} = {5A9FB0CF-22AE-4474-BC19-15830836260C}
-		{03607A61-1920-486E-ADDC-F6EABC4B03A6} = {26C47516-16CF-4C4A-9EE9-9F6FB8B6728A}
 		{AF88F7C6-E3DF-463A-B7DC-D8F2BF594814} = {A3F47835-D37A-4924-8A52-B344D0B01C46}
 		{AB162AF9-9C13-4F5C-B249-8A131AC1C586} = {A3F47835-D37A-4924-8A52-B344D0B01C46}
+		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9} = {A3F47835-D37A-4924-8A52-B344D0B01C46}
 	EndGlobalSection
 EndGlobal
