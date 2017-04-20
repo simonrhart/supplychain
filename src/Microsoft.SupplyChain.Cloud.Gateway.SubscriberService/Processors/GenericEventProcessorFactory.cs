@@ -1,7 +1,7 @@
 ﻿using Microsoft.ServiceBus.Messaging;
 using Microsoft.SupplyChain.Framework;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors
 {
     public class GenericEventProcessorFactory : IEventProcessorFactory
     {

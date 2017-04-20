@@ -1,10 +1,9 @@
-﻿using Microsoft.SupplyChain.Framework;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Microsoft.SupplyChain.Framework.Command;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands
 {
     public class BlockchainPublisherCommand : BaseCommand<BlockchainPublisherContext>
     {

@@ -1,31 +1,31 @@
-﻿using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
-using System;
-using System.Linq;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories
 {
     public class SmartContractsRepository : ISmartContractsRepository
     {
-        private ISubscriber _subscriber;
-        private DocumentClient _documentClient;
+        private ISubscriberService _subscriberService;
+        private readonly DocumentClient _documentClient;
         private string _databaseName = "AdminDB";
         private string _documentCollectionName = "SmartContractsCollection";
                
-        public SmartContractsRepository(ISubscriber subscriber)
+        public SmartContractsRepository(ISubscriberService subscriberService)
         {
-            _subscriber = subscriber;
+            _subscriberService = subscriberService;
 
             // read docDB from service fabric configuration package.
-            var configurationPackage = _subscriber.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            var configurationPackage = _subscriberService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
             var documentDbSection = configurationPackage.Settings.Sections["DocumentDB"].Parameters;                 
         
             _documentClient = new DocumentClient(new Uri(documentDbSection["DocumentDBEndpointUri"].Value), documentDbSection["DocumentDBPrimaryKey"].Value);
             Task.Run(async () => await _documentClient.CreateDatabaseIfNotExistsAsync(new Database { Id = _databaseName })).GetAwaiter().GetResult();
-            Task.Run(async () => await _documentClient.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(_databaseName), new DocumentCollection { Id = _documentCollectionName })).GetAwaiter().GetResult();                    
+            Task.Run(async () => await _documentClient.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(_databaseName), new DocumentCollection { Id = _documentCollectionName })).GetAwaiter().GetResult();                   
 
 
         }

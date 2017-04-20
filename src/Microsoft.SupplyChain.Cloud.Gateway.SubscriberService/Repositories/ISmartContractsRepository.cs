@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories
 {
     public interface ISmartContractsRepository
     {

@@ -1,7 +1,7 @@
 ﻿using Castle.Windsor;
 using Microsoft.SupplyChain.Framework;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Configuration
 {
     public interface IContainerBuilder
     {

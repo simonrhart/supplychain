@@ -1,11 +1,10 @@
-﻿using Microsoft.SupplyChain.Framework;
-using Microsoft.SupplyChain.Framework.Command;
+﻿using Microsoft.SupplyChain.Framework.Command;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands
 {
     public class IoTHubSubscriberContext : BaseContext
     {
-        public ISubscriber StatelessInstance { get; }
+        public ISubscriberService StatelessInstance { get; }
 
         public string IoTHubConnectionString { get; set; }
 

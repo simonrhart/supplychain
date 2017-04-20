@@ -30,7 +30,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.SupplyChain.Cloud.Gateway.Subscriber\Microsoft.SupplyChain.Cloud.Gateway.Subscriber.csproj" />
+    <ProjectReference Include="..\Microsoft.SupplyChain.Cloud.Gateway.SubscriberService\Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>

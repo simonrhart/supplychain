@@ -1,28 +1,28 @@
 ﻿using System;
-using Nethereum.Web3;
-using System.Threading.Tasks;
-using Nethereum.Hex.HexTypes;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
-using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories;
+using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories;
+using Nethereum.Hex.HexTypes;
+using Nethereum.Web3;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
 {
     public class EthereumServiceAgent : IBlockchainServiceAgent
     {
         private bool _disposed;
         private Web3 _web3;
         private ISmartContractsRepository _smartContractsRepository;
-        private ISubscriber _subscriber;
+        private ISubscriberService _subscriberService;
         private string _blockchainAdminAccount;
         private string _blockchainAdminPassphrase;
 
-        public EthereumServiceAgent(ISubscriber subscriber, ISmartContractsRepository smartContractsRepository)
+        public EthereumServiceAgent(ISubscriberService subscriberService, ISmartContractsRepository smartContractsRepository)
         {
             _smartContractsRepository = smartContractsRepository;
-            _subscriber = subscriber;
+            _subscriberService = subscriberService;
 
-            var configurationPackage = _subscriber.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            var configurationPackage = _subscriberService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
             var blockchainSection = configurationPackage.Settings.Sections["Blockchain"].Parameters;
             var transactionNodeVip = blockchainSection["TransactionNodeVip"].Value;
             _blockchainAdminAccount = blockchainSection["BlockchainAdminAccount"].Value;

@@ -7,13 +7,28 @@
     <ProjectGuid>{D4FBD424-B032-4BD0-B336-33963FEEDD30}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.SupplyChain.Cloud.Gateway.Subscriber</RootNamespace>
-    <AssemblyName>Microsoft.SupplyChain.Cloud.Gateway.Subscriber</AssemblyName>
+    <RootNamespace>Microsoft.SupplyChain.Cloud.Gateway.SubscriberService</RootNamespace>
+    <AssemblyName>Microsoft.SupplyChain.Cloud.Gateway.SubscriberService</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DebugSymbols>true</DebugSymbols>
@@ -156,24 +171,37 @@
     <Compile Include="Configuration\DefaultContainerBuilder.cs" />
     <Compile Include="Configuration\IContainerBuilder.cs" />
     <Compile Include="Commands\BlockchainPublisherContext.cs" />
-    <Compile Include="ISubscriber.cs" />
+    <Compile Include="ISubscriberService.cs" />
     <Compile Include="Processors\GenericEventProcessor.cs" />
     <Compile Include="Processors\GenericEventProcessorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ISmartContractsRepository.cs" />
     <Compile Include="Repositories\SmartContractsRepository.cs" />
     <Compile Include="ServiceAgents\EthereumServiceAgent.cs" />
-    <Compile Include="Subscriber.cs" />
+    <Compile Include="SubscriberService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ServiceEventSource.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PackageRoot\Config\Settings.xml" />
+    <None Include="PackageRoot\Config\Settings.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="PackageRoot\ServiceManifest.xml" />
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.SupplyChain.Cloud.Gateway.Contracts\Microsoft.SupplyChain.Cloud.Gateway.Contracts.csproj">
       <Project>{c6ebe3a3-50f6-4bcb-a71e-b21c99d74173}</Project>

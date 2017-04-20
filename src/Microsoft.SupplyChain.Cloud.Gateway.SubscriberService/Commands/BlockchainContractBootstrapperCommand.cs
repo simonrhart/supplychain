@@ -1,13 +1,11 @@
-﻿using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories;
-using Microsoft.SupplyChain.Framework;
-using Nethereum.Web3;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
+using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories;
 using Microsoft.SupplyChain.Framework.Command;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands
 {
     public class BlockchainContractBootstrapperCommand : BaseCommand<BlockchainContractBootstrapperContext>
     {

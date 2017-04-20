@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ServiceBus.Messaging;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
-using Newtonsoft.Json;
-using Microsoft.SupplyChain.Framework;
-using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands;
+using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands;
 using Microsoft.SupplyChain.Framework.Command;
+using Newtonsoft.Json;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors
 {
     public class GenericEventProcessor : IEventProcessor
     {

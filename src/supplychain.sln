@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Microsoft.SupplyChain.Cloud.Gateway", "Microsoft.SupplyChain.Cloud.Gateway\Microsoft.SupplyChain.Cloud.Gateway.sfproj", "{5BC200ED-49D3-428E-8E82-2BDA2EE23881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Gateway.Subscriber", "Microsoft.SupplyChain.Cloud.Gateway.Subscriber\Microsoft.SupplyChain.Cloud.Gateway.Subscriber.csproj", "{D4FBD424-B032-4BD0-B336-33963FEEDD30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Gateway.SubscriberService", "Microsoft.SupplyChain.Cloud.Gateway.SubscriberService\Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.csproj", "{D4FBD424-B032-4BD0-B336-33963FEEDD30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Framework", "Microsoft.SupplyChain.Framework\Microsoft.SupplyChain.Framework.csproj", "{05CD2CA8-9EF7-4232-A362-E430B33193C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Tests", "Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Tests\Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Tests.csproj", "{76BD2A77-F0F8-4036-876E-91901DAC3400}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Tests", "Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Tests\Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Tests.csproj", "{76BD2A77-F0F8-4036-876E-91901DAC3400}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Smartcontracts", "Smartcontracts", "{039212C8-8FFB-448B-B474-44F65AF40E80}"
 	ProjectSection(SolutionItems) = preProject

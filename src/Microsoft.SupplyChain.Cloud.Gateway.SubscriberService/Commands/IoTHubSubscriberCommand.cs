@@ -1,18 +1,18 @@
 ﻿using System;
-using Microsoft.ServiceBus.Messaging;
-using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors;
 using System.Threading.Tasks;
+using Microsoft.ServiceBus.Messaging;
+using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors;
 using Microsoft.SupplyChain.Framework.Command;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands
 {
     public class IoTHubSubscriberCommand : BaseCommand<IoTHubSubscriberContext>
     {
-        private readonly ISubscriber _subscriber;
+        private readonly ISubscriberService _subscriberService;
 
-        public IoTHubSubscriberCommand(ISubscriber subscriber)
+        public IoTHubSubscriberCommand(ISubscriberService subscriberService)
         {
-            _subscriber = subscriber;
+            _subscriberService = subscriberService;
         }
 
         protected override async Task DoExecuteAsync(IoTHubSubscriberContext context)
@@ -25,7 +25,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
         protected override void DoInitialize(IoTHubSubscriberContext context)
         {
             // get all iot hub config data from the service fabric config package.
-            var configurationPackage = _subscriber.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            var configurationPackage = _subscriberService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
 
             var iotHubSection = configurationPackage.Settings.Sections["IoTHub"].Parameters;
             context.IoTHubConnectionString = iotHubSection["IoTHubConnectionString"].Value;

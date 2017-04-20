@@ -1,8 +1,7 @@
 ﻿using Microsoft.ServiceFabric.Services.Runtime;
-using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Framework.Command;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands
 {
     public class BlockchainPublisherContext : BaseContext
     {

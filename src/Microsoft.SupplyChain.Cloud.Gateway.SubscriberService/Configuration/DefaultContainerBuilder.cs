@@ -1,19 +1,19 @@
-﻿using Castle.Windsor;
-using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Commands;
-using Microsoft.SupplyChain.Framework;
-using Castle.MicroKernel.Registration;
+﻿using System;
 using Castle.Core;
-using System;
 using Castle.DynamicProxy;
-using Microsoft.SupplyChain.Framework.Interceptors;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using Microsoft.ServiceBus.Messaging;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
-using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Processors;
-using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Repositories;
-using Microsoft.SupplyChain.Cloud.Gateway.Subscriber.ServiceAgents;
+using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands;
+using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors;
+using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories;
+using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents;
+using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Framework.Command;
+using Microsoft.SupplyChain.Framework.Interceptors;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Subscriber.Configuration
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Configuration
 {
     public class DefaultContainerBuilder : IContainerBuilder
     {

@@ -45,19 +45,6 @@ namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService
         {
             return await _deviceStoreRepository.GetDeviceByIdAsync(id);
         }
-
-        protected override async Task RunAsync(CancellationToken cancellationToken)
-        {
-
-
-            long iterations = 0;
-            while (true)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                ServiceEventSource.Current.ServiceMessage(this.Context, "Working-{0}", ++iterations);
-
-                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-            }
-        }
+        
     }
 }
