@@ -17,7 +17,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors
         private Stopwatch _checkpointStopWatch;
         private readonly IBlockchainServiceAgent _blockchainServiceAgent;
     
-        public GenericEventProcessor(IBlockchainServiceAgent blockchainServiceAgent, ICommand<BlockchainPublisherContext> blockchainPublisherCommand)
+        public GenericEventProcessor(IBlockchainServiceAgent blockchainServiceAgent)
         {
             _blockchainServiceAgent = blockchainServiceAgent;
         }
@@ -50,7 +50,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors
                     var sensor = JsonConvert.DeserializeObject<Sensor>(Encoding.UTF8.GetString(binaryPayload));
 
                     //send payload to chain (calls smart contract).
-                    _blockchainServiceAgent.Publish<Sensor>(sensor);
+                    _blockchainServiceAgent.Publish(sensor);
 
                   //  _logger.InfoFormat("Message received partition: {0} sensor name: {1}, GatwayId: {2}", _partitionContext.Lease.PartitionId, sensor.Name, sensor.GatewayId);
                 }

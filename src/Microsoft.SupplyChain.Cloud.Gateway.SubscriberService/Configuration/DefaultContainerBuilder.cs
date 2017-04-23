@@ -17,7 +17,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Configuration
 {
     public class DefaultContainerBuilder : IContainerBuilder
     {
-        private IWindsorContainer _container;
+        private readonly IWindsorContainer _container;
         private bool _disposed = false;
         private WindsorServiceLocator _windsorServiceLocator;
 
@@ -46,6 +46,10 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Configuration
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
                 .LifestyleTransient());
 
+            _container.Register(Component.For<ICommand<BlockchainPublisherContext>>()
+                .ImplementedBy<BlockchainPublisherCommand>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
 
 
         }

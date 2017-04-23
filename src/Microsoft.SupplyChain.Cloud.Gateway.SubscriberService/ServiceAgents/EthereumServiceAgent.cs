@@ -2,7 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
+using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories;
+using Microsoft.SupplyChain.Framework.Command;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3;
 
@@ -13,13 +15,15 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
         private bool _disposed;
         private Web3 _web3;
         private ISmartContractsRepository _smartContractsRepository;
+        private readonly ICommand<BlockchainPublisherContext> _blockchainPublisherCommand;
         private ISubscriberService _subscriberService;
         private string _blockchainAdminAccount;
         private string _blockchainAdminPassphrase;
 
-        public EthereumServiceAgent(ISubscriberService subscriberService, ISmartContractsRepository smartContractsRepository)
+        public EthereumServiceAgent(ISubscriberService subscriberService, ISmartContractsRepository smartContractsRepository, ICommand<BlockchainPublisherContext> blockchainPublisherCommand)
         {
             _smartContractsRepository = smartContractsRepository;
+            _blockchainPublisherCommand = blockchainPublisherCommand;
             _subscriberService = subscriberService;
 
             var configurationPackage = _subscriberService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");

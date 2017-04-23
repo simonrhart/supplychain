@@ -5,13 +5,10 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands
 {
     public class BlockchainPublisherContext : BaseContext
     {
-        public BlockchainPublisherContext(StatelessService serviceInstance, string transactionNodeVip)
+        public BlockchainPublisherContext(string transactionNodeVip)
         {
-            StatelessServiceInstance = serviceInstance;
             TransactionNodeVip = transactionNodeVip;
         }
-
-        public StatelessService StatelessServiceInstance { get; }
 
         public string TransactionNodeVip { get; set; }
     }
