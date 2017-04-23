@@ -4,7 +4,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
 {
     public interface IBlockchainServiceAgent
     {
-        void Publish<TPayload>(TPayload payload);
+        Task PublishAsync<TPayload>(TPayload payload);
 
         Task DeploySmartContractAsync(SoliditySmartContract smartContract);
     }

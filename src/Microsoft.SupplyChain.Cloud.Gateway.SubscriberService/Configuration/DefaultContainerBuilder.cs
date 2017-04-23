@@ -4,6 +4,8 @@ using Castle.DynamicProxy;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Microsoft.ServiceBus.Messaging;
+using Microsoft.ServiceFabric.Services.Remoting.Client;
+using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors;
@@ -60,6 +62,14 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Configuration
                 .ImplementedBy<EthereumServiceAgent>()
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
                 .LifestyleTransient());
+
+            _container.Register(Component.For<IDeviceStoreService>()
+                .Instance(new ServiceProxyFactory()
+                    .CreateServiceProxy<IDeviceStoreService>(
+                        new Uri("fabric:/Microsoft.SupplyChain.Cloud.Administration/DeviceStoreService")))
+                .LifestyleSingleton()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor"))
+                .Anywhere);
 
         }
 

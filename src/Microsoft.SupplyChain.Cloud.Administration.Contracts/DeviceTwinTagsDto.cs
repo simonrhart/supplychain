@@ -4,6 +4,8 @@
     {
         public string BlockchainAccount { get; set; }
 
+        public string BlockchainPassphrase { get; set; }
+
         public string MacAddress { get; set; }
     }
 }

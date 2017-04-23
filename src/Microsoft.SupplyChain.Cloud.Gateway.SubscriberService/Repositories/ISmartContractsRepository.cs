@@ -8,6 +8,8 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories
     {
         List<SoliditySmartContract> GetAllSmartContractsByName(SmartContractName name);
 
-        Task Update(SoliditySmartContract contract);
+        Task UpdateAsync(SoliditySmartContract contract);
+
+        SoliditySmartContract GetLatestSmartContractByName(SmartContractName name);
     }
 }

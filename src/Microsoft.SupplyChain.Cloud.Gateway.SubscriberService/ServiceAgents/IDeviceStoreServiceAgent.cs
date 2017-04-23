@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Azure.Devices;
-using Microsoft.ServiceFabric.Services.Remoting;
+using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 
-namespace Microsoft.SupplyChain.Cloud.Administration.Contracts
+namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
 {
-    public interface IDeviceStoreService : IService
+    public interface IDeviceStoreServiceAgent
     {
         Task<DeviceTwinTagsDto> GetDeviceTwinTagsByIdAsync(string id);
 

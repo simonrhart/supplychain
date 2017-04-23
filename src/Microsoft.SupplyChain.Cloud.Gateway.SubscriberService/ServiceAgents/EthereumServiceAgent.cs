@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories;
@@ -13,22 +14,26 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
     public class EthereumServiceAgent : IBlockchainServiceAgent
     {
         private bool _disposed;
-        private Web3 _web3;
-        private ISmartContractsRepository _smartContractsRepository;
-        private readonly ICommand<BlockchainPublisherContext> _blockchainPublisherCommand;
-        private ISubscriberService _subscriberService;
-        private string _blockchainAdminAccount;
-        private string _blockchainAdminPassphrase;
+        private readonly Web3 _web3;
+        private readonly ISmartContractsRepository _smartContractsRepository;
+        private readonly ISubscriberService _subscriberService;
+        private readonly string _blockchainAdminAccount;
+        private readonly string _blockchainAdminPassphrase;
+        private string _contractAddress = null;
+        private SoliditySmartContract _deviceMovementSmartContract;
+        private Contract _contract;
+        private Function _storeMovementFunction;
 
-        public EthereumServiceAgent(ISubscriberService subscriberService, ISmartContractsRepository smartContractsRepository, ICommand<BlockchainPublisherContext> blockchainPublisherCommand)
+        public EthereumServiceAgent(ISubscriberService subscriberService, ISmartContractsRepository smartContractsRepository, IDeviceStoreService )
         {
             _smartContractsRepository = smartContractsRepository;
-            _blockchainPublisherCommand = blockchainPublisherCommand;
             _subscriberService = subscriberService;
 
             var configurationPackage = _subscriberService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
             var blockchainSection = configurationPackage.Settings.Sections["Blockchain"].Parameters;
             var transactionNodeVip = blockchainSection["TransactionNodeVip"].Value;
+
+            // this blockchain account is only used to send and public smart contracts, not to actually create telemetry transactions.
             _blockchainAdminAccount = blockchainSection["BlockchainAdminAccount"].Value;
             _blockchainAdminPassphrase = blockchainSection["BlockchainAdminPassphrase"].Value;
 
@@ -44,10 +49,29 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             _web3 = new Web3(transactionNodeVip);
         }
 
-        public void Publish<TPayload>(TPayload payload)
+        public async Task PublishAsync<TPayload>(TPayload payload)
         {
-            // publish the telemetry on the blockchain
+            // publish the telemetry on the blockchain. Firstly check if we have a reference to the contract.
+            if (_contract == null)
+            {
+                // get the latest smart contract version to invoke.
+                _deviceMovementSmartContract = _smartContractsRepository.GetLatestSmartContractByName(SmartContractName.DeviceMovement);
 
+                // if it's been removed since we bootstrapped the application, redeploy it.
+                if (!_deviceMovementSmartContract.IsDeployed)
+                    await DeploySmartContractAsync(_deviceMovementSmartContract);
+
+                // now load the contract using the contract address
+
+                _contract = _web3.Eth.GetContract(_deviceMovementSmartContract.Abi,
+                    _deviceMovementSmartContract.Address);
+
+                _storeMovementFunction = _contract.GetFunction("StoreMovement");
+            }
+
+
+            
+           
         }
 
         public async Task DeploySmartContractAsync(SoliditySmartContract smartContract)
@@ -68,12 +92,13 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             }
 
             // now we have the contract address we need to update the documentDB record
-            var contractAddress = receipt.ContractAddress;
+            _contractAddress = receipt.ContractAddress;
 
-            smartContract.Address = contractAddress;
+            smartContract.Address = _contractAddress;
             smartContract.IsDeployed = true;
 
-            await _smartContractsRepository.Update(smartContract);
+            // now update the smart contract so we know it has been deployed along with the smart contract address.
+            await _smartContractsRepository.UpdateAsync(smartContract);
         }
     }
 }

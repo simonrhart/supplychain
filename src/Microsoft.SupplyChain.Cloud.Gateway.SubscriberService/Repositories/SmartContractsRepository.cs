@@ -30,7 +30,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories
 
         }
 
-        public async Task Update(SoliditySmartContract contract)
+        public async Task UpdateAsync(SoliditySmartContract contract)
         {
             if (contract == null)
                 throw new NullReferenceException("Contract is null");
@@ -47,6 +47,22 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories
               .Where(d => d.Name == name);
 
             return smartContractQuery.ToList();
+        }
+
+        public SoliditySmartContract GetLatestVersionSmartContractByName(SmartContractName name)
+        {
+            FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1 };
+
+            IQueryable<SoliditySmartContract> smartContractQuery = _documentClient.CreateDocumentQuery<SoliditySmartContract>(
+                    UriFactory.CreateDocumentCollectionUri(_databaseName, _documentCollectionName), queryOptions)
+                .Where(d => d.Name == name);
+
+            if (!smartContractQuery.Any())
+                throw new Exception($"No contracts of any kind matching name {name} was found in the document DB collection {_documentCollectionName}");
+
+            var sortedContracts = smartContractQuery.OrderByDescending(v => v.Version);
+
+            return sortedContracts.FirstOrDefault();
         }
 
         public void AddContract()
