@@ -211,7 +211,7 @@
     <Compile Include="Repositories\ISmartContractsRepository.cs" />
     <Compile Include="Repositories\SmartContractsRepository.cs" />
     <Compile Include="ServiceAgents\DeviceStoreServiceAgent.cs" />
-    <Compile Include="ServiceAgents\EthereumServiceAgent.cs" />
+    <Compile Include="ServiceAgents\EthereumDeviceMovementServiceAgent.cs" />
     <Compile Include="ServiceAgents\IDeviceStoreServiceAgent.cs" />
     <Compile Include="SubscriberService.cs" />
     <Compile Include="Program.cs" />
