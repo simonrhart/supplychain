@@ -15,11 +15,11 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors
     {
         private PartitionContext _partitionContext;
         private Stopwatch _checkpointStopWatch;
-        private readonly IBlockchainServiceAgent _blockchainServiceAgent;
+        private readonly IDeviceMovementServiceAgent _deviceMovementServiceAgent;
     
-        public GenericEventProcessor(IBlockchainServiceAgent blockchainServiceAgent)
+        public GenericEventProcessor(IDeviceMovementServiceAgent deviceMovementServiceAgent)
         {
-            _blockchainServiceAgent = blockchainServiceAgent;
+            _deviceMovementServiceAgent = deviceMovementServiceAgent;
         }
 
         public async Task CloseAsync(PartitionContext context, CloseReason reason)
@@ -50,7 +50,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors
                     var sensor = JsonConvert.DeserializeObject<Sensor>(Encoding.UTF8.GetString(binaryPayload));
 
                     //send payload to chain (calls smart contract).
-                    _blockchainServiceAgent.PublishAsync(sensor);
+                    _deviceMovementServiceAgent.PublishAsync(sensor);
 
                   //  _logger.InfoFormat("Message received partition: {0} sensor name: {1}, GatwayId: {2}", _partitionContext.Lease.PartitionId, sensor.Name, sensor.GatewayId);
                 }

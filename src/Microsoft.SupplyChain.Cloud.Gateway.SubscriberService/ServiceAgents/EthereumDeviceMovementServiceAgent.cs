@@ -4,33 +4,33 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
-using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories;
-using Microsoft.SupplyChain.Framework.Command;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
 {
-    public class EthereumDeviceMovementServiceAgent : IBlockchainServiceAgent<Sensor>
+    public class EthereumDeviceMovementServiceAgent : IDeviceMovementServiceAgent
     {
         private bool _disposed;
         private readonly Web3 _web3;
         private readonly ISmartContractsRepository _smartContractsRepository;
         private readonly IDeviceStoreServiceAgent _deviceStoreServiceAgent;
+        private readonly IBlockchainServiceAgent _blockchainServiceAgent;
         private readonly ISubscriberService _subscriberService;
         private readonly string _blockchainAdminAccount;
         private readonly string _blockchainAdminPassphrase;
         private string _contractAddress = null;
-        private SoliditySmartContract _deviceMovementSmartContract;
+        private SmartContractDto _deviceMovementSmartContract;
         private Contract _contract;
         private Function _storeMovementFunction;
         private readonly Dictionary<string, Func<DeviceTwinTagsDto>> _deviceTwinFuncs;
 
-        public EthereumDeviceMovementServiceAgent(ISubscriberService subscriberService, ISmartContractsRepository smartContractsRepository, IDeviceStoreServiceAgent deviceStoreServiceAgent)
+        public EthereumDeviceMovementServiceAgent(ISubscriberService subscriberService, ISmartContractsRepository smartContractsRepository, IDeviceStoreServiceAgent deviceStoreServiceAgent, IBlockchainServiceAgent blockchainServiceAgent)
         {
             _smartContractsRepository = smartContractsRepository;
             _deviceStoreServiceAgent = deviceStoreServiceAgent;
+            _blockchainServiceAgent = blockchainServiceAgent;
             _subscriberService = subscriberService;
 
             var configurationPackage = _subscriberService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
@@ -53,17 +53,17 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             _web3 = new Web3(transactionNodeVip);
         }
 
-        public async Task PublishAsync(Sensor payload)
+        public async Task PublishAsync(Sensor payload)  
         {
             // publish the telemetry on the blockchain. Firstly check if we have a reference to the contract.
             if (_contract == null)
             {
                 // get the latest smart contract version to invoke.
-                _deviceMovementSmartContract = _smartContractsRepository.GetLatestSmartContractByName(SmartContractName.DeviceMovement);
+                _deviceMovementSmartContract = _smartContractsRepository.GetLatestVersionSmartContractByName(SmartContractName.DeviceMovement);
 
                 // if it's been removed since we bootstrapped the application, redeploy it.
                 if (!_deviceMovementSmartContract.IsDeployed)
-                    await DeploySmartContractAsync(_deviceMovementSmartContract);
+                    await _blockchainServiceAgent.DeploySmartContractAsync(_deviceMovementSmartContract);
 
                 // now load the contract using the contract address
 
@@ -87,8 +87,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
 
             if (!unlockResult)
                 throw new Exception($"Unable to unlock account {deviceTwin.BlockchainAccount}");
-
-
+            
             var transactionsHash =
                 await
                     _storeMovementFunction.SendTransactionAsync(deviceTwin.BlockchainAccount, new HexBigInteger(900000), null, payload.DeviceId, payload.GpsLat, payload.GpsLong, payload.TemperatureInCelcius, payload.DeviceId);
@@ -102,37 +101,9 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
                 receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
             }
 
+
             
         }
-
-
        
-
-        public async Task DeploySmartContractAsync(SoliditySmartContract smartContract)
-        {
-            // unlock the admin account first for 120 seconds
-            var unlockResult = await _web3.Personal.UnlockAccount.SendRequestAsync(_blockchainAdminAccount, _blockchainAdminPassphrase, 120);
-
-            var transactionsHash =
-              await _web3.Eth.DeployContract.SendRequestAsync(smartContract.ByteCode, _blockchainAdminAccount, new HexBigInteger(900000));
-
-            var receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
-
-            // wait for the transaction (smart contract deploy) to be mined.
-            while (receipt == null)
-            {
-                Thread.Sleep(5000);
-                receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
-            }
-
-            // now we have the contract address we need to update the documentDB record
-            _contractAddress = receipt.ContractAddress;
-
-            smartContract.Address = _contractAddress;
-            smartContract.IsDeployed = true;
-
-            // now update the smart contract so we know it has been deployed along with the smart contract address.
-            await _smartContractsRepository.UpdateAsync(smartContract);
-        }
     }
 }

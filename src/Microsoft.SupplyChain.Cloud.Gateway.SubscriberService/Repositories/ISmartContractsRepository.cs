@@ -6,10 +6,10 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories
 {
     public interface ISmartContractsRepository
     {
-        List<SoliditySmartContract> GetAllSmartContractsByName(SmartContractName name);
+        List<SmartContractDto> GetAllSmartContractsByName(SmartContractName name);
 
-        Task UpdateAsync(SoliditySmartContract contract);
+        Task UpdateAsync(SmartContractDto contract);
 
-        SoliditySmartContract GetLatestSmartContractByName(SmartContractName name);
+        SmartContractDto GetLatestVersionSmartContractByName(SmartContractName name);
     }
 }

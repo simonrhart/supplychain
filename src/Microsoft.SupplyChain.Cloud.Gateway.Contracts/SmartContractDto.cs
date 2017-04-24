@@ -2,7 +2,7 @@
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
 {
-    public class SoliditySmartContract
+    public class SmartContractDto
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
@@ -20,8 +20,5 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
         public SmartContractName Name { get; set; }
     }
 
-    public enum SmartContractName
-    {
-        DeviceMovement
-    }
+   
 }

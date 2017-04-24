@@ -4,28 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
-using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
+using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories
+namespace Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService.Repositories
 {
-    public class SmartContractsRepository : ISmartContractsRepository
+    public class SmartContractsRepository : ITrackerStoreRepository
     {
-        private readonly ISubscriberService _subscriberService;
+        private readonly ITrackerStoreService _trackerStoreService;
         private readonly DocumentClient _documentClient;
         private string _databaseName = "AdminDB";
-        private string _documentCollectionName = "SmartContractsCollection";
-               
-        public SmartContractsRepository(ISubscriberService subscriberService)
+        private string _documentCollectionName = "TrackerStoreCollection";
+
+        public SmartContractsRepository(ITrackerStoreService trackerStoreService)
         {
-            _subscriberService = subscriberService;
+            _trackerStoreService = trackerStoreService;
 
             // read docDB from service fabric configuration package.
-            var configurationPackage = _subscriberService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
-            var documentDbSection = configurationPackage.Settings.Sections["DocumentDB"].Parameters;                 
-        
+            var configurationPackage = _trackerStoreService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            var documentDbSection = configurationPackage.Settings.Sections["DocumentDB"].Parameters;
+
             _documentClient = new DocumentClient(new Uri(documentDbSection["DocumentDBEndpointUri"].Value), documentDbSection["DocumentDBPrimaryKey"].Value);
             Task.Run(async () => await _documentClient.CreateDatabaseIfNotExistsAsync(new Database { Id = _databaseName })).GetAwaiter().GetResult();
-            Task.Run(async () => await _documentClient.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(_databaseName), new DocumentCollection { Id = _documentCollectionName })).GetAwaiter().GetResult();                   
+            Task.Run(async () => await _documentClient.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(_databaseName), new DocumentCollection { Id = _documentCollectionName })).GetAwaiter().GetResult();
 
 
         }
@@ -37,15 +37,15 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories
 
             await _documentClient.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(_databaseName, _documentCollectionName, contract.Id), contract);
         }
-        
+
 
         public List<SmartContractDto> GetAllSmartContractsByName(SmartContractName name)
         {
             FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1 };
 
             IQueryable<SmartContractDto> smartContractQuery = _documentClient.CreateDocumentQuery<SmartContractDto>(
-              UriFactory.CreateDocumentCollectionUri(_databaseName, _documentCollectionName), queryOptions)
-              .Where(d => d.Name == name);
+                    UriFactory.CreateDocumentCollectionUri(_databaseName, _documentCollectionName), queryOptions)
+                .Where(d => d.Name == name);
 
             return smartContractQuery.ToList();
         }
@@ -79,7 +79,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories
             test.Abi = "[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"bytes32\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"telemetryCollection\",\"outputs\":[{\"name\":\"lat\",\"type\":\"string\"},{\"name\":\"long\",\"type\":\"string\"},{\"name\":\"temperatureInCelcius\",\"type\":\"int256\"},{\"name\":\"sender\",\"type\":\"address\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"key\",\"type\":\"bytes32\"},{\"name\":\"lat\",\"type\":\"string\"},{\"name\":\"long\",\"type\":\"string\"},{\"name\":\"temperatureInCelcius\",\"type\":\"int256\"}],\"name\":\"StoreMovement\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"}]";
 
             Task.Run(async () => await _documentClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(_databaseName, _documentCollectionName), test)).GetAwaiter().GetResult();
-        }      
+        }
 
 
     }

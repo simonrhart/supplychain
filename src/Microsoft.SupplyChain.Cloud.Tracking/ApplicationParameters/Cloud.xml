@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/Microsoft.SupplyChain.Cloud.Tracking" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="TrackerStoreService_InstanceCount" Value="-1" />
+    <Parameter Name="DocumentDBEndpointUri" Value="https://supplychain.documents.azure.com:443/" />
+    <Parameter Name="DocumentDBPrimaryKey" Value="cLyqvQoyu1VFbAfk26RjCX3ibEnQ3fH94ZgpT6FjwVNY7HoDEnZMSqPmRmdQvOXxob0YWdrZmttWGZ0gzsi8VA==" />
+    <Parameter Name="DocumentDBSecondaryKey" Value="gcnSixh8nLsHNfe5c9pPZ1qL9T9TvO4IBwHjObjcnebq593EJkh9JkVCK3f7tjooH3VuQUcddxIbwKYxmHatnQ==" />
+
+  </Parameters>
+</Application>

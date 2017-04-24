@@ -198,12 +198,10 @@
   <ItemGroup>
     <Compile Include="Commands\BlockchainContractBootstrapperCommand.cs" />
     <Compile Include="Commands\BlockchainContractBootstrapperContext.cs" />
-    <Compile Include="Commands\BlockchainPublisherCommand.cs" />
     <Compile Include="Commands\IoTHubSubscriberCommand.cs" />
     <Compile Include="Commands\IoTHubSubscriberContext.cs" />
     <Compile Include="Configuration\DefaultContainerBuilder.cs" />
     <Compile Include="Configuration\IContainerBuilder.cs" />
-    <Compile Include="Commands\BlockchainPublisherContext.cs" />
     <Compile Include="ISubscriberService.cs" />
     <Compile Include="Processors\GenericEventProcessor.cs" />
     <Compile Include="Processors\GenericEventProcessorFactory.cs" />
@@ -212,6 +210,7 @@
     <Compile Include="Repositories\SmartContractsRepository.cs" />
     <Compile Include="ServiceAgents\DeviceStoreServiceAgent.cs" />
     <Compile Include="ServiceAgents\EthereumDeviceMovementServiceAgent.cs" />
+    <Compile Include="ServiceAgents\EthereumServiceAgent.cs" />
     <Compile Include="ServiceAgents\IDeviceStoreServiceAgent.cs" />
     <Compile Include="SubscriberService.cs" />
     <Compile Include="Program.cs" />
@@ -245,6 +244,10 @@
     <ProjectReference Include="..\Microsoft.SupplyChain.Cloud.Gateway.Contracts\Microsoft.SupplyChain.Cloud.Gateway.Contracts.csproj">
       <Project>{c6ebe3a3-50f6-4bcb-a71e-b21c99d74173}</Project>
       <Name>Microsoft.SupplyChain.Cloud.Gateway.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.SupplyChain.Cloud.Tracking.Contracts\Microsoft.SupplyChain.Cloud.Tracking.Contracts.csproj">
+      <Project>{243003c3-a236-4353-9433-ee5497271379}</Project>
+      <Name>Microsoft.SupplyChain.Cloud.Tracking.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Microsoft.SupplyChain.Framework\Microsoft.SupplyChain.Framework.csproj">
       <Project>{05cd2ca8-9ef7-4232-a362-e430b33193c2}</Project>

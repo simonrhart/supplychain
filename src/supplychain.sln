@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Microsoft.SupplyChain.Cloud.Gateway", "Microsoft.SupplyChain.Cloud.Gateway\Microsoft.SupplyChain.Cloud.Gateway.sfproj", "{5BC200ED-49D3-428E-8E82-2BDA2EE23881}"
 EndProject
@@ -35,6 +35,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService", "Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService\Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService.csproj", "{AB162AF9-9C13-4F5C-B249-8A131AC1C586}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Administration.Contracts", "Microsoft.SupplyChain.Cloud.Administration.Contracts\Microsoft.SupplyChain.Cloud.Administration.Contracts.csproj", "{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tracker services", "Tracker services", "{6FA7C7EB-BB95-42C7-B71E-22962AD9CB19}"
+EndProject
+Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Microsoft.SupplyChain.Cloud.Tracking", "Microsoft.SupplyChain.Cloud.Tracking\Microsoft.SupplyChain.Cloud.Tracking.sfproj", "{5332B760-6713-4F18-9EB2-4EBD3927089D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService", "Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService\Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService.csproj", "{DF4A3C66-0613-493B-9351-56039A624287}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Tracking.Contracts", "Microsoft.SupplyChain.Cloud.Tracking.Contracts\Microsoft.SupplyChain.Cloud.Tracking.Contracts.csproj", "{243003C3-A236-4353-9433-EE5497271379}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -118,6 +126,28 @@ Global
 		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}.Release|x64.ActiveCfg = Release|Any CPU
 		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}.Release|x64.Build.0 = Release|Any CPU
+		{5332B760-6713-4F18-9EB2-4EBD3927089D}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{5332B760-6713-4F18-9EB2-4EBD3927089D}.Debug|x64.ActiveCfg = Debug|x64
+		{5332B760-6713-4F18-9EB2-4EBD3927089D}.Debug|x64.Build.0 = Debug|x64
+		{5332B760-6713-4F18-9EB2-4EBD3927089D}.Debug|x64.Deploy.0 = Debug|x64
+		{5332B760-6713-4F18-9EB2-4EBD3927089D}.Release|Any CPU.ActiveCfg = Release|x64
+		{5332B760-6713-4F18-9EB2-4EBD3927089D}.Release|x64.ActiveCfg = Release|x64
+		{5332B760-6713-4F18-9EB2-4EBD3927089D}.Release|x64.Build.0 = Release|x64
+		{5332B760-6713-4F18-9EB2-4EBD3927089D}.Release|x64.Deploy.0 = Release|x64
+		{DF4A3C66-0613-493B-9351-56039A624287}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{DF4A3C66-0613-493B-9351-56039A624287}.Debug|x64.ActiveCfg = Debug|x64
+		{DF4A3C66-0613-493B-9351-56039A624287}.Debug|x64.Build.0 = Debug|x64
+		{DF4A3C66-0613-493B-9351-56039A624287}.Release|Any CPU.ActiveCfg = Release|x64
+		{DF4A3C66-0613-493B-9351-56039A624287}.Release|x64.ActiveCfg = Release|x64
+		{DF4A3C66-0613-493B-9351-56039A624287}.Release|x64.Build.0 = Release|x64
+		{243003C3-A236-4353-9433-EE5497271379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{243003C3-A236-4353-9433-EE5497271379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{243003C3-A236-4353-9433-EE5497271379}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{243003C3-A236-4353-9433-EE5497271379}.Debug|x64.Build.0 = Debug|Any CPU
+		{243003C3-A236-4353-9433-EE5497271379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{243003C3-A236-4353-9433-EE5497271379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{243003C3-A236-4353-9433-EE5497271379}.Release|x64.ActiveCfg = Release|Any CPU
+		{243003C3-A236-4353-9433-EE5497271379}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,5 +163,8 @@ Global
 		{AF88F7C6-E3DF-463A-B7DC-D8F2BF594814} = {A3F47835-D37A-4924-8A52-B344D0B01C46}
 		{AB162AF9-9C13-4F5C-B249-8A131AC1C586} = {A3F47835-D37A-4924-8A52-B344D0B01C46}
 		{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9} = {A3F47835-D37A-4924-8A52-B344D0B01C46}
+		{5332B760-6713-4F18-9EB2-4EBD3927089D} = {6FA7C7EB-BB95-42C7-B71E-22962AD9CB19}
+		{DF4A3C66-0613-493B-9351-56039A624287} = {6FA7C7EB-BB95-42C7-B71E-22962AD9CB19}
+		{243003C3-A236-4353-9433-EE5497271379} = {6FA7C7EB-BB95-42C7-B71E-22962AD9CB19}
 	EndGlobalSection
 EndGlobal

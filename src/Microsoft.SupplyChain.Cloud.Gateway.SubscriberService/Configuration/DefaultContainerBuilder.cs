@@ -48,12 +48,6 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Configuration
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
                 .LifestyleTransient());
 
-            _container.Register(Component.For<ICommand<BlockchainPublisherContext>>()
-                .ImplementedBy<BlockchainPublisherCommand>()
-                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
-                .LifestyleTransient());
-
-
         }
 
         public void BuildServiceAgents()
@@ -71,6 +65,11 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Configuration
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor"))
                 .Anywhere);
 
+            _container.Register(Component.For<IDeviceMovementServiceAgent>()
+                .ImplementedBy<EthereumDeviceMovementServiceAgent>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
+            
         }
 
 
