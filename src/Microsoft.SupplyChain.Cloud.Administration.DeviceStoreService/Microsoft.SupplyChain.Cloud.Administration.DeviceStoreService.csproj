@@ -114,6 +114,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Repositories\DeviceStoreRepository.cs" />
     <Compile Include="ServiceEventSource.cs" />
+    <Compile Include="ServiceFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PackageRoot\Config\Settings.xml" />

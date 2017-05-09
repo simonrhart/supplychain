@@ -14,13 +14,9 @@ namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService.Reposito
     {
         private readonly RegistryManager _registryManager;
 
-        public DeviceStoreRepository(string iotHubConnectionString)
+        public DeviceStoreRepository(RegistryManager registryManager)
         {
-            if (string.IsNullOrEmpty(iotHubConnectionString))
-                throw new Exception(
-                    "IoTHubConnectionString is not defined. Check ApplicationParameters in the Service Fabric config package.");
-    
-            _registryManager = RegistryManager.CreateFromConnectionString(iotHubConnectionString);
+            _registryManager = registryManager ?? throw new ArgumentNullException(nameof(registryManager));
         }
 
         public async Task<DeviceTwinTagsDto> GetDeviceTwinTagsByIdAsync(string id)
@@ -29,7 +25,7 @@ namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService.Reposito
 
             if (deviceTwin == null)
             {
-                throw new Exception($"Unable to get device twin for device Id: {id} from the identity store.");
+                throw new ArgumentException($"Unable to get device twin for device Id: {id} from the identity store.");
             }
 
             // get the tags for this device.

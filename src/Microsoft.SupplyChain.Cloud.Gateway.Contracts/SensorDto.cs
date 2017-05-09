@@ -1,10 +1,11 @@
 ﻿using System;
+using Microsoft.SupplyChain.Framework.Dto;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
 {
-    public class Sensor : Base<Sensor>
+    public class SensorDto : BaseDto<SensorDto>
     {
-        public Sensor(string lat, string lg, int temperatureInCelcius, string deviceId, DateTime timeStamp)
+        public SensorDto(string id, string lat, string lg, int temperatureInCelcius, string deviceId, DateTime timeStamp) : base(id)
         {   
             DeviceId = deviceId;          
             GpsLat = lat;

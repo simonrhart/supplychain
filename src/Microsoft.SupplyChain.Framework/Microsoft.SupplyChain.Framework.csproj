@@ -71,6 +71,7 @@
     <Compile Include="Command\CommandAbstractFactory.cs" />
     <Compile Include="Command\ICommand.cs" />
     <Compile Include="Command\ICommandAbstractFactory.cs" />
+    <Compile Include="Dto\BaseDto.cs" />
     <Compile Include="Interceptors\ConsoleOutputInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFabric\IStatelessServiceContext.cs" />

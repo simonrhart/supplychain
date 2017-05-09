@@ -12,7 +12,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
 
         public DeviceStoreServiceAgent(IDeviceStoreService deviceStoreService)
         {
-            _deviceStoreService = deviceStoreService;
+            _deviceStoreService = deviceStoreService ?? throw new ArgumentNullException(nameof(deviceStoreService));
         }
 
         public async Task<DeviceTwinTagsDto> GetDeviceTwinTagsByIdAsync(string id)

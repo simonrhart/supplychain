@@ -4,6 +4,6 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
 {
     public interface IDeviceMovementServiceAgent
     {
-        Task PublishAsync(Sensor payload);
+        Task PublishAsync(SensorDto payload);
     }
 }

@@ -25,6 +25,9 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService
 
         }
 
-       
+        public async Task Publish(TrackerHashDto trackerHashDto)
+        {
+            return;
+        }
     }
 }

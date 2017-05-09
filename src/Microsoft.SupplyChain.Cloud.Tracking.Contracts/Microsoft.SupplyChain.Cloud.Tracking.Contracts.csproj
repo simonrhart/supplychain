@@ -71,9 +71,16 @@
     <Compile Include="ITrackerStoreRepository.cs" />
     <Compile Include="ITrackerStoreService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrackerHashDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.SupplyChain.Framework\Microsoft.SupplyChain.Framework.csproj">
+      <Project>{05CD2CA8-9EF7-4232-A362-E430B33193C2}</Project>
+      <Name>Microsoft.SupplyChain.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

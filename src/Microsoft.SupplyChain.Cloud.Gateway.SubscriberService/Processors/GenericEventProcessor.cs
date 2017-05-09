@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ServiceBus.Messaging;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
-using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands;
-using Microsoft.SupplyChain.Framework.Command;
 using Newtonsoft.Json;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors
@@ -47,7 +45,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors
                 {
                     byte[] binaryPayload = eventData.GetBytes();
 
-                    var sensor = JsonConvert.DeserializeObject<Sensor>(Encoding.UTF8.GetString(binaryPayload));
+                    var sensor = JsonConvert.DeserializeObject<SensorDto>(Encoding.UTF8.GetString(binaryPayload));
 
                     //send payload to chain (calls smart contract).
                     _deviceMovementServiceAgent.PublishAsync(sensor);

@@ -212,6 +212,8 @@
     <Compile Include="ServiceAgents\EthereumDeviceMovementServiceAgent.cs" />
     <Compile Include="ServiceAgents\EthereumServiceAgent.cs" />
     <Compile Include="ServiceAgents\IDeviceStoreServiceAgent.cs" />
+    <Compile Include="ServiceAgents\ITrackerStoreServiceAgent.cs" />
+    <Compile Include="ServiceAgents\TrackerStoreServiceAgent.cs" />
     <Compile Include="SubscriberService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ServiceEventSource.cs" />

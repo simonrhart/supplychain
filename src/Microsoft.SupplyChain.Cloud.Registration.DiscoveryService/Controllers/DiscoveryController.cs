@@ -42,7 +42,5 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Controllers
                 });
             }
         }
-
-  
     }
 }

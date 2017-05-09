@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories;
+using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3;
 
@@ -17,6 +18,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
         private readonly ISmartContractsRepository _smartContractsRepository;
         private readonly IDeviceStoreServiceAgent _deviceStoreServiceAgent;
         private readonly IBlockchainServiceAgent _blockchainServiceAgent;
+        private readonly ITrackerStoreServiceAgent _trackerStoreServiceAgent;
         private readonly ISubscriberService _subscriberService;
         private readonly string _blockchainAdminAccount;
         private readonly string _blockchainAdminPassphrase;
@@ -26,12 +28,17 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
         private Function _storeMovementFunction;
         private readonly Dictionary<string, Func<DeviceTwinTagsDto>> _deviceTwinFuncs;
 
-        public EthereumDeviceMovementServiceAgent(ISubscriberService subscriberService, ISmartContractsRepository smartContractsRepository, IDeviceStoreServiceAgent deviceStoreServiceAgent, IBlockchainServiceAgent blockchainServiceAgent)
+        public EthereumDeviceMovementServiceAgent(ISubscriberService subscriberService, 
+                                                  ISmartContractsRepository smartContractsRepository, 
+                                                  IDeviceStoreServiceAgent deviceStoreServiceAgent, 
+                                                  IBlockchainServiceAgent blockchainServiceAgent, 
+                                                  ITrackerStoreServiceAgent trackerStoreServiceAgent)
         {
-            _smartContractsRepository = smartContractsRepository;
-            _deviceStoreServiceAgent = deviceStoreServiceAgent;
-            _blockchainServiceAgent = blockchainServiceAgent;
-            _subscriberService = subscriberService;
+            _smartContractsRepository = smartContractsRepository ?? throw new ArgumentNullException(nameof(smartContractsRepository));
+            _deviceStoreServiceAgent = deviceStoreServiceAgent ?? throw new ArgumentNullException(nameof(deviceStoreServiceAgent));
+            _blockchainServiceAgent = blockchainServiceAgent ?? throw new ArgumentNullException(nameof(blockchainServiceAgent));
+            _trackerStoreServiceAgent = trackerStoreServiceAgent ?? throw new ArgumentNullException(nameof(trackerStoreServiceAgent));
+            _subscriberService = subscriberService ?? throw new ArgumentNullException(nameof(subscriberService));
 
             var configurationPackage = _subscriberService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
             var blockchainSection = configurationPackage.Settings.Sections["Blockchain"].Parameters;
@@ -53,7 +60,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             _web3 = new Web3(transactionNodeVip);
         }
 
-        public async Task PublishAsync(Sensor payload)  
+        public async Task PublishAsync(SensorDto payload)  
         {
             // publish the telemetry on the blockchain. Firstly check if we have a reference to the contract.
             if (_contract == null)
@@ -81,7 +88,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
                 deviceTwin = await _deviceStoreServiceAgent.GetDeviceTwinTagsByIdAsync(payload.DeviceId);
                 _deviceTwinFuncs.Add(payload.DeviceId, () => deviceTwin);
             }
-
+            
             // unlock the account.
             var unlockResult = await _web3.Personal.UnlockAccount.SendRequestAsync(deviceTwin.BlockchainAccount, deviceTwin.BlockchainPassphrase, 1000);
 
@@ -90,7 +97,12 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             
             var transactionsHash =
                 await
-                    _storeMovementFunction.SendTransactionAsync(deviceTwin.BlockchainAccount, new HexBigInteger(900000), null, payload.DeviceId, payload.GpsLat, payload.GpsLong, payload.TemperatureInCelcius, payload.DeviceId);
+                    _storeMovementFunction.SendTransactionAsync(deviceTwin.BlockchainAccount, new HexBigInteger(900000), null, 
+                    payload.Id, // this is the index for the record
+                    payload.GpsLat, 
+                    payload.GpsLong, 
+                    payload.TemperatureInCelcius, 
+                    payload.DeviceId);
 
             // check it has been mined.
             var receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
@@ -101,8 +113,11 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
                 receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
             }
 
-
-            
+            // now pass the transaction hash and id of the record so we can find it within blockchain or the smart contract to the tracking service, no need to await this process.
+#pragma warning disable 4014
+            _trackerStoreServiceAgent.Publish(
+#pragma warning restore 4014
+                    new TrackerHashDto(payload.Id, receipt.TransactionHash, payload.DeviceId, payload.Timestamp));
         }
        
     }
