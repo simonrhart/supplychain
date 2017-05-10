@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using Castle.Windsor;
-using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuration;
 using Microsoft.SupplyChain.Framework;
+using Microsoft.SupplyChain.Framework.Mvc;
 using Owin;
 
 namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService

@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Supplychain.Cloud.Administration.DeviceStoreService.Tests", "Microsoft.Supplychain.Cloud.Administration.Tests\Microsoft.Supplychain.Cloud.Administration.DeviceStoreService.Tests.csproj", "{7F3EA499-0CD5-4083-AA96-7CBD1362673F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{6CD9C053-65EB-4A8B-9764-FEBAADED8A4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -15,9 +15,13 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService
     /// </summary>
     internal sealed class TrackerStoreService : StatelessService, ITrackerStoreService
     {
-        public TrackerStoreService(StatelessServiceContext context)
+        private readonly ITrackerStoreRepository _trackerStoreRepository;
+
+        public TrackerStoreService(StatelessServiceContext context, ITrackerStoreRepository trackerStoreRepository)
             : base(context)
-        { }
+        {
+            _trackerStoreRepository = trackerStoreRepository;
+        }
 
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
@@ -25,9 +29,12 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService
 
         }
 
-        public async Task Publish(TrackerHashDto trackerHashDto)
+        public async Task PublishAsync(TrackerHashDto trackerHashDto)
         {
-            return;
+            if (trackerHashDto == null)
+                throw new ArgumentNullException(nameof(trackerHashDto));
+
+            await _trackerStoreRepository.UpdateAsync(trackerHashDto);
         }
     }
 }

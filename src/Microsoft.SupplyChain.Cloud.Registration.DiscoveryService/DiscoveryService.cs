@@ -2,6 +2,8 @@
 using System.Fabric;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
+using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Controllers;
+using Microsoft.SupplyChain.Framework;
 
 namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
 {
@@ -12,7 +14,8 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
     {
         public DiscoveryService(StatelessServiceContext context)
             : base(context)
-        { }
+        {
+        }
 
         /// <summary>
         /// Optional override to create listeners (like tcp, http) for this service instance.
@@ -22,8 +25,10 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
         {
             return new[]
             {
-                new ServiceInstanceListener(serviceContext => new OwinCommunicationListener(Startup.ConfigureApp, serviceContext, ServiceEventSource.Current, "ServiceEndpoint"))
+                new ServiceInstanceListener(serviceContext => new OwinCommunicationListener(Startup.ConfigureApp,
+                    serviceContext, ServiceEventSource.Current, "ServiceEndpoint")),
             };
         }
+
     }
 }

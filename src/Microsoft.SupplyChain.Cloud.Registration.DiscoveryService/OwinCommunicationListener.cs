@@ -12,15 +12,15 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
 {
     internal class OwinCommunicationListener : ICommunicationListener
     {
-        private readonly ServiceEventSource eventSource;
-        private readonly Action<IAppBuilder> startup;
-        private readonly ServiceContext serviceContext;
-        private readonly string endpointName;
-        private readonly string appRoot;
+        private readonly ServiceEventSource _eventSource;
+        private readonly Action<IAppBuilder> _startup;
+        private readonly ServiceContext _serviceContext;
+        private readonly string _endpointName;
+        private readonly string _appRoot;
 
-        private IDisposable webApp;
-        private string publishAddress;
-        private string listeningAddress;
+        private IDisposable _webApp;
+        private string _publishAddress;
+        private string _listeningAddress;
 
         public OwinCommunicationListener(Action<IAppBuilder> startup, ServiceContext serviceContext, ServiceEventSource eventSource, string endpointName)
             : this(startup, serviceContext, eventSource, endpointName, null)
@@ -29,85 +29,65 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
 
         public OwinCommunicationListener(Action<IAppBuilder> startup, ServiceContext serviceContext, ServiceEventSource eventSource, string endpointName, string appRoot)
         {
-            if (startup == null)
-            {
-                throw new ArgumentNullException(nameof(startup));
-            }
-
-            if (serviceContext == null)
-            {
-                throw new ArgumentNullException(nameof(serviceContext));
-            }
-
-            if (endpointName == null)
-            {
-                throw new ArgumentNullException(nameof(endpointName));
-            }
-
-            if (eventSource == null)
-            {
-                throw new ArgumentNullException(nameof(eventSource));
-            }
-
-            this.startup = startup;
-            this.serviceContext = serviceContext;
-            this.endpointName = endpointName;
-            this.eventSource = eventSource;
-            this.appRoot = appRoot;
+            this._startup = startup ?? throw new ArgumentNullException(nameof(startup));
+            this._serviceContext = serviceContext ?? throw new ArgumentNullException(nameof(serviceContext));
+            this._endpointName = endpointName ?? throw new ArgumentNullException(nameof(endpointName));
+            this._eventSource = eventSource ?? throw new ArgumentNullException(nameof(eventSource));
+            this._appRoot = appRoot;
         }
 
         public bool ListenOnSecondary { get; set; }
 
         public Task<string> OpenAsync(CancellationToken cancellationToken)
         {
-            var serviceEndpoint = this.serviceContext.CodePackageActivationContext.GetEndpoint(this.endpointName);
+            var serviceEndpoint = this._serviceContext.CodePackageActivationContext.GetEndpoint(this._endpointName);
             int port = serviceEndpoint.Port;
 
-            if (this.serviceContext is StatefulServiceContext)
+            if (this._serviceContext is StatefulServiceContext)
             {
-                StatefulServiceContext statefulServiceContext = this.serviceContext as StatefulServiceContext;
+                StatefulServiceContext statefulServiceContext = this._serviceContext as StatefulServiceContext;
 
-                this.listeningAddress = string.Format(
+                this._listeningAddress = string.Format(
                     CultureInfo.InvariantCulture,
                     "http://+:{0}/{1}{2}/{3}/{4}",
                     port,
-                    string.IsNullOrWhiteSpace(this.appRoot)
+                    string.IsNullOrWhiteSpace(this._appRoot)
                         ? string.Empty
-                        : this.appRoot.TrimEnd('/') + '/',
+                        : this._appRoot.TrimEnd('/') + '/',
                     statefulServiceContext.PartitionId,
                     statefulServiceContext.ReplicaId,
                     Guid.NewGuid());
             }
-            else if (this.serviceContext is StatelessServiceContext)
+            else if (this._serviceContext is StatelessServiceContext)
             {
-                this.listeningAddress = string.Format(
+                this._listeningAddress = string.Format(
                     CultureInfo.InvariantCulture,
                     "http://+:{0}/{1}",
                     port,
-                    string.IsNullOrWhiteSpace(this.appRoot)
+                    string.IsNullOrWhiteSpace(this._appRoot)
                         ? string.Empty
-                        : this.appRoot.TrimEnd('/') + '/');
+                        : this._appRoot.TrimEnd('/') + '/');
             }
             else
             {
                 throw new InvalidOperationException();
             }
 
-            this.publishAddress = this.listeningAddress.Replace("+", FabricRuntime.GetNodeContext().IPAddressOrFQDN);
+            this._publishAddress = this._listeningAddress.Replace("+", FabricRuntime.GetNodeContext().IPAddressOrFQDN);
 
             try
             {
-                this.eventSource.ServiceMessage(this.serviceContext, "Starting web server on " + this.listeningAddress);
+                this._eventSource.ServiceMessage(this._serviceContext, "Starting web server on " + this._listeningAddress);
 
-                this.webApp = WebApp.Start(this.listeningAddress, appBuilder => this.startup.Invoke(appBuilder));
+                this._webApp = WebApp.Start(this._listeningAddress, appBuilder => this._startup.Invoke(appBuilder));
 
-                this.eventSource.ServiceMessage(this.serviceContext, "Listening on " + this.publishAddress);
+                this._eventSource.ServiceMessage(this._serviceContext, "Listening on " + this._publishAddress);
 
-                return Task.FromResult(this.publishAddress);
+                return Task.FromResult(this._publishAddress);
             }
             catch (Exception ex)
             {
-                this.eventSource.ServiceMessage(this.serviceContext, "Web server failed to open. " + ex.ToString());
+                this._eventSource.ServiceMessage(this._serviceContext, "Web server failed to open. " + ex.ToString());
 
                 this.StopWebServer();
 
@@ -117,7 +97,7 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
 
         public Task CloseAsync(CancellationToken cancellationToken)
         {
-            this.eventSource.ServiceMessage(this.serviceContext, "Closing web server");
+            this._eventSource.ServiceMessage(this._serviceContext, "Closing web server");
 
             this.StopWebServer();
 
@@ -126,18 +106,18 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
 
         public void Abort()
         {
-            this.eventSource.ServiceMessage(this.serviceContext, "Aborting web server");
+            this._eventSource.ServiceMessage(this._serviceContext, "Aborting web server");
 
             this.StopWebServer();
         }
 
         private void StopWebServer()
         {
-            if (this.webApp != null)
+            if (this._webApp != null)
             {
                 try
                 {
-                    this.webApp.Dispose();
+                    this._webApp.Dispose();
                 }
                 catch (ObjectDisposedException)
                 {

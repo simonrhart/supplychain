@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Http.Dependencies;
 using Castle.Windsor;
 
-namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
+namespace Microsoft.SupplyChain.Framework.Mvc
 {
     public class CastleDependencyResolver : IDependencyResolver
     {

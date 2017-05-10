@@ -19,7 +19,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             try
             {
                 // now invoke the service fabric service.
-                return _trackerStoreService.Publish(trackerHashDto);
+                return _trackerStoreService.PublishAsync(trackerHashDto);
             }
             catch (FabricServiceNotFoundException notFoundex)
             {

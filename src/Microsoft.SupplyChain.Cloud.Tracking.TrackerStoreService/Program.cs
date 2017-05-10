@@ -16,9 +16,7 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService
         {
             try
             {
-         
-                ServiceRuntime.RegisterServiceAsync("TrackerStoreServiceType",
-                    context => new TrackerStoreService(context)).GetAwaiter().GetResult();
+                ServiceRuntime.RegisterServiceAsync("TrackerStoreServiceType",ServiceFactory.CreateService).GetAwaiter().GetResult();
 
                 ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(TrackerStoreService).Name);
 

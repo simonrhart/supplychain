@@ -130,7 +130,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CastleDependencyResolver.cs" />
     <Compile Include="Commands\GenerateIoTSecurityTokenCommand.cs" />
     <Compile Include="Commands\GenerateIoTSecurityTokenContext.cs" />
     <Compile Include="Configuration\DefaultContainerBuilder.cs" />
