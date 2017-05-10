@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Fabric;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.ServiceFabric.Services.Runtime;
 
-namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
+namespace Microsoft.SupplyChain.Framework
 {
-    [EventSource(Name = "MyCompany-Microsoft.SupplyChain.Cloud.Registration-DiscoveryService")]
-    internal sealed class ServiceEventSource : EventSource
+    [EventSource(Name = "Microsoft.SupplyChain")]
+    public sealed class ServiceEventSource : EventSource
     {
         public static readonly ServiceEventSource Current = new ServiceEventSource();
 

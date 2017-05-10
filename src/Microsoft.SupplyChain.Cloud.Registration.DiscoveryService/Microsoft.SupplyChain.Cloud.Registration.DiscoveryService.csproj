@@ -130,22 +130,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Microsoft.SupplyChain.Framework\Mvc\ProbeController.cs">
+      <Link>Controllers\ProbeController.cs</Link>
+    </Compile>
     <Compile Include="Commands\GenerateIoTSecurityTokenCommand.cs" />
     <Compile Include="Commands\GenerateIoTSecurityTokenContext.cs" />
     <Compile Include="Configuration\DefaultContainerBuilder.cs" />
     <Compile Include="Configuration\IContainerBuilder.cs" />
-    <Compile Include="Controllers\ProbeController.cs" />
     <Compile Include="ServiceAgents\DeviceStoreServiceAgent.cs" />
     <Compile Include="ServiceAgents\IDeviceStoreServiceAgent.cs" />
     <Compile Include="IDiscoveryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\DiscoveryController.cs" />
-    <Compile Include="OwinCommunicationListener.cs" />
     <Compile Include="DiscoveryService.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ServiceEventSource.cs" />
-    <Compile Include="Startup.cs" />
-    <Compile Include="ServiceRequestActionFilterAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PackageRoot\Config\Settings.xml" />

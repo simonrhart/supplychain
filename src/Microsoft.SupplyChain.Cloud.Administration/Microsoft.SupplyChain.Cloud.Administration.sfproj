@@ -30,6 +30,7 @@
     <ProjectReference Include="..\Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService\Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app.config" />
     <Content Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />

@@ -2,7 +2,7 @@
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
+namespace Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
     internal sealed class ServiceRequestActionFilterAttribute : ActionFilterAttribute

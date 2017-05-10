@@ -4,6 +4,7 @@ using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Controllers;
 using Microsoft.SupplyChain.Framework;
+using Microsoft.SupplyChain.Framework.Mvc;
 
 namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
 {
@@ -25,7 +26,7 @@ namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService
         {
             return new[]
             {
-                new ServiceInstanceListener(serviceContext => new OwinCommunicationListener(Startup.ConfigureApp,
+                new ServiceInstanceListener(serviceContext => new OwinCommunicationListener(StartupWithWindsor.ConfigureApp,
                     serviceContext, ServiceEventSource.Current, "ServiceEndpoint")),
             };
         }
