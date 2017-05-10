@@ -3,9 +3,9 @@ using System.Fabric;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
-using Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService.Repositories;
+using Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Repositories;
 
-namespace Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService
+namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService
 {
     public static class ServiceFactory
     {
@@ -25,7 +25,7 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService
             var documentClient = new DocumentClient(new Uri(uri), documentDbPrimaryKey);
             
             ITrackerStoreRepository trackerStoreRepository = new TrackerStoreRepository(documentClient);
-            var service = new TrackerStoreService(context, trackerStoreRepository);
+            var service = new TrackingStoreService(context, trackerStoreRepository);
             return service;
         }
     }

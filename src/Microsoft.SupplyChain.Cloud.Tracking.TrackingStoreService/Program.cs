@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Fabric;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Runtime;
+using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuration;
+using Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Configuration;
 
-namespace Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService
+namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService
 {
     internal static class Program
     {
@@ -16,9 +16,12 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService
         {
             try
             {
-                ServiceRuntime.RegisterServiceAsync("TrackerStoreServiceType",ServiceFactory.CreateService).GetAwaiter().GetResult();
+                IContainerBuilder containerBuilder = new DefaultContainerBuilder();
+                containerBuilder.Build();
 
-                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(TrackerStoreService).Name);
+                ServiceRuntime.RegisterServiceAsync("TrackingStoreServiceType",ServiceFactory.CreateService).GetAwaiter().GetResult();
+
+                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(TrackingStoreService).Name);
 
                 // Prevents this host process from terminating so services keep running.
                 Thread.Sleep(Timeout.Infinite);

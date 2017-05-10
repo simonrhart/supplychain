@@ -4,7 +4,7 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
 
-namespace Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService.Repositories
+namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Repositories
 {
     public class TrackerStoreRepository : ITrackerStoreRepository
     {
@@ -19,7 +19,6 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService.Repositories
             // read docDB from service fabric configuration package.
             Task.Run(async () => await _documentClient.CreateDatabaseIfNotExistsAsync(new Database { Id = _databaseName })).GetAwaiter().GetResult();
             Task.Run(async () => await _documentClient.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(_databaseName), new DocumentCollection { Id = _documentCollectionName })).GetAwaiter().GetResult();
-            
         }
 
         public async Task UpdateAsync(TrackerHashDto trackerHashDto)

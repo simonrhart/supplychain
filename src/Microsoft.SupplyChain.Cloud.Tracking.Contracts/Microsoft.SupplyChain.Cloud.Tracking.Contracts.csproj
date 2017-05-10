@@ -69,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITrackerStoreRepository.cs" />
-    <Compile Include="ITrackerStoreService.cs" />
+    <Compile Include="ITrackingStoreService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackerHashDto.cs" />
   </ItemGroup>

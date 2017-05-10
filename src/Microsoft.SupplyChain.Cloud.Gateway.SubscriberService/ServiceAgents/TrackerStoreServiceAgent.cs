@@ -7,9 +7,9 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
 {
     public class TrackerStoreServiceAgent : ITrackerStoreServiceAgent
     {
-        private readonly ITrackerStoreService _trackerStoreService;
+        private readonly ITrackingStoreService _trackerStoreService;
 
-        public TrackerStoreServiceAgent(ITrackerStoreService trackerStoreService)
+        public TrackerStoreServiceAgent(ITrackingStoreService trackerStoreService)
         {
             _trackerStoreService = trackerStoreService;
         }

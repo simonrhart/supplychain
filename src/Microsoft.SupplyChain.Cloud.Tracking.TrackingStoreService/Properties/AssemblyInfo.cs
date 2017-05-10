@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService")]
+[assembly: AssemblyTitle("Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Microsoft.SupplyChain.Cloud.Tracking.TrackerStoreService")]
+[assembly: AssemblyProduct("Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("df4a3c66-0613-493b-9351-56039a624287")]
+[assembly: Guid("e2bd2cc0-c21c-47c1-ad07-b4c3693b7214")]
 
 // Version information for an assembly consists of the following four values:
 //

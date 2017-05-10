@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Commands;
 using Microsoft.SupplyChain.Framework.Command;
+using Microsoft.SupplyChain.Framework.Mvc;
 
 namespace Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Controllers
 {
