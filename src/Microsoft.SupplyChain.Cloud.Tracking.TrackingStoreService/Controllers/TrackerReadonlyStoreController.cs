@@ -1,5 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
+using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
 using Microsoft.SupplyChain.Framework.Mvc;
 
 namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Controllers
@@ -39,9 +44,29 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Controllers
         //     }
         //}
 
-        public string Get()
+        public List<TrackerHashDto> Get(DateTime from, DateTime to, string deviceId)
         {
-            return "hello";
+            try
+            {
+                List<TrackerHashDto> coll = new List<TrackerHashDto>();
+                coll.Add(new TrackerHashDto("1234", "1234", "1", DateTime.Now));
+                return coll;
+
+            }
+            catch (HttpResponseException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                //uncaught exception in command.
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                {
+                    Content = new StringContent(
+                        $"Unknown exception while reading from the blockchain. Reason: {ex.Message} "),
+                    ReasonPhrase = "Fatal Service Error"
+                });
+            }
         }
     }
 }

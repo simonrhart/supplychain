@@ -108,7 +108,6 @@
     <Compile Include="DeviceTwinTagsDto.cs" />
     <Compile Include="IDeviceStoreRepository.cs" />
     <Compile Include="IDeviceStoreService.cs" />
-    <Compile Include="IRegistryManagerFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

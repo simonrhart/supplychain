@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Threading;
 using Microsoft.ServiceFabric.Services.Runtime;
-using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuration;
 using Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Configuration;
 
 namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService

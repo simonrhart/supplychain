@@ -4,7 +4,7 @@ using Castle.DynamicProxy;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
-using Microsoft.SupplyChain.Cloud.Registration.DiscoveryService.Configuration;
+using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Controllers;
 using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Framework.Command;
@@ -33,10 +33,7 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Configuratio
                 .ImplementedBy<CommandAbstractFactory>()
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
                 .LifestyleSingleton());
-
-          
         }
-
 
         private void BuildInterceptors()
         {
@@ -64,7 +61,19 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Configuratio
 
         private void BuildServiceAgents()
         {
-           
+            _container.Register(Component.For<IDeviceStoreService>()
+                .Instance(new ServiceProxyFactory()
+                    .CreateServiceProxy<IDeviceStoreService>(
+                        new Uri("fabric:/Microsoft.SupplyChain.Cloud.Administration/DeviceStoreService")))
+                .LifestyleSingleton()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor"))
+                .Anywhere);
+
+            //_container.Register(Component.For<IDeviceMovementServiceAgent>()
+            //    .ImplementedBy<EthereumDeviceMovementServiceAgent>()
+            //    .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+            //    .LifestyleTransient());
+
         }
 
         public IServiceLocator Build()
