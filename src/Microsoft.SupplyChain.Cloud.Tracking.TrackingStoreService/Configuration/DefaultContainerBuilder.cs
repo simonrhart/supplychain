@@ -69,6 +69,13 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Configuratio
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor"))
                 .Anywhere);
 
+            _container.Register(Component.For<ISmartContractStoreService>()
+                .Instance(new ServiceProxyFactory()
+                    .CreateServiceProxy<ISmartContractStoreService>(
+                        new Uri("fabric:/Microsoft.SupplyChain.Cloud.Administration/SmartContractStoreService")))
+                .LifestyleSingleton()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor"))
+                .Anywhere);
             //_container.Register(Component.For<IDeviceMovementServiceAgent>()
             //    .ImplementedBy<EthereumDeviceMovementServiceAgent>()
             //    .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere

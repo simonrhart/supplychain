@@ -1,4 +1,4 @@
-﻿namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
+﻿namespace Microsoft.SupplyChain.Cloud.Administration.Contracts
 {
     public enum SmartContractName
     {

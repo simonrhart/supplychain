@@ -2,7 +2,7 @@
 using Microsoft.Azure.Devices;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
+namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.ServiceAgents
 {
     public interface IDeviceStoreServiceAgent
     {

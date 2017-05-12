@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
+namespace Microsoft.SupplyChain.Cloud.Administration.Contracts
 {
     public class SmartContractDto
     {
@@ -19,6 +19,5 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
 
         public SmartContractName Name { get; set; }
     }
-
    
 }

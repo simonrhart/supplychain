@@ -206,13 +206,12 @@
     <Compile Include="Processors\GenericEventProcessor.cs" />
     <Compile Include="Processors\GenericEventProcessorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ISmartContractsRepository.cs" />
-    <Compile Include="Repositories\SmartContractsRepository.cs" />
     <Compile Include="ServiceAgents\DeviceStoreServiceAgent.cs" />
     <Compile Include="ServiceAgents\EthereumDeviceMovementServiceAgent.cs" />
     <Compile Include="ServiceAgents\EthereumServiceAgent.cs" />
     <Compile Include="ServiceAgents\IDeviceStoreServiceAgent.cs" />
     <Compile Include="ServiceAgents\ITrackerStoreServiceAgent.cs" />
+    <Compile Include="ServiceAgents\SmartContractStoreServiceAgent.cs" />
     <Compile Include="ServiceAgents\TrackerStoreServiceAgent.cs" />
     <Compile Include="SubscriberService.cs" />
     <Compile Include="Program.cs" />

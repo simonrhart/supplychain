@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IDeviceMovementServiceAgent.cs" />
+    <Compile Include="ISmartContractServiceAgent.cs" />
     <Compile Include="ITrackerStoreRepository.cs" />
     <Compile Include="ITrackingStoreService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +80,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Microsoft.SupplyChain.Cloud.Administration.Contracts\Microsoft.SupplyChain.Cloud.Administration.Contracts.csproj">
+      <Project>{3DCAC54B-FCC6-4AE8-8627-E25A860A7AD9}</Project>
+      <Name>Microsoft.SupplyChain.Cloud.Administration.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Microsoft.SupplyChain.Framework\Microsoft.SupplyChain.Framework.csproj">
       <Project>{05CD2CA8-9EF7-4232-A362-E430B33193C2}</Project>
       <Name>Microsoft.SupplyChain.Framework</Name>

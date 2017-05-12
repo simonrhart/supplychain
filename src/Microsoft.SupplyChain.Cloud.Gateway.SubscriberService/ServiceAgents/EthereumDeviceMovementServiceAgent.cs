@@ -8,6 +8,7 @@ using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories;
 using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3;
+using IDeviceMovementServiceAgent = Microsoft.SupplyChain.Cloud.Gateway.Contracts.IDeviceMovementServiceAgent;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
 {
@@ -15,7 +16,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
     {
         private bool _disposed;
         private readonly Web3 _web3;
-        private readonly ISmartContractsRepository _smartContractsRepository;
+        private readonly ISmartContractServiceAgent _smartContractServiceAgent;
         private readonly IDeviceStoreServiceAgent _deviceStoreServiceAgent;
         private readonly IBlockchainServiceAgent _blockchainServiceAgent;
         private readonly ITrackerStoreServiceAgent _trackerStoreServiceAgent;
@@ -29,12 +30,12 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
         private readonly Dictionary<string, Func<DeviceTwinTagsDto>> _deviceTwinFuncs;
 
         public EthereumDeviceMovementServiceAgent(ISubscriberService subscriberService, 
-                                                  ISmartContractsRepository smartContractsRepository, 
+                                                  ISmartContractServiceAgent smartContractServiceAgent, 
                                                   IDeviceStoreServiceAgent deviceStoreServiceAgent, 
                                                   IBlockchainServiceAgent blockchainServiceAgent, 
                                                   ITrackerStoreServiceAgent trackerStoreServiceAgent)
         {
-            _smartContractsRepository = smartContractsRepository ?? throw new ArgumentNullException(nameof(smartContractsRepository));
+            _smartContractServiceAgent = smartContractServiceAgent ?? throw new ArgumentNullException(nameof(smartContractServiceAgent));
             _deviceStoreServiceAgent = deviceStoreServiceAgent ?? throw new ArgumentNullException(nameof(deviceStoreServiceAgent));
             _blockchainServiceAgent = blockchainServiceAgent ?? throw new ArgumentNullException(nameof(blockchainServiceAgent));
             _trackerStoreServiceAgent = trackerStoreServiceAgent ?? throw new ArgumentNullException(nameof(trackerStoreServiceAgent));
@@ -66,7 +67,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             if (_contract == null)
             {
                 // get the latest smart contract version to invoke.
-                _deviceMovementSmartContract = _smartContractsRepository.GetLatestVersionSmartContractByName(SmartContractName.DeviceMovement);
+                _deviceMovementSmartContract = _smartContractServiceAgent.GetLatestVersionSmartContractByName(SmartContractName.DeviceMovement);
 
                 // if it's been removed since we bootstrapped the application, redeploy it.
                 if (!_deviceMovementSmartContract.IsDeployed)

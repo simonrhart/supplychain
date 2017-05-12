@@ -65,6 +65,14 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Configuration
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor"))
                 .Anywhere);
 
+            _container.Register(Component.For<ISmartContractStoreService>()
+                .Instance(new ServiceProxyFactory()
+                    .CreateServiceProxy<ISmartContractStoreService>(
+                        new Uri("fabric:/Microsoft.SupplyChain.Cloud.Administration/SmartContractStoreService")))
+                .LifestyleSingleton()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor"))
+                .Anywhere);
+
             _container.Register(Component.For<IDeviceMovementServiceAgent>()
                 .ImplementedBy<EthereumDeviceMovementServiceAgent>()
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
@@ -100,12 +108,6 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Configuration
 
         public virtual void BuildRepositories()
         {
-            _container.Register(Component.For<ISmartContractsRepository>()
-                                         .ImplementedBy<SmartContractsRepository>()
-                                         .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
-                                         .LifestyleTransient());
-
-
         }
 
 

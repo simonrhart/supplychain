@@ -8,9 +8,6 @@ using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.SupplyChain.Framework.Mvc;
-
-
-
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
 
@@ -48,7 +45,7 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService
             if (trackerHashDto == null)
                 throw new ArgumentNullException(nameof(trackerHashDto));
 
-            await _trackerStoreRepository.UpdateAsync(trackerHashDto);
+            await _trackerStoreRepository.InsertAsync(trackerHashDto);
         }
     }
 }

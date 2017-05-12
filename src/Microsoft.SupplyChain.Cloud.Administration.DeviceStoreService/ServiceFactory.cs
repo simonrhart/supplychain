@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Fabric;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Fabric;
 using Microsoft.Azure.Devices;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;

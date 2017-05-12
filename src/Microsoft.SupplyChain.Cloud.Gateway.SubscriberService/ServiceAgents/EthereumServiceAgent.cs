@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
-using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3;
 
@@ -16,13 +12,13 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
     {
         private bool _disposed;
         private readonly Web3 _web3;
-        private readonly ISmartContractsRepository _smartContractsRepository;
+        private readonly ISmartContractServiceAgent _smartContractServiceAgent;
         private readonly string _blockchainAdminAccount;
         private readonly string _blockchainAdminPassphrase;
       
-        public EthereumServiceAgent(ISubscriberService subscriberService, ISmartContractsRepository smartContractsRepository)
+        public EthereumServiceAgent(ISubscriberService subscriberService, ISmartContractServiceAgent smartContractServiceAgent)
         {
-            _smartContractsRepository = smartContractsRepository;
+            _smartContractServiceAgent = smartContractServiceAgent;
 
             var configurationPackage = subscriberService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
             var blockchainSection = configurationPackage.Settings.Sections["Blockchain"].Parameters;
@@ -44,7 +40,6 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             _web3 = new Web3(transactionNodeVip);
 
         }
-
 
         public async Task DeploySmartContractAsync(SmartContractDto smartContract)
         {
@@ -73,8 +68,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             smartContract.IsDeployed = true;
 
             // now update the smart contract so we know it has been deployed along with the smart contract address.
-            await _smartContractsRepository.UpdateAsync(smartContract);
+            await _smartContractServiceAgent.UpdateAsync(smartContract);
         }
-
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
+using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories
+namespace Microsoft.SupplyChain.Cloud.Gateway.Contracts
 {
-    public interface ISmartContractsRepository
+    public interface ISmartContractServiceAgent
     {
         List<SmartContractDto> GetAllSmartContractsByName(SmartContractName name);
 

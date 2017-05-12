@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;
-using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents;
 using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
 using Nethereum.Web3;
-using Contract = System.Diagnostics.Contracts.Contract;
 
 namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.ServiceAgents
 {
@@ -16,50 +14,35 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.ServiceAgent
         private readonly Web3 _web3;
         private readonly ISmartContractsRepository _smartContractsRepository;
         private readonly IDeviceStoreServiceAgent _deviceStoreServiceAgent;
-        private readonly IBlockchainServiceAgent _blockchainServiceAgent;
-        private readonly ITrackerStoreServiceAgent _trackerStoreServiceAgent;
-        private readonly ISubscriberService _subscriberService;
-        private readonly string _blockchainAdminAccount;
-        private readonly string _blockchainAdminPassphrase;
         private string _contractAddress = null;
         private SmartContractDto _deviceMovementSmartContract;
         private Contract _contract;
         private Function _storeMovementFunction;
         private readonly Dictionary<string, Func<DeviceTwinTagsDto>> _deviceTwinFuncs;
 
-        public EthereumDeviceMovementServiceAgent(ISubscriberService subscriberService, 
-                                                  ISmartContractsRepository smartContractsRepository, 
-                                                  IDeviceStoreServiceAgent deviceStoreServiceAgent, 
-                                                  IBlockchainServiceAgent blockchainServiceAgent, 
-                                                  ITrackerStoreServiceAgent trackerStoreServiceAgent)
+        public EthereumDeviceMovementServiceAgent(ITrackingStoreService trackingStoreService, 
+                                                  ISmartContractsStoreService smartContractsRepository, 
+                                                  IDeviceStoreServiceAgent deviceStoreServiceAgent)
+                                               
         {
             _smartContractsRepository = smartContractsRepository ?? throw new ArgumentNullException(nameof(smartContractsRepository));
             _deviceStoreServiceAgent = deviceStoreServiceAgent ?? throw new ArgumentNullException(nameof(deviceStoreServiceAgent));
-            _blockchainServiceAgent = blockchainServiceAgent ?? throw new ArgumentNullException(nameof(blockchainServiceAgent));
-            _trackerStoreServiceAgent = trackerStoreServiceAgent ?? throw new ArgumentNullException(nameof(trackerStoreServiceAgent));
-            _subscriberService = subscriberService ?? throw new ArgumentNullException(nameof(subscriberService));
 
-            var configurationPackage = _subscriberService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            if (trackingStoreService == null)
+                throw new ArgumentNullException(nameof(trackingStoreService));
+
+            var configurationPackage = trackingStoreService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
             var blockchainSection = configurationPackage.Settings.Sections["Blockchain"].Parameters;
             var transactionNodeVip = blockchainSection["TransactionNodeVip"].Value;
 
-            // this blockchain account is only used to send and public smart contracts, not to actually create telemetry transactions.
-            _blockchainAdminAccount = blockchainSection["BlockchainAdminAccount"].Value;
-            _blockchainAdminPassphrase = blockchainSection["BlockchainAdminPassphrase"].Value;
             _deviceTwinFuncs = new Dictionary<string, Func<DeviceTwinTagsDto>>();
             if (string.IsNullOrEmpty(transactionNodeVip))
                 throw new Exception("TransactionNodeVip is not set in Service Fabric configuration package.");
-
-            if (string.IsNullOrEmpty(_blockchainAdminAccount))
-                throw new Exception("BlockchainAdminAccount is not set in Service Fabric configuration package.");
-
-            if (string.IsNullOrEmpty(_blockchainAdminPassphrase))
-                throw new Exception("BlockchainAdminPassphrase is not set in Service Fabric configuration package.");
-
+            
             _web3 = new Web3(transactionNodeVip);
         }
 
-        public async Task PublishAsync(SensorDto payload)  
+        public async Task<List<TrackingDto>> GetTrackingUsingId(List<TrackerHashDto> trackerHashCollection)  
         {
             // publish the telemetry on the blockchain. Firstly check if we have a reference to the contract.
             if (_contract == null)

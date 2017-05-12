@@ -48,6 +48,8 @@ Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "Microsoft.SupplyChain.Cloud
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService", "Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService\Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.csproj", "{E2BD2CC0-C21C-47C1-AD07-B4C3693B7214}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.SupplyChain.Cloud.Administration.SmartContractStoreService", "Microsoft.SupplyChain.Cloud.Administration.SmartContractStoreService\Microsoft.SupplyChain.Cloud.Administration.SmartContractStoreService.csproj", "{240DD1FE-F8F7-472D-843C-6499B3C53B51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -160,6 +162,12 @@ Global
 		{E2BD2CC0-C21C-47C1-AD07-B4C3693B7214}.Release|Any CPU.ActiveCfg = Release|x64
 		{E2BD2CC0-C21C-47C1-AD07-B4C3693B7214}.Release|x64.ActiveCfg = Release|x64
 		{E2BD2CC0-C21C-47C1-AD07-B4C3693B7214}.Release|x64.Build.0 = Release|x64
+		{240DD1FE-F8F7-472D-843C-6499B3C53B51}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{240DD1FE-F8F7-472D-843C-6499B3C53B51}.Debug|x64.ActiveCfg = Debug|x64
+		{240DD1FE-F8F7-472D-843C-6499B3C53B51}.Debug|x64.Build.0 = Debug|x64
+		{240DD1FE-F8F7-472D-843C-6499B3C53B51}.Release|Any CPU.ActiveCfg = Release|x64
+		{240DD1FE-F8F7-472D-843C-6499B3C53B51}.Release|x64.ActiveCfg = Release|x64
+		{240DD1FE-F8F7-472D-843C-6499B3C53B51}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -179,5 +187,6 @@ Global
 		{7F3EA499-0CD5-4083-AA96-7CBD1362673F} = {A3F47835-D37A-4924-8A52-B344D0B01C46}
 		{1702415A-B8E6-4034-9CFF-05FF7D8DF99C} = {6FA7C7EB-BB95-42C7-B71E-22962AD9CB19}
 		{E2BD2CC0-C21C-47C1-AD07-B4C3693B7214} = {6FA7C7EB-BB95-42C7-B71E-22962AD9CB19}
+		{240DD1FE-F8F7-472D-843C-6499B3C53B51} = {A3F47835-D37A-4924-8A52-B344D0B01C46}
 	EndGlobalSection
 EndGlobal

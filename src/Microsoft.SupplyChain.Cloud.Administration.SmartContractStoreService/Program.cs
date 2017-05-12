@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Fabric;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.SupplyChain.Framework;
 
-namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService
+namespace Microsoft.SupplyChain.Cloud.Administration.SmartContractStoreService
 {
     internal static class Program
     {
@@ -15,9 +17,11 @@ namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService
         {
             try
             {
-                ServiceRuntime.RegisterServiceAsync("DeviceStoreServiceType", ServiceFactory.CreateService).GetAwaiter().GetResult();
+           
 
-                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(DeviceStoreService).Name);
+                ServiceRuntime.RegisterServiceAsync("SmartContractStoreServiceType",ServiceFactory.CreateService).GetAwaiter().GetResult();
+
+                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(SmartContractStoreService).Name);
 
                 // Prevents this host process from terminating so services keep running.
                 Thread.Sleep(Timeout.Infinite);
@@ -28,7 +32,5 @@ namespace Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService
                 throw;
             }
         }
-
-       
     }
 }

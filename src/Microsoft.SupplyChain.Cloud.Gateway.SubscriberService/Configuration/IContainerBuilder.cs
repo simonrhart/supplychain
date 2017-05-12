@@ -8,7 +8,6 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Configuration
         void BuildCommands();
         IWindsorContainer Container { get; }
         void BuildServiceAgents();
-
         IServiceLocator Build();
     }
 }

@@ -4,30 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
-using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
+using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 
-namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories
+namespace Microsoft.SupplyChain.Cloud.Administration.SmartContractStoreService.Repositories
 {
     public class SmartContractsRepository : ISmartContractsRepository
     {
-        private readonly ISubscriberService _subscriberService;
         private readonly DocumentClient _documentClient;
         private string _databaseName = "AdminDB";
         private string _documentCollectionName = "SmartContractsCollection";
                
-        public SmartContractsRepository(ISubscriberService subscriberService)
+        public SmartContractsRepository(DocumentClient documentClient)
         {
-            _subscriberService = subscriberService;
-
-            // read docDB from service fabric configuration package.
-            var configurationPackage = _subscriberService.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
-            var documentDbSection = configurationPackage.Settings.Sections["DocumentDB"].Parameters;                 
-        
-            _documentClient = new DocumentClient(new Uri(documentDbSection["DocumentDBEndpointUri"].Value), documentDbSection["DocumentDBPrimaryKey"].Value);
+            _documentClient = documentClient;
             Task.Run(async () => await _documentClient.CreateDatabaseIfNotExistsAsync(new Database { Id = _databaseName })).GetAwaiter().GetResult();
             Task.Run(async () => await _documentClient.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(_databaseName), new DocumentCollection { Id = _documentCollectionName })).GetAwaiter().GetResult();                   
-
-
+            
         }
 
         public async Task UpdateAsync(SmartContractDto contract)

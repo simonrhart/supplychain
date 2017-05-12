@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService\Microsoft.SupplyChain.Cloud.Administration.DeviceStoreService.csproj" />
+    <ProjectReference Include="..\Microsoft.SupplyChain.Cloud.Administration.SmartContractStoreService\Microsoft.SupplyChain.Cloud.Administration.SmartContractStoreService.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.config" />

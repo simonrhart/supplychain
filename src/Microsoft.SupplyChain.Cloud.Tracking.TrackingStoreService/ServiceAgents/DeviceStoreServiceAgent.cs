@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Fabric;
 using System.Threading.Tasks;
+using Microsoft.Azure.Devices;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;
-using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents;
 
 namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.ServiceAgents
 {
