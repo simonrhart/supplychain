@@ -1,15 +1,20 @@
 ﻿using System;
 using Microsoft.SupplyChain.Framework.Dto;
+using Nethereum.Hex.HexTypes;
 
 namespace Microsoft.SupplyChain.Cloud.Tracking.Contracts
 {
     public class TrackerHashDto : BaseDto<TrackerHashDto>
     {
-        public TrackerHashDto(string id, string transactionHash, string deviceId, DateTime timeStamp) : base(id)
+        public TrackerHashDto(string id, string transactionHash, string deviceId, DateTime timeStamp, HexBigInteger blockNumber, string blockHash, HexBigInteger transactionIndex, string contractAddressUsed) : base(id)
         {
             TransactionHash = transactionHash;
             DeviceId = deviceId;
             TimeStamp = timeStamp;
+            BlockNumber = blockNumber;
+            BlockHash = blockHash;
+            TransactionIndex = transactionIndex;
+            ContractAddressUsed = contractAddressUsed;
         }
 
         /// <summary>
@@ -26,5 +31,9 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.Contracts
         /// Gets the timestamp of when this transaction hash was recorded.
         /// </summary>
         public DateTime TimeStamp { get; }
+        public HexBigInteger BlockNumber { get; }
+        public string BlockHash { get; }
+        public HexBigInteger TransactionIndex { get; }
+        public string ContractAddressUsed { get; }
     }
 }

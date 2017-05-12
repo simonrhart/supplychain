@@ -5,10 +5,10 @@ namespace Microsoft.SupplyChain.Cloud.Administration.Contracts
 {
     public interface ISmartContractsRepository
     {
-        List<SmartContractDto> GetAllSmartContractsByName(SmartContractName name);
+        Task<List<SmartContractDto>> GetAllSmartContractsByNameAsync(SmartContractName name);
 
         Task UpdateAsync(SmartContractDto contract);
 
-        SmartContractDto GetLatestVersionSmartContractByName(SmartContractName name);
+        Task<SmartContractDto> GetLatestVersionSmartContractByNameAsync(SmartContractName name);
     }
 }

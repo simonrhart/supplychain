@@ -5,6 +5,7 @@ using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3;
+using ISmartContractStoreServiceAgent = Microsoft.SupplyChain.Cloud.Gateway.Contracts.ISmartContractStoreServiceAgent;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
 {
@@ -12,11 +13,11 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
     {
         private bool _disposed;
         private readonly Web3 _web3;
-        private readonly ISmartContractServiceAgent _smartContractServiceAgent;
+        private readonly ISmartContractStoreServiceAgent _smartContractServiceAgent;
         private readonly string _blockchainAdminAccount;
         private readonly string _blockchainAdminPassphrase;
       
-        public EthereumServiceAgent(ISubscriberService subscriberService, ISmartContractServiceAgent smartContractServiceAgent)
+        public EthereumServiceAgent(ISubscriberService subscriberService, ISmartContractStoreServiceAgent smartContractServiceAgent)
         {
             _smartContractServiceAgent = smartContractServiceAgent;
 

@@ -31,31 +31,31 @@ namespace Microsoft.SupplyChain.Cloud.Administration.SmartContractStoreService.R
         }
         
 
-        public List<SmartContractDto> GetAllSmartContractsByName(SmartContractName name)
+        public async Task<List<SmartContractDto>> GetAllSmartContractsByNameAsync(SmartContractName name)
         {
             FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1 };
 
-            IQueryable<SmartContractDto> smartContractQuery = _documentClient.CreateDocumentQuery<SmartContractDto>(
-              UriFactory.CreateDocumentCollectionUri(_databaseName, _documentCollectionName), queryOptions)
-              .Where(d => d.Name == name);
-
-            return smartContractQuery.ToList();
+            return _documentClient.CreateDocumentQuery<SmartContractDto>(
+                    UriFactory.CreateDocumentCollectionUri(_databaseName, _documentCollectionName), queryOptions)
+                .Where(i => i.Name == name)
+                .AsEnumerable()
+                .ToList();
         }
 
-        public SmartContractDto GetLatestVersionSmartContractByName(SmartContractName name)
+        public async Task<SmartContractDto> GetLatestVersionSmartContractByNameAsync(SmartContractName name)
         {
             FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1 };
 
-            IQueryable<SmartContractDto> smartContractQuery = _documentClient.CreateDocumentQuery<SmartContractDto>(
+            var items = _documentClient.CreateDocumentQuery<SmartContractDto>(
                     UriFactory.CreateDocumentCollectionUri(_databaseName, _documentCollectionName), queryOptions)
-                .Where(d => d.Name == name);
+                .Where(i => i.Name == name)
+                .AsEnumerable()
+                .ToList();
 
-            if (!smartContractQuery.Any())
+            if (items.Count == 0)
                 throw new Exception($"No contracts of any kind matching name {name} was found in the document DB collection {_documentCollectionName}");
 
-            var sortedContracts = smartContractQuery.OrderByDescending(v => v.Version);
-
-            return sortedContracts.FirstOrDefault();
+            return items.OrderByDescending(v => v.Version).FirstOrDefault();
         }
 
         public void AddContract()

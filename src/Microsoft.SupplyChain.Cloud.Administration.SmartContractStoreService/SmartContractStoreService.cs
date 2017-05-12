@@ -31,9 +31,9 @@ namespace Microsoft.SupplyChain.Cloud.Administration.SmartContractStoreService
         }
 
 
-        public List<SmartContractDto> GetAllSmartContractsByName(SmartContractName name)
+        public async Task<List<SmartContractDto>> GetAllSmartContractsByNameAsync(SmartContractName name)
         {
-            return _smartContractsRepository.GetAllSmartContractsByName(name);
+             return await _smartContractsRepository.GetAllSmartContractsByNameAsync(name);
         }
 
         public Task UpdateAsync(SmartContractDto contract)
@@ -41,9 +41,9 @@ namespace Microsoft.SupplyChain.Cloud.Administration.SmartContractStoreService
             return _smartContractsRepository.UpdateAsync(contract);
         }
 
-        public SmartContractDto GetLatestVersionSmartContractByName(SmartContractName name)
+        public async Task<SmartContractDto> GetLatestVersionSmartContractByNameAsync(SmartContractName name)
         {
-            return _smartContractsRepository.GetLatestVersionSmartContractByName(name);
+            return await _smartContractsRepository.GetLatestVersionSmartContractByNameAsync(name);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
-using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories;
 using Microsoft.SupplyChain.Framework.Command;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands
@@ -10,18 +10,18 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands
     public class BlockchainContractBootstrapperCommand : BaseCommand<BlockchainContractBootstrapperContext>
     {
         private readonly IBlockchainServiceAgent _blockchainServiceAgent;
-        private readonly ISmartContractsRepository _smartContractsRepository;
+        private readonly ISmartContractStoreServiceAgent _smartContractStoreServiceAgent;
 
-        public BlockchainContractBootstrapperCommand(ISmartContractsRepository smartContractsRepository, IBlockchainServiceAgent blockchainServiceAgent)
+        public BlockchainContractBootstrapperCommand(ISmartContractStoreServiceAgent smartContractStoreServiceAgent, IBlockchainServiceAgent blockchainServiceAgent)
         {
             _blockchainServiceAgent = blockchainServiceAgent;
-            _smartContractsRepository = smartContractsRepository;
+            _smartContractStoreServiceAgent = smartContractStoreServiceAgent;
         }
 
         protected override async Task DoExecuteAsync(BlockchainContractBootstrapperContext context)
         {
             // now get whether the smart contract is the latest one deployed or not.
-            var deviceMovementSmartContracts = _smartContractsRepository.GetAllSmartContractsByName(SmartContractName.DeviceMovement);
+            var deviceMovementSmartContracts = _smartContractStoreServiceAgent.GetAllSmartContractsByName(SmartContractName.DeviceMovement).Result;
 
             if (deviceMovementSmartContracts.Count == 0)
                 throw new Exception("No smart contracts found");

@@ -13,7 +13,17 @@
        ServiceManifest.xml file. -->
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="Microsoft.SupplyChain.Cloud.Administration.SmartContractStoreServicePkg" ServiceManifestVersion="1.0.0" />
-    <ConfigOverrides />
+    <ConfigOverrides>
+      <ConfigOverride Name="Config">
+        <Settings>
+          <Section Name="DocumentDB">
+            <Parameter Name="DocumentDBEndpointUri" Value="[DocumentDBEndpointUri]" />
+            <Parameter Name="DocumentDBPrimaryKey" Value="[DocumentDBPrimaryKey]" />
+            <Parameter Name="DocumentDBSecondaryKey" Value="[DocumentDBSecondaryKey]" />
+          </Section>
+        </Settings>
+      </ConfigOverride>
+    </ConfigOverrides>
   </ServiceManifestImport>
   <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="Microsoft.SupplyChain.Cloud.Administration.DeviceStoreServicePkg" ServiceManifestVersion="1.0.0" />
@@ -22,11 +32,6 @@
         <Settings>
           <Section Name="IoTHub">
             <Parameter Name="IoTHubConnectionString" Value="[IoTHubConnectionString]" />
-          </Section>
-          <Section Name="DocumentDB">
-            <Parameter Name="DocumentDBEndpointUri" Value="[DocumentDBEndpointUri]" />
-            <Parameter Name="DocumentDBPrimaryKey" Value="[DocumentDBPrimaryKey]" />
-            <Parameter Name="DocumentDBSecondaryKey" Value="[DocumentDBSecondaryKey]" />
           </Section>
         </Settings>
       </ConfigOverride>

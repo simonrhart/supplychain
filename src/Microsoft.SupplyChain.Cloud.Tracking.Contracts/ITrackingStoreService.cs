@@ -4,7 +4,7 @@ using Microsoft.SupplyChain.Framework.ServiceFabric;
 
 namespace Microsoft.SupplyChain.Cloud.Tracking.Contracts
 {
-    public interface ITrackingStoreService : IService, IStatelessServiceContext
+    public interface ITrackingStoreService : IService
     {
         Task PublishAsync(TrackerHashDto trackerHashDto);
     }

@@ -4,12 +4,12 @@ using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 
 namespace Microsoft.SupplyChain.Cloud.Tracking.Contracts
 {
-    public interface ISmartContractServiceAgent
+    public interface ISmartContractStoreServiceAgent
     {
-        List<SmartContractDto> GetAllSmartContractsByName(SmartContractName name);
+        Task<List<SmartContractDto>> GetAllSmartContractsByName(SmartContractName name);
 
         Task UpdateAsync(SmartContractDto contract);
 
-        SmartContractDto GetLatestVersionSmartContractByName(SmartContractName name);
+        Task<SmartContractDto> GetLatestVersionSmartContractByName(SmartContractName name);
     }
 }

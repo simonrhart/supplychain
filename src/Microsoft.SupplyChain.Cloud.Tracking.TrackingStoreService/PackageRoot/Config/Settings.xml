@@ -5,4 +5,8 @@
     <Parameter Name="DocumentDBPrimaryKey" Value=""/>
     <Parameter Name="DocumentDBSecondaryKey" Value=""/>
   </Section>
+
+  <Section Name="Blockchain">
+    <Parameter Name="TransactionNodeVip" Value="" />
+  </Section>
 </Settings>

@@ -5,7 +5,10 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;
+using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
+using Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Commands;
 using Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Controllers;
+using Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.ServiceAgents;
 using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Framework.Command;
 using Microsoft.SupplyChain.Framework.Interceptors;
@@ -33,6 +36,11 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Configuratio
                 .ImplementedBy<CommandAbstractFactory>()
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
                 .LifestyleSingleton());
+
+            _container.Register(Component.For<ICommand<RetrieveTrackingTransactionsContext>>()
+                .ImplementedBy<RetrieveTrackingTransactionsCommand>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
         }
 
         private void BuildInterceptors()
@@ -76,11 +84,22 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Configuratio
                 .LifestyleSingleton()
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor"))
                 .Anywhere);
-            //_container.Register(Component.For<IDeviceMovementServiceAgent>()
-            //    .ImplementedBy<EthereumDeviceMovementServiceAgent>()
-            //    .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
-            //    .LifestyleTransient());
+            
+            _container.Register(Component.For<IDeviceStoreServiceAgent>()
+                .ImplementedBy<DeviceStoreServiceAgent>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
 
+            _container.Register(Component.For<ISmartContractStoreServiceAgent>()
+                .ImplementedBy<SmartContractStoreServiceAgent>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
+
+
+        }
+
+        private void BuildRepositories()
+        {
         }
 
         public IServiceLocator Build()
@@ -88,6 +107,7 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Configuratio
             BuildAndRegisterServiceLocator();
             BuildInterceptors();
             BuildServiceAgents();
+            BuildRepositories();
             BuildCommands();
             BuildControllers();
             return _windsorServiceLocator;

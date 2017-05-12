@@ -7,7 +7,7 @@ using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
 {
-    public class SmartContractStoreServiceAgent : ISmartContractServiceAgent
+    public class SmartContractStoreServiceAgent : ISmartContractStoreServiceAgent
     {
         private readonly ISmartContractStoreService _smartContractStoreService;
 
@@ -17,11 +17,11 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
                                          throw new ArgumentNullException(nameof(smartContractStoreService));
         }
 
-        public List<SmartContractDto> GetAllSmartContractsByName(SmartContractName name)
+        public async Task<List<SmartContractDto>> GetAllSmartContractsByName(SmartContractName name)
         {
             try
             {
-                return _smartContractStoreService.GetAllSmartContractsByName(name);
+                return await _smartContractStoreService.GetAllSmartContractsByNameAsync(name);
             }
             catch (FabricServiceNotFoundException notFoundex)
             {
@@ -51,11 +51,11 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             }
         }
 
-        public SmartContractDto GetLatestVersionSmartContractByName(SmartContractName name)
+        public async Task<SmartContractDto> GetLatestVersionSmartContractByName(SmartContractName name)
         {
             try
             {
-                return _smartContractStoreService.GetLatestVersionSmartContractByName(name);
+                return await _smartContractStoreService.GetLatestVersionSmartContractByNameAsync(name);
             }
             catch (FabricServiceNotFoundException notFoundex)
             {

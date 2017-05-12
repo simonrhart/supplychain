@@ -9,7 +9,6 @@ using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors;
-using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents;
 using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Framework.Command;

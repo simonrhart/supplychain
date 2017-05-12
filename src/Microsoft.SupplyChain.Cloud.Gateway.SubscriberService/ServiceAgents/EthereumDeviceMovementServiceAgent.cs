@@ -4,11 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
-using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Repositories;
 using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3;
 using IDeviceMovementServiceAgent = Microsoft.SupplyChain.Cloud.Gateway.Contracts.IDeviceMovementServiceAgent;
+using ISmartContractServiceAgent = Microsoft.SupplyChain.Cloud.Gateway.Contracts.ISmartContractStoreServiceAgent;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
 {
@@ -67,7 +67,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             if (_contract == null)
             {
                 // get the latest smart contract version to invoke.
-                _deviceMovementSmartContract = _smartContractServiceAgent.GetLatestVersionSmartContractByName(SmartContractName.DeviceMovement);
+                _deviceMovementSmartContract = _smartContractServiceAgent.GetLatestVersionSmartContractByName(SmartContractName.DeviceMovement).Result;
 
                 // if it's been removed since we bootstrapped the application, redeploy it.
                 if (!_deviceMovementSmartContract.IsDeployed)
@@ -78,7 +78,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
                 _contract = _web3.Eth.GetContract(_deviceMovementSmartContract.Abi,
                     _deviceMovementSmartContract.Address);
 
-                _storeMovementFunction = _contract.GetFunction("StoreMovement");
+                _storeMovementFunction = _contract.GetFunction("StoreTelemetry");
             }
 
             // now to get the account and key for this blockchain user if we don't have it already.
@@ -103,7 +103,8 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
                     payload.GpsLat, 
                     payload.GpsLong, 
                     payload.TemperatureInCelcius, 
-                    payload.DeviceId);
+                    payload.DeviceId,
+                    Convert.ToInt32(payload.Timestamp.Ticks));
 
             // check it has been mined.
             var receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
@@ -113,12 +114,13 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
                 Thread.Sleep(5000);
                 receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
             }
-
+          
+          
             // now pass the transaction hash and id of the record so we can find it within blockchain or the smart contract to the tracking service, no need to await this process.
 #pragma warning disable 4014
             _trackerStoreServiceAgent.Publish(
 #pragma warning restore 4014
-                    new TrackerHashDto(payload.Id, receipt.TransactionHash, payload.DeviceId, payload.Timestamp));
+                    new TrackerHashDto(payload.Id, receipt.TransactionHash, payload.DeviceId, payload.Timestamp, receipt.BlockNumber, receipt.BlockHash, receipt.TransactionIndex, receipt.ContractAddress));
         }
        
     }

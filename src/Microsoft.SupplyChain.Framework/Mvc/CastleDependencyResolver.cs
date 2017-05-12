@@ -21,7 +21,7 @@ namespace Microsoft.SupplyChain.Framework.Mvc
             {
                 return _container.Resolve(serviceType);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
