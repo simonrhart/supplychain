@@ -16,21 +16,21 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.Contracts
             TimeStamp = timeStamp;
         }
 
-        public string GpsLat { get; }
+        public string GpsLat { get; set; }
 
-        public string GpsLong { get; }
+        public string GpsLong { get; set; }
 
-        public int TemperatureInCelcius { get; }
+        public int TemperatureInCelcius { get; set; }
 
         /// <summary>
         /// Gets the blockchain address of the sender who created this transaction data on the chain.
         /// </summary>
-        public string AddressSender { get; }
+        public string AddressSender { get; set; }
 
-        public string DeviceId { get; }
+        public string DeviceId { get; set; }
 
-        public string TransactionHash { get; }
+        public string TransactionHash { get; set; }
 
-        public DateTime TimeStamp { get; }
+        public DateTime TimeStamp { get; set; }
     }
 }

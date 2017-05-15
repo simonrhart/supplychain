@@ -52,7 +52,7 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.ServiceAgent
 
             // unlock the account.
             var unlockResult = await _web3.Personal.UnlockAccount.SendRequestAsync(deviceTwin.BlockchainAccount,
-                deviceTwin.BlockchainPassphrase, 1000);
+                "Monday01", 1000);
 
             if (!unlockResult)
                 throw new Exception(

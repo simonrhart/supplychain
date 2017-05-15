@@ -10,9 +10,12 @@ using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Commands;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors;
 using Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents;
+using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
 using Microsoft.SupplyChain.Framework;
 using Microsoft.SupplyChain.Framework.Command;
 using Microsoft.SupplyChain.Framework.Interceptors;
+using IDeviceMovementServiceAgent = Microsoft.SupplyChain.Cloud.Gateway.Contracts.IDeviceMovementServiceAgent;
+using ISmartContractStoreServiceAgent = Microsoft.SupplyChain.Cloud.Gateway.Contracts.ISmartContractStoreServiceAgent;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Configuration
 {
@@ -72,11 +75,34 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Configuration
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor"))
                 .Anywhere);
 
+            _container.Register(Component.For<ITrackingStoreService>()
+                .Instance(new ServiceProxyFactory()
+                    .CreateServiceProxy<ITrackingStoreService>(
+                        new Uri("fabric:/Microsoft.SupplyChain.Cloud.Tracking/TrackingStoreService")))
+                .LifestyleSingleton()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor"))
+                .Anywhere);
+
             _container.Register(Component.For<IDeviceMovementServiceAgent>()
                 .ImplementedBy<EthereumDeviceMovementServiceAgent>()
                 .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
                 .LifestyleTransient());
-            
+
+            _container.Register(Component.For<ISmartContractStoreServiceAgent>()
+                .ImplementedBy<SmartContractStoreServiceAgent>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
+
+            _container.Register(Component.For<IDeviceStoreServiceAgent>()
+                .ImplementedBy<DeviceStoreServiceAgent>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
+
+            _container.Register(Component.For<ITrackerStoreServiceAgent>()
+                .ImplementedBy<TrackerStoreServiceAgent>()
+                .Interceptors(InterceptorReference.ForKey("ConsoleInterceptor")).Anywhere
+                .LifestyleTransient());
+
         }
 
 

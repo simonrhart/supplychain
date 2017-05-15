@@ -81,17 +81,19 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
                 _storeMovementFunction = _contract.GetFunction("StoreTelemetry");
             }
 
-            // now to get the account and key for this blockchain user if we don't have it already.
-            var deviceTwin = _deviceTwinFuncs[payload.DeviceId]();
-
-            if (deviceTwin == null)
+            DeviceTwinTagsDto deviceTwin = null;
+            
+            if (!_deviceTwinFuncs.ContainsKey(payload.DeviceId))
             {
                 deviceTwin = await _deviceStoreServiceAgent.GetDeviceTwinTagsByIdAsync(payload.DeviceId);
                 _deviceTwinFuncs.Add(payload.DeviceId, () => deviceTwin);
+
             }
+
+            // now to get the account and key for this blockchain user if we don't have it already.
             
             // unlock the account.
-            var unlockResult = await _web3.Personal.UnlockAccount.SendRequestAsync(deviceTwin.BlockchainAccount, deviceTwin.BlockchainPassphrase, 1000);
+            var unlockResult = await _web3.Personal.UnlockAccount.SendRequestAsync(deviceTwin.BlockchainAccount, "Monday01", 1000);
 
             if (!unlockResult)
                 throw new Exception($"Unable to unlock account {deviceTwin.BlockchainAccount}");
@@ -104,7 +106,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
                     payload.GpsLong, 
                     payload.TemperatureInCelcius, 
                     payload.DeviceId,
-                    Convert.ToInt32(payload.Timestamp.Ticks));
+                    Convert.ToInt64(payload.Timestamp.Ticks));
 
             // check it has been mined.
             var receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
@@ -115,12 +117,11 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
                 receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
             }
           
+            
           
             // now pass the transaction hash and id of the record so we can find it within blockchain or the smart contract to the tracking service, no need to await this process.
-#pragma warning disable 4014
-            _trackerStoreServiceAgent.Publish(
-#pragma warning restore 4014
-                    new TrackerHashDto(payload.Id, receipt.TransactionHash, payload.DeviceId, payload.Timestamp, receipt.BlockNumber, receipt.BlockHash, receipt.TransactionIndex, receipt.ContractAddress));
+            await _trackerStoreServiceAgent.PublishAsync(
+                    new TrackerHashDto(payload.Id, receipt.TransactionHash, payload.DeviceId, payload.Timestamp, receipt.BlockNumber.HexValue, receipt.BlockHash, receipt.TransactionIndex.HexValue, receipt.ContractAddress));
         }
        
     }

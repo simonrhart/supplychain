@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Fabric;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.SupplyChain.Cloud.Gateway.Contracts;
 using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
+using Newtonsoft.Json;
 
 namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
 {
@@ -14,12 +17,14 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             _trackerStoreService = trackerStoreService;
         }
 
-        public Task Publish(TrackerHashDto trackerHashDto)
+        public async Task PublishAsync(TrackerHashDto trackerHashDto)
         {
             try
             {
                 // now invoke the service fabric service.
-                return _trackerStoreService.PublishAsync(trackerHashDto);
+                var sensor = JsonConvert.SerializeObject(trackerHashDto);
+
+                await _trackerStoreService.PublishAsync(trackerHashDto);
             }
             catch (FabricServiceNotFoundException notFoundex)
             {

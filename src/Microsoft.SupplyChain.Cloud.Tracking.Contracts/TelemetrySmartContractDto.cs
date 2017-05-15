@@ -17,8 +17,8 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.Contracts
         [Parameter("string", "deviceId", 4)]
         public string DeviceId { get; set; }
 
-        [Parameter("int", "timeSpanInTicks", 5)]
-        public int TimeSpanInTicks { get; set; }
+        [Parameter("int64", "timeSpanInTicks", 5)]
+        public long TimeSpanInTicks { get; set; }
         
         [Parameter("address", "sender", 5)]
         public string Sender { get; set; }

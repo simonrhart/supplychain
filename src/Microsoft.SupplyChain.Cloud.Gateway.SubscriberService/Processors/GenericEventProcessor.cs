@@ -48,7 +48,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors
                     var sensor = JsonConvert.DeserializeObject<SensorDto>(Encoding.UTF8.GetString(binaryPayload));
 
                     //send payload to chain (calls smart contract).
-                    _deviceMovementServiceAgent.PublishAsync(sensor);
+                    await _deviceMovementServiceAgent.PublishAsync(sensor);
 
                   //  _logger.InfoFormat("Message received partition: {0} sensor name: {1}, GatwayId: {2}", _partitionContext.Lease.PartitionId, sensor.Name, sensor.GatewayId);
                 }
