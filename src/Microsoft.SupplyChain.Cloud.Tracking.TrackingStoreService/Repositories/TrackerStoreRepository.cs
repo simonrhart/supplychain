@@ -29,7 +29,16 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Repositories
             if (trackerHashDto == null)
                 throw new ArgumentNullException(nameof(trackerHashDto));
 
-            await _documentClient.CreateDocumentAsync(UriFactory.CreateDocumentUri(_databaseName, _documentCollectionName, trackerHashDto.Id), trackerHashDto);
+            try
+            {
+                await _documentClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(_databaseName, _documentCollectionName), trackerHashDto);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(
+                    $"Failed to add TrackerHashDto to database {_databaseName} in collection {_documentCollectionName}",
+                    ex);
+            }
         }
 
         public List<TrackerHashDto> GetHashsByTime(string deviceId, DateTime from, DateTime to)

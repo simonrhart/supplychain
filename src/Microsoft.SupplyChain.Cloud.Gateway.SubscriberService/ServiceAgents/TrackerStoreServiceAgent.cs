@@ -22,8 +22,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             try
             {
                 // now invoke the service fabric service.
-                var sensor = JsonConvert.SerializeObject(trackerHashDto);
-
+              
                 await _trackerStoreService.PublishAsync(trackerHashDto);
             }
             catch (FabricServiceNotFoundException notFoundex)

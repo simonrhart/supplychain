@@ -31,9 +31,9 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService
         {
             return new[]
             {
+                   new ServiceInstanceListener(this.CreateServiceRemotingListener, "ServiceEndpointInternal"),
                    new ServiceInstanceListener(serviceContext => new OwinCommunicationListener(StartupWithWindsor.ConfigureApp,
-                    serviceContext, Framework.ServiceEventSource.Current, "ServiceEndpointExternal")),
-                   new ServiceInstanceListener(this.CreateServiceRemotingListener, "ServiceEndpointInternal")
+                    serviceContext, Framework.ServiceEventSource.Current, "ServiceEndpointExternal"))
             };
         }
 

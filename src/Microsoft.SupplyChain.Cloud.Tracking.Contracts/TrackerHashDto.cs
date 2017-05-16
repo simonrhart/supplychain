@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using Microsoft.SupplyChain.Framework.Dto;
-using Nethereum.Hex.HexTypes;
 
 namespace Microsoft.SupplyChain.Cloud.Tracking.Contracts
 {
     [DataContract]
-    public class TrackerHashDto : BaseDto<TrackerHashDto>
+    public class TrackerHashDto 
     {
-        public TrackerHashDto(string id, string transactionHash, string deviceId, DateTime timeStamp, string blockNumber, string blockHash, string transactionIndex, string contractAddressUsed) : base(id)
+        public TrackerHashDto(string transactionId, string transactionHash, string deviceId, DateTime timeStamp, string blockNumber, string blockHash, string transactionIndex, string contractAddressUsed)
         {
             TransactionHash = transactionHash;
             DeviceId = deviceId;
@@ -17,6 +15,7 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.Contracts
             BlockHash = blockHash;
             TransactionIndex = transactionIndex;
             ContractAddressUsed = contractAddressUsed;
+            TransactionId = transactionId;
         }
 
       
@@ -45,5 +44,7 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.Contracts
         public string TransactionIndex { get; set; }
         [DataMember]
         public string ContractAddressUsed { get; set; }
+        [DataMember]
+        public string TransactionId { get; set; }
     }
 }

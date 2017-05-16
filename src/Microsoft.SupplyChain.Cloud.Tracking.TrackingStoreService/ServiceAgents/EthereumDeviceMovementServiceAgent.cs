@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.SupplyChain.Cloud.Administration.Contracts;
 using Microsoft.SupplyChain.Cloud.Tracking.Contracts;
@@ -59,14 +60,21 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.ServiceAgent
                     $"Unable to unlock account {deviceTwin.BlockchainAccount} check passphrase is correct and that the account is valid");
 
             List<TrackingDto> trackingDtoCollection = new List<TrackingDto>();
-            foreach (var hash in trackerHashCollection)
-            {
-                var result = await _telemetryCollectionFunction.CallDeserializingToObjectAsync<TelemetrySmartContractDto>(hash.Id, 0);
-                trackingDtoCollection.Add(new TrackingDto(hash.Id, result.GpsLat, result.GpsLong,
-                    result.TemperatureInCelcius, result.Sender, deviceId, hash.TransactionHash, new DateTime(result.TimeSpanInTicks)));
-            }
 
-            return trackingDtoCollection;
+
+            Task.WaitAll(trackerHashCollection.Select(t => ProcessTracker(t, trackingDtoCollection, deviceId))
+                .ToArray());
+
+            return trackingDtoCollection.OrderByDescending(x => x.TimeStamp).ToList();
+        }
+
+        private async Task ProcessTracker(TrackerHashDto t, List<TrackingDto> trackingDtoCollection, string deviceId)
+        {
+            var result = await _telemetryCollectionFunction.CallDeserializingToObjectAsync<TelemetrySmartContractDto>(t.TransactionId, 0);
+            
+            trackingDtoCollection.Add(new TrackingDto(t.TransactionId, result.GpsLat, result.GpsLong,
+                result.TemperatureInCelcius, result.Sender, deviceId, t.TransactionHash, new DateTime(result.TimeSpanInTicks)));
+
         }
 
     }

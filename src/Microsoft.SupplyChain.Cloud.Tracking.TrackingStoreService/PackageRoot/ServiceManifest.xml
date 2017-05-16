@@ -26,11 +26,8 @@
 
   <Resources>
     <Endpoints>
-      <!-- This endpoint is used by the communication listener to obtain the port on which to 
-           listen. Please note that if your service is partitioned, this port is shared with 
-           replicas of different partitions that are placed in your code. -->
-      <Endpoint Protocol="http" Name="ServiceEndpointExternal" Type="Input" Port="8535" />
       <Endpoint Name="ServiceEndpointInternal" />
+      <Endpoint Protocol="http" Name="ServiceEndpointExternal" Type="Input" Port="8535" />
     </Endpoints>
   </Resources>
 </ServiceManifest>

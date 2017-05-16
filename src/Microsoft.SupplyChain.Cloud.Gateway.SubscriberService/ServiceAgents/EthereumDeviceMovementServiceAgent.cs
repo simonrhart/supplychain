@@ -89,6 +89,10 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
                 _deviceTwinFuncs.Add(payload.DeviceId, () => deviceTwin);
 
             }
+            else
+            {
+                deviceTwin = _deviceTwinFuncs[payload.DeviceId]();
+            }
 
             // now to get the account and key for this blockchain user if we don't have it already.
             
@@ -101,7 +105,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
             var transactionsHash =
                 await
                     _storeMovementFunction.SendTransactionAsync(deviceTwin.BlockchainAccount, new HexBigInteger(900000), null, 
-                    payload.Id, // this is the index for the record
+                    payload.TransactionId, // this is the index for the record
                     payload.GpsLat, 
                     payload.GpsLong, 
                     payload.TemperatureInCelcius, 
@@ -121,7 +125,7 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
           
             // now pass the transaction hash and id of the record so we can find it within blockchain or the smart contract to the tracking service, no need to await this process.
             await _trackerStoreServiceAgent.PublishAsync(
-                    new TrackerHashDto(payload.Id, receipt.TransactionHash, payload.DeviceId, payload.Timestamp, receipt.BlockNumber.HexValue, receipt.BlockHash, receipt.TransactionIndex.HexValue, receipt.ContractAddress));
+                    new TrackerHashDto(payload.TransactionId, receipt.TransactionHash, payload.DeviceId, payload.Timestamp, receipt.BlockNumber.HexValue, receipt.BlockHash, receipt.TransactionIndex.HexValue, receipt.ContractAddress));
         }
        
     }

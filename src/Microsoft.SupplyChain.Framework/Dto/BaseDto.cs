@@ -1,16 +1,22 @@
-﻿namespace Microsoft.SupplyChain.Framework.Dto
+﻿using System.Runtime.Serialization;
+
+namespace Microsoft.SupplyChain.Framework.Dto
 {
+    [DataContract]
     public abstract class BaseDto<TGraphType>
     {
         protected BaseDto(string id)
         {
             Id = id;
         }
-     
-        public string Id { get; }
-      
+
+        [DataMember]
+        public string Id { get; set; }
+
+        [DataMember]
         public string Name { get; set; }
-     
+
+       
         public string Type => typeof (TGraphType).Name;
     }
 }

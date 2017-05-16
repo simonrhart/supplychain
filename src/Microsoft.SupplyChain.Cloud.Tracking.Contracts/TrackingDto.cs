@@ -3,10 +3,11 @@ using Microsoft.SupplyChain.Framework.Dto;
 
 namespace Microsoft.SupplyChain.Cloud.Tracking.Contracts
 {
-    public class TrackingDto : BaseDto<TrackingDto>
+    public class TrackingDto
     {
-        public TrackingDto(string id, string gpsLat, string gpsLong, int temperatureInCelcius, string addressSender, string deviceId, string transactionHash, DateTime timeStamp) : base(id)
+        public TrackingDto(string transactionId, string gpsLat, string gpsLong, int temperatureInCelcius, string addressSender, string deviceId, string transactionHash, DateTime timeStamp)
         {
+            TransactionId = transactionId;
             GpsLat = gpsLat;
             GpsLong = gpsLong;
             TemperatureInCelcius = temperatureInCelcius;
@@ -16,6 +17,7 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.Contracts
             TimeStamp = timeStamp;
         }
 
+        public string TransactionId { get; set; }
         public string GpsLat { get; set; }
 
         public string GpsLong { get; set; }

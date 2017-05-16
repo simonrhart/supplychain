@@ -44,13 +44,14 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.Processors
                 foreach (var eventData in messages)
                 {
                     byte[] binaryPayload = eventData.GetBytes();
-
+                    
                     var sensor = JsonConvert.DeserializeObject<SensorDto>(Encoding.UTF8.GetString(binaryPayload));
-
+                    
                     //send payload to chain (calls smart contract).
                     await _deviceMovementServiceAgent.PublishAsync(sensor);
 
-                  //  _logger.InfoFormat("Message received partition: {0} sensor name: {1}, GatwayId: {2}", _partitionContext.Lease.PartitionId, sensor.Name, sensor.GatewayId);
+               
+                    //  _logger.InfoFormat("Message received partition: {0} sensor name: {1}, GatwayId: {2}", _partitionContext.Lease.PartitionId, sensor.Name, sensor.GatewayId);
                 }
 
                 // Call checkpoint every 5 minutes, so that worker can resume processing from the 5 minutes back if it restarts.
