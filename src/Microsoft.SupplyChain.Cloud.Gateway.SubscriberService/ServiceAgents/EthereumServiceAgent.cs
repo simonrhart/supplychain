@@ -44,14 +44,29 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
 
         public async Task DeploySmartContractAsync(SmartContractDto smartContract)
         {
+            if (smartContract == null)
+                throw new ArgumentNullException(nameof(smartContract));
+         
             // unlock the admin account first for 120 seconds
             var unlockResult =
                 await _web3.Personal.UnlockAccount.SendRequestAsync(_blockchainAdminAccount, _blockchainAdminPassphrase,
                     120);
 
-            var transactionsHash =
-                await _web3.Eth.DeployContract.SendRequestAsync(smartContract.ByteCode, _blockchainAdminAccount,
-                    new HexBigInteger(900000));
+            if (!unlockResult)
+                throw new Exception(
+                    $"Failed to unlock account {_blockchainAdminAccount} check you have the correct passphrase in the Service Fabric config.");
+
+            string transactionsHash;
+            try
+            {
+                transactionsHash =
+                    await _web3.Eth.DeployContract.SendRequestAsync(smartContract.ByteCode, _blockchainAdminAccount,
+                        new HexBigInteger(900000));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to deploy smart contract {smartContract.Name} version {smartContract.Version}", ex);
+            }
 
             var receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
 

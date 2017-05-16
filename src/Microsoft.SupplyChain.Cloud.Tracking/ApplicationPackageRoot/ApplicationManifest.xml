@@ -6,6 +6,8 @@
     <Parameter Name="DocumentDBPrimaryKey" DefaultValue="" />
     <Parameter Name="DocumentDBSecondaryKey" DefaultValue="" />
     <Parameter Name="TransactionNodeVip" DefaultValue="" />
+    <Parameter Name="BlockchainAdminAccount" DefaultValue="" />
+    <Parameter Name="BlockchainAdminPassphrase" DefaultValue="" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -22,6 +24,8 @@
           </Section>
           <Section Name="Blockchain">
             <Parameter Name="TransactionNodeVip" Value="[TransactionNodeVip]" />
+            <Parameter Name="BlockchainAdminAccount" Value="[BlockchainAdminAccount]" />
+            <Parameter Name="BlockchainAdminPassphrase" Value="[BlockchainAdminPassphrase]" />
           </Section>
         </Settings>
       </ConfigOverride>

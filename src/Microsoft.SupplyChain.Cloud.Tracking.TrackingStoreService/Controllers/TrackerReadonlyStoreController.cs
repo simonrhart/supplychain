@@ -21,7 +21,7 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Controllers
             _retrieveTrackingTransactionsCommand = retrieveTrackingTransactionsCommand;
         }
 
-        public async Task<List<TrackingDto>> Get(DateTime from, DateTime to, string deviceId)
+        public async Task<List<TrackingDto>> Get(DateTime from, DateTime to, string deviceId = "")
         {
             RetrieveTrackingTransactionsContext context = new RetrieveTrackingTransactionsContext(from, to, deviceId);
             try

@@ -21,10 +21,11 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Commands
         protected override async Task DoExecuteAsync(RetrieveTrackingTransactionsContext context)
         {
             // get all the hashes and id's for the time period and device type passed.
-            List<TrackerHashDto> hashes =
-                _trackerStoreRepository.GetHashsByTime(context.DeviceId, context.From, context.To);
+
+            List<TrackerHashDto> hashes = _trackerStoreRepository.GetHashsByTime(context.From, context.To, context.DeviceId);
+            if (hashes.Count != 0)
+                context.TrackingCollection = await _deviceMovementServiceAgent.GetTrackingUsingHashesAsync(hashes);
             
-            context.TrackingCollection = await _deviceMovementServiceAgent.GetTrackingUsingIdAsync(hashes, context.DeviceId);
         }
 
         protected override ExceptionAction HandleError(RetrieveTrackingTransactionsContext context, Exception exception)

@@ -8,5 +8,7 @@
 
   <Section Name="Blockchain">
     <Parameter Name="TransactionNodeVip" Value="" />
+    <Parameter Name="BlockchainAdminAccount" Value="" />
+    <Parameter Name="BlockchainAdminPassphrase" Value="" />
   </Section>
 </Settings>

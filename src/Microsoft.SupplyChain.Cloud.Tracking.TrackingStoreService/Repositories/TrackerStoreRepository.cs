@@ -41,13 +41,23 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService.Repositories
             }
         }
 
-        public List<TrackerHashDto> GetHashsByTime(string deviceId, DateTime from, DateTime to)
+        public List<TrackerHashDto> GetHashsByTime(DateTime from, DateTime to, string deviceId = "")
         {
             FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1 };
-            IQueryable<TrackerHashDto> smartContractQuery = _documentClient.CreateDocumentQuery<TrackerHashDto>(
-                    UriFactory.CreateDocumentCollectionUri(_databaseName, _documentCollectionName), queryOptions)
-                .Where(d => d.DeviceId == deviceId && d.TimeStamp >= from && d.TimeStamp <= to);
+            IQueryable<TrackerHashDto> smartContractQuery;
 
+            if (string.IsNullOrEmpty(deviceId))
+            {
+                smartContractQuery = _documentClient.CreateDocumentQuery<TrackerHashDto>(
+                        UriFactory.CreateDocumentCollectionUri(_databaseName, _documentCollectionName), queryOptions)
+                    .Where(d => d.TimeStamp >= from && d.TimeStamp <= to);
+            }
+            else
+            {
+                smartContractQuery = _documentClient.CreateDocumentQuery<TrackerHashDto>(
+                        UriFactory.CreateDocumentCollectionUri(_databaseName, _documentCollectionName), queryOptions)
+                    .Where(d => d.DeviceId == deviceId && d.TimeStamp >= from && d.TimeStamp <= to);
+            }
             return smartContractQuery.ToList();
         }
 

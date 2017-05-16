@@ -8,7 +8,6 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.Contracts
 {
     public interface IDeviceMovementServiceAgent
     {
-        Task<List<TrackingDto>> GetTrackingUsingIdAsync(List<TrackerHashDto> trackerHashCollection,
-            string deviceId);
+        Task<List<TrackingDto>> GetTrackingUsingHashesAsync(List<TrackerHashDto> trackerHashCollection);
     }
 }

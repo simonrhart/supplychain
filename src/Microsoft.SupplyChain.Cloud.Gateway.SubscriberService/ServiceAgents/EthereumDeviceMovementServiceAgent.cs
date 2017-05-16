@@ -121,11 +121,9 @@ namespace Microsoft.SupplyChain.Cloud.Gateway.SubscriberService.ServiceAgents
                 receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionsHash);
             }
           
-            
-          
             // now pass the transaction hash and id of the record so we can find it within blockchain or the smart contract to the tracking service, no need to await this process.
             await _trackerStoreServiceAgent.PublishAsync(
-                    new TrackerHashDto(payload.TransactionId, receipt.TransactionHash, payload.DeviceId, payload.Timestamp, receipt.BlockNumber.HexValue, receipt.BlockHash, receipt.TransactionIndex.HexValue, receipt.ContractAddress));
+                    new TrackerHashDto(payload.TransactionId, receipt.TransactionHash, payload.DeviceId, payload.Timestamp, receipt.BlockNumber.HexValue, receipt.BlockHash, receipt.TransactionIndex.HexValue, _deviceMovementSmartContract.Address));
         }
        
     }

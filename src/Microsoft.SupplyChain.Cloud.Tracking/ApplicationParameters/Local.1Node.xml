@@ -6,5 +6,7 @@
     <Parameter Name="DocumentDBPrimaryKey" Value="cLyqvQoyu1VFbAfk26RjCX3ibEnQ3fH94ZgpT6FjwVNY7HoDEnZMSqPmRmdQvOXxob0YWdrZmttWGZ0gzsi8VA==" />
     <Parameter Name="DocumentDBSecondaryKey" Value="gcnSixh8nLsHNfe5c9pPZ1qL9T9TvO4IBwHjObjcnebq593EJkh9JkVCK3f7tjooH3VuQUcddxIbwKYxmHatnQ==" />
     <Parameter Name="TransactionNodeVip" Value="http://bled72mw2.westus.cloudapp.azure.com:8545" />
+    <Parameter Name="BlockchainAdminAccount" Value="0xc141c63cc91e7a877394db2db238380a36132520" />
+    <Parameter Name="BlockchainAdminPassphrase" Value="Monday01" />
   </Parameters>
 </Application>

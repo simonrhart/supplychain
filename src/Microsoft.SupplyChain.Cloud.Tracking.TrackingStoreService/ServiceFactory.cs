@@ -30,9 +30,8 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService
 
             var blockchainSection = configurationPackage.Settings.Sections["Blockchain"].Parameters;
             var transactionNodeVip = blockchainSection["TransactionNodeVip"].Value;
-            if (string.IsNullOrEmpty(transactionNodeVip))
-                throw new ArgumentNullException("TransactionNodeVip", "TransactionNodeVip is not set in Service Fabric configuration package.");
-
+            var blockchainAdminAccount = blockchainSection["BlockchainAdminAccount"].Value;
+            var blockchainAdminAccountPassphrase = blockchainSection["BlockchainAdminPassphrase"].Value;
 
             var documentClient = new DocumentClient(new Uri(uri), documentDbPrimaryKey);
             
@@ -40,8 +39,7 @@ namespace Microsoft.SupplyChain.Cloud.Tracking.TrackingStoreService
             ServiceLocator.Current.GetInstance<IWindsorContainer>().Register(Component.For<ITrackerStoreRepository>().Instance(trackerStoreRepository));
 
             Web3 web3 = new Web3(transactionNodeVip);
-            IDeviceMovementServiceAgent deviceMovementServiceAgent = new EthereumDeviceMovementServiceAgent(web3, ServiceLocator.Current.GetInstance<ISmartContractStoreServiceAgent>(), 
-                ServiceLocator.Current.GetInstance<IDeviceStoreServiceAgent>());
+            IDeviceMovementServiceAgent deviceMovementServiceAgent = new EthereumDeviceMovementServiceAgent(web3, blockchainAdminAccount, blockchainAdminAccountPassphrase, ServiceLocator.Current.GetInstance<ISmartContractStoreServiceAgent>());
 
             ServiceLocator.Current.GetInstance<IWindsorContainer>().Register(Component.For<IDeviceMovementServiceAgent>()
                 .Instance(deviceMovementServiceAgent)
